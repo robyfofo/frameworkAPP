@@ -8,13 +8,14 @@
 */
 class Core extends Config {
 	public static $request;
+	public static $debuglog;
 	
 	public function __construct(){			
 		parent::__construct();
 		self::$request = new stdclass;
 		}	
 		
-	public static function getRequest($opz) {
+	public static function getRequest($opz = array()) {
 		$opzDef = array('othermodules'=>array(),'defaulttemplate'=>'default');	
 		$opz = array_merge($opzDef,$opz);	
 
@@ -183,7 +184,7 @@ class Core extends Config {
 			unset($url_arr[$key]);
 			unset($url_arr[$key+1]);
 			}			
-		$url = URL_SITE.implode($url_arr,'/');
+		$url = URL_SITE.implode('/',$url_arr);
 		return $url;
 		}	
 		

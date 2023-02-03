@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.Sql.php v.1.2.0. 13/08/2020
+ * classes/class.Sql.php v.1.4.0. 09/02/2021
 */
 
 class Sql extends Core {
@@ -18,7 +18,7 @@ class Sql extends Core {
 	static $qry = '';
 	static $customQry = '';
 	static $table = '';
-	static $fields = '';
+	static $fields = array();
 	static $fieldsValue = array();
 	static $clause = '';
 	static $wherePrefix = '';
@@ -42,6 +42,8 @@ class Sql extends Core {
 	public static $optAddRowFields = 0;
 	public static $optImageFolder = '';
 	public static $optDetailAction = '';
+
+	public static $options = array();
 	
 	static $sqlnocache = ''; // SQL_NO_CACHE 
 	
@@ -52,37 +54,34 @@ class Sql extends Core {
 	public static function getInstanceDb() {
 		self::$dbConfig = Config::getDatabaseSettings();
 		//print_r(self::$dbConfig);
+		$conn = '';
 		$user = (isset(self::$dbConfig['user']) ? self::$dbConfig['user'] : 'nd');
 		$password = (isset( self::$dbConfig['password']) ? self::$dbConfig['password'] : 'nd');
 		$host = (isset(self::$dbConfig['host']) ? self::$dbConfig['host'] : 'nd');
 		$name = (isset(self::$dbConfig['name']) ? self::$dbConfig['name'] : 'nd');
-		$dsn = 'mysql:host='.$host.';dbname='.$name.';port=3306;connect_timeout=15';
-		
+		$dsn = 'mysql:host='.$host.';dbname='.$name.';port=3306;connect_timeout=15';	
 		$opts = array(
     		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			);
-			
+		);		
 		if( version_compare(PHP_VERSION, '5.3.6', '<') ){
     		if( defined('PDO::MYSQL_ATTR_INIT_COMMAND') ){
         		$opts[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
-				}
-			} else {
-				$dsn .= ';charset=utf8';
-				}
-
-		
+			}
+		} else {
+			$dsn .= ';charset=utf8';
+		}	
 		try {
-   		$dbh = new PDO($dsn,$user,$password,$opts);
+   			$dbh = new PDO($dsn,$user,$password,$opts);
 			if( version_compare(PHP_VERSION, '5.3.6', '<') && !defined('PDO::MYSQL_ATTR_INIT_COMMAND') ){
     			$sql = 'SET NAMES ' . DB_ENCODING;
-				$conn->exec($sql);
-				}			
-			} catch (PDOException $e) {
-    			print "Error!: " . $e->getMessage() . "<br/>";
-    			die();
-				}
-		return $dbh;
+					$dbh->exec($sql);
+			}			
+		} catch (PDOException $e) {
+    		print "Error!: " . $e->getMessage() . "<br/>";
+    		die();
 		}
+		return $dbh;
+	}
 		
 /* QUERY CUSTOM */		
 
@@ -117,6 +116,9 @@ class Sql extends Core {
 			self::$foundRows = $pdoCore->query("SELECT FOUND_ROWS()")->fetchColumn(); 
 		}
 		catch(PDOException $pe) {
+			Core::$debuglog->error( $pe,['classe'=>'Sql','method'=>'getPdoObjRecords'] );
+			Core::$debuglog->error( self::$qry,['classe'=>'Sql','method'=>'getPdoObjRecords'] );
+			
 			self::$resultOp->message = "Errore lettura records table!";
 			self::$resultOp->error = 1;
 			if (self::$debugMode == 1) {
@@ -126,7 +128,8 @@ class Sql extends Core {
 		return $pdoObject;
 	}
 	
-	public static function getRecords(){	
+	public static function getRecords()
+	{	
 		$obj = array();		
 		/* opzioni */
 		/* la key dell oggettto è presa da un campo */
@@ -175,6 +178,8 @@ class Sql extends Core {
 					}
 			}
 		catch(PDOException $pe) {
+			Core::$debuglog->error( $pe,['classe'=>'Sql','method'=>'getPdoObjRecords'] );
+			Core::$debuglog->error( self::$qry,['classe'=>'Sql','method'=>'getPdoObjRecords'] );
 			self::$resultOp->message = "Errore lettura records table!";
 			self::$resultOp->error = 1;
 			if (self::$debugMode == 1) {
@@ -182,7 +187,7 @@ class Sql extends Core {
 				}
 			}	
 		return $obj;
-		}
+	}
 		
 	public static function getRecord(){	
 		//self::resetResultOp();
@@ -469,7 +474,7 @@ class Sql extends Core {
 		}
 
 	public static function updateRawlyFields($fieldslist,$table,$post,$opt) {
-		$optDef = array('clause'=>'','clauseVals '=>'');	
+		$optDef = array('clause'=>'','clauseVals'=>array());	
 		$opt = array_merge($optDef,$opt);
 		$fields = array();
 		$fieldsVal = array();
@@ -563,26 +568,30 @@ class Sql extends Core {
 			}	
 		}	
 		
-	/* SQL TOOLS */
-	public static function checkRequireFields($fields) {
-		$fieldsTemp = Toolsstrings::multiSearch($fields, array('required' => true));
+	// SQL tools
+	public static function checkRequireFields($fields) 
+	{
+		$fieldsTemp = ToolsStrings::multiSearch($fields, array('required' => true));
 		if (is_array($fieldsTemp) && count($fieldsTemp) > 0){
 			foreach($fieldsTemp AS $key=>$value){
-				if (!isset($_POST[$key]) || $_POST[$key] == '') {		
-					self::$resultOp->error = 1;
-					self::$resultOp->message = 'Devi inserire il campo '.$value['label'].'<br>';
-					}				
-				}
+			if (!isset($_POST[$key]) || $_POST[$key] == '') {		
+				self::$resultOp->error = 1;
+				self::$resultOp->message = 'Devi inserire il campo '.$value['label'].'<br>';
+				}				
 			}
 		}
+	}
 		
-	public static function stripMagicFields($array){
+	/*
+	public static function stripMagicFields($array)
+	{
 		$resultArray = array();
 		foreach($array AS $key=>$value){
 			$resultArray[$key] = SanitizeStrings::stripMagic($value);		
-			}
-		return $resultArray;
 		}
+		return $resultArray;
+	}
+	*/
 		
    public static function findTotalItemsFromQuery($qry) {
 		$count = 0;
@@ -609,7 +618,7 @@ class Sql extends Core {
 		
 	 public static function getClauseVarsFromAppSession($sessionApp,$fields,$clauseWhere='',$opz=array()) { 
 	 	$tableAlias = (isset($opz['tableAlias']) ? $opz['tableAlias'] : '');
-		$fieldsSearch = Toolsstrings::multiSearch($fields, array('searchTable' => true));
+		$fieldsSearch = ToolsStrings::multiSearch($fields, array('searchTable' => true));
 		/* sezione per la ricerca */
 		$clauseQry = array();
 		$fieldsVars = array();
@@ -736,7 +745,7 @@ class Sql extends Core {
 		self::$listTreeData = $listdata;
 	}
 	
-	public static function getListParentsDataObj($qry,$listdata,$parent = 0,$opt) {
+	public static function getListParentsDataObj($qry,$listdata,$parent = 0,$opt=array()) {
 		$optDef = array('orgQry'=>'','qryCountParentZero'=>'','lang'=>'it','fieldKey'=>'','hideId'=>0,'hideSons'=>0,'rifIdValue'=>'','rifId'=>'','getbreadcrumbs'=>0,'levelString'=>'-->');	
 		$opt = array_merge($optDef,$opt);	
 		

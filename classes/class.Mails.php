@@ -28,7 +28,7 @@ class Mails extends Core {
 		}		
 	
 	public static function sendMailClass($address,$subject,$content,$text_content,$opt) {
-		$optDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d','attachments'=>'');
+		$optDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d','attachments'=>array());
 		$opt = array_merge($optDef,$opt);	
 		$transport = '';
 		switch (self::$globalSettings['mail server']) {
@@ -73,7 +73,7 @@ class Mails extends Core {
 		include_once("class.phpmailer.php");
 		include_once("class.pop3.php");
 		include_once("class.smtp.php");
-		$optDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d','attachments'=>'','classMailer'=>'');	
+		$optDef = array('sendDebug'=>0,'sendDebugEmail'=>'','fromEmail'=>'n.d','fromLabel'=>'n.d','attachments'=>array(),'classMailer'=>'');	
 		$opt = array_merge($optDef,$opt);	
 	
 		$mail = new PHPMailer();

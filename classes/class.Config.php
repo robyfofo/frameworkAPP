@@ -4,7 +4,7 @@
 	copyright 2011 Roberto Mantovani
 	http://www.robertomantovani.vr;it
 	email: me@robertomantovani.vr.it
-	wscms/classes/class.Config.php v.2.6.2. 11/02/2016
+	classes/class.Config.php v.1.4.0. 12/05/2022
 */
 class Config {
 	static $confArray;
@@ -13,10 +13,33 @@ class Config {
 	public static $debugMode;
 	public static $moduleConfig;	
 	public static $dbName;
+	public static $dbTablePrefix;
 	public static $dbConfig;
 	public static $globalSettings;
-		
-	public function __construct(){	
+
+	public static $nowDate;
+	public static $nowDateTime;
+	public static $nowTime;
+
+	public static $nowDateIta;
+	public static $nowDateTimeIta;
+	public static $nowTimeIta;
+
+	public static $DatabaseTables;
+	public static $DatabaseTablesFields;
+	public static $localStrings;
+	public static $modules;
+	public static $userModules;
+	public static $userLevels;
+
+	public static $pathIncludes;
+	
+	public function __construct()
+	{	
+	}
+
+	public static function init() 
+	{
 		self::$resultOp =  new stdclass;
 		self::$resultOp->type = 0;
 		self::$resultOp->error =  0;
@@ -28,11 +51,60 @@ class Config {
 		self::$messageToUser->messages =  array();
 		self::$debugMode = 0;
 		self::$dbName = DATABASE;
-		//self::$globalSettings = $globalSettings;
-		//self::$dbConfig = $globalSettings['database'][self::$dbName]
-		}	
-		
 
+		self::$nowDate = date('Y-m-d');
+		self::$nowDateTime = date('Y-m-d H:i:s');
+		self::$nowTime = date('H:i:s');
+
+		self::$nowDateIta = date('d/m/Y');
+		self::$nowDateTimeIta = date('d/m/Y H:i:s');
+		self::$nowTimeIta = date('H:i:s');
+
+	}	
+
+	public static function initDatabaseTables($path = '') 
+	{
+		if (file_exists(self::$pathIncludes."include/configuration_database_core_structure.php")) {
+			include_once(self::$pathIncludes."include/configuration_database_core_structure.php");
+		} else {
+			die('il file '.self::$pathIncludes.'include/configuration_database_core_structure.php non esiste!');
+		}
+
+		$tables = $DatabaseTables;
+		$tableOptions = $DatabaseTables;
+		$fields = $DatabaseTablesFields;	
+
+		if (file_exists(self::$pathIncludes."include/configuration_database_modules_structure.php")) {
+			include_once(self::$pathIncludes."include/configuration_database_modules_structure.php");
+		} else {
+			die('il file '.self::$pathIncludes.'include/configuration_database_modules_structure.php non esiste!');
+		}
+
+		$tables1 = $DatabaseTables;
+		$tableOptions1 = $DatabaseTables;
+		$fields1 = $DatabaseTablesFields;
+
+		self::$DatabaseTables = array_merge($tables,$tables1);
+		self::$DatabaseTables = array_merge($tableOptions,$tableOptions1);
+		self::$DatabaseTablesFields = array_merge($fields,$fields1);
+	}
+	
+
+	public static function loadLanguageVars($currentlanguage,$path = '')
+	{
+		$localStrings = array();
+		if ($currentlanguage != '') {
+			if (file_exists($path."languages/".$currentlanguage.".inc.php")) {
+				include_once($path."languages/".$currentlanguage.".inc.php");
+			} else {
+				include_once($path."languages/it.inc.php");
+			}			
+		} else {
+			include_once($path."languages/it.inc.php");
+		}
+		self::$localStrings = $localStrings;
+	}
+		
 	public static function checkModuleConfig($table,$configs) {	
 		if (Sql::tableExists($table) == true) {
 		/* legge la configurazione */
@@ -75,9 +147,9 @@ class Config {
 		}
 		
 	public static function getDatabaseSettings() {
-		$dbConfig = self::$globalSettings['database'][self::$dbName];
+		$dbConfig = self::$globalSettings[self::$dbName];
 		return $dbConfig;
-		}
+	}
 		
 	public static function setDatabase($database) {
 		self::$dbName = $database;

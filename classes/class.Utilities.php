@@ -104,7 +104,7 @@ class Utilities extends Core {
 	
 	public static function formatObjWithPagination($obj,$itemsForPage,$firstPartItem){
 		/* crea l'array in base alla paginazione */
-		$objTemp = '';
+		$objTemp = new stdClass;
 		$p1 = 0;
 		for($p=0;$p<=$itemsForPage-1;$p++) {
 			$key = $firstPartItem + $p - 1;
@@ -323,14 +323,26 @@ class Utilities extends Core {
 		self::$resultOp->error = 0;
 		}
 		
-	public static function setItemDataObjWithPost($obj,$fields) {
+	public static function setItemDataObjWithPost($obj,$fields) 
+	{
 		if (is_array($fields) && count($fields) > 0) {
 			foreach($fields AS $key=>$value) {
 				if (isset($_POST[$key])) $obj->$key = $_POST[$key];
-				}
 			}
-		return $obj;
 		}
+		return $obj;
+	}
+
+	public static function setItemDataObjWithSession($obj, $fields,$session)
+	{
+
+		if (is_array($fields) && count($fields) > 0) {
+			foreach ($fields as $key => $value) {
+				if (isset($session[$key])) $obj->$key = $session[$key];
+			}
+		}
+		return $obj;
+	}
 	
 	/* VOCI AD ALBERO */     
 	

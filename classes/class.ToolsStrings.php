@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * admin/classes/class.ToolsStrings.php v.1.0.0. 05/10/2018
+ * admin/classes/class.ToolsStrings.php v.1.4.0. 08/02/2021
 */
 
 class ToolsStrings extends Core {
@@ -14,6 +14,10 @@ class ToolsStrings extends Core {
 		parent::__construct();
 		}
 		
+	public static function dump($var) {
+		print("<pre style='font-size:10px'>".print_r($var,true)."</pre>");
+	}
+
 	public static function redirect($url) {
 		$protocol = "http://";
 		$server_name = $_SERVER["HTTP_HOST"];
@@ -25,7 +29,7 @@ class ToolsStrings extends Core {
 			if (preg_match("#^/#", $url)) {
 				$url = $protocol.$server_name.$url;
 				} else if (!preg_match("#^[a-z]+://#", $url)) {
-					$script = PHP_SELF();
+					$script = '';
 					if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] != '' && $_SERVER['PATH_INFO'] != $_SERVER['PHP_SELF']) {
 						$script = substr($script, 0, strlen($script) - strlen($_SERVER['PATH_INFO']));
 						}
@@ -86,58 +90,61 @@ class ToolsStrings extends Core {
    	}
 
 
-   /* SPECIFICHE ARRAY */
+   // specifiche array
    
-   public static function multiSearch(array $array, array $pairs){
+   public static function multiSearch(array $array, array $pairs)
+   {
 		$found = array();
 		foreach ($array as $aKey => $aVal) {
 			$coincidences = 0;
 			foreach ($pairs as $pKey => $pVal) {
 				if (array_key_exists($pKey, $aVal) && $aVal[$pKey] == $pVal) {
 					$coincidences++;
-					}
-				}
-			if ($coincidences == count($pairs)) {
-				$found[$aKey] = $aVal;
 				}
 			}
-		return $found;
+			if ($coincidences == count($pairs)) {
+				$found[$aKey] = $aVal;
+			}
 		}
+		return $found;
+	}
 		
-	public static function arrayInsert(&$array, $position, $insert){
+	public static function arrayInsert(&$array, $position, $insert)
+	{
 	    if (is_int($position)) {
 	        array_splice($array, $position, 0, $insert);
-		    } else {
-		        $pos   = array_search($position, array_keys($array));
-		        $array = array_merge(
-		            array_slice($array, 0, $pos),
-		            $insert,
-		            array_slice($array, $pos)
-		        );
-		    }
+		} else {
+			$pos   = array_search($position, array_keys($array));
+			$array = array_merge(
+				array_slice($array, 0, $pos),
+				$insert,
+				array_slice($array, $pos)
+			);
 		}
+	}
 		
-	public static function arrayDeleteByValue($array,$value){
+	public static function arrayDeleteByValue($array,$value)
+	{
 		$key = array_search($value,$array);
 		if($key!==false){
 			unset($array[$key]);
-			}
-		return $array;
 		}
+	return $array;
+	}
 		
 	public static function  multi_array_key_exists($needle, $haystack) {
 		foreach ($haystack as $key=>$value) {
 			if ($needle===$key) {
 				return $key;
-				}
+			}
 			if (is_array($value)) {
-				if (multi_array_key_exists($needle, $value)) {
-					return $key . ":" . multi_array_key_exists($needle, $value);
-					}
+				if (self::multi_array_key_exists($needle, $value)) {
+					return $key . ":" . self::multi_array_key_exists($needle, $value);
 				}
 			}
-		return false;
 		}
+		return false;
+	}
 		
 	 /* SPECIFICHE ARRAY->OBJECT */
 	 public static function  findValueInArrayWithObject($arrayobject,$rifobject,$rifvalue,$opt) {
@@ -175,16 +182,16 @@ class ToolsStrings extends Core {
 			}
 			
 		if ($opz['htmlout'] == true) {
-			$str = ToolsStrings::html_out($str);
+			$str = strip_tags($str);
 			$opz['htmLawed'] = false;
-			}	
+		}	
 			
 		if (isset($opz['maxchar']) && $opz['maxchar'] > 0) {
 			$str = ToolsStrings::getStringFromTotNumberChar($str,array('numchars'=>$opz['maxchar']));
 			$opz['htmLawed'] = false;
 			}		
 		
-		if ($opz['htmlawed'] == true) $str = htmLawed::hl($str);
+		//	if ($opz['htmlawed'] == true) $str = htmLawed::hl($str);
 		if ($opz['parse'] == true) $str = self::parseHtmlContent($str);
 		return $str;	
 		}

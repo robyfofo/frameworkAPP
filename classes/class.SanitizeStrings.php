@@ -5,18 +5,20 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * classes/class.SanitizeStrings.php v.1.0.0. 19/10/2018
+ * classes/class.SanitizeStrings.php v.1.4.0. 15/05/2022
 */
 
 class SanitizeStrings extends Core {
 	
-	public function __construct() {
+	public function __construct() 
+	{
 		parent::__construct();
-		}
+	}
 		
-	public static function deleteIniEndTagP($str) {
-    	return preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $str);
-		}
+	public static function deleteIniEndTagP($str) 
+	{
+    return preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $str);
+	}
 		
 	public static function base64url_encode($data) {
     	return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
@@ -47,6 +49,7 @@ class SanitizeStrings extends Core {
 		$str = str_replace("'","&#39;",$str);
 		return $str;
 		}
+
 	
 	public static function cleanForFormInput($str) {
 		$str = htmlentities(stripslashes($str),ENT_QUOTES,'UTF-8');
@@ -55,14 +58,19 @@ class SanitizeStrings extends Core {
 		return $str;
 		}
 	
-	public static function xss($str) {
-		return htmLawed::hl($str);
-		}
-	
-	public static function stripMagic($string) 	{
+	/*
+	public static function xss($str) 
+	{
+		return htmLawed($str);
+	}
+	*/
+	/*
+	public static function stripMagic($string) 	
+	{
 		$value = (get_magic_quotes_gpc()) ? stripslashes($string) : $string;
-    	return $string;
-    	}
+    return $string;
+  }
+	*/
     	
 	public static function xssClean($data)
 		{
@@ -215,31 +223,40 @@ class SanitizeStrings extends Core {
 		
 	/* SEZIONE CONTROLLO STRINGHE */
 	
-	public static function validateEmail($email) {
+	public static function validateEmail($email) 
+	{
 		//by Femi Hasani [www.vision.to]
 		if(!preg_match ("/^[\w\.-]{1,}\@([\da-zA-Z-]{1,}\.){1,}[\da-zA-Z-]+$/", $email)) return false;
 		list($prefix, $domain) = preg_split("/@/",$email);
 		if (function_exists("getmxrr") && getmxrr($domain, $mxhosts)) {
 			return true;
-			}
-			elseif (@fsockopen($domain, 25, $errno, $errstr, 5)) {
-	  			return true;
-	  			} else {
-	  				return false;
-	  				}
-		}	
+		} elseif (@fsockopen($domain, 25, $errno, $errstr, 5)) {
+	  	return true;
+	  } else {
+	  	return false;
+	  }
+	}	
 		
-	public static function sanitizeEmail($email) {
+	public static function sanitizeEmail($email) 
+	{
 		$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 		return $email;
-		}
+	}
 		
-	public static function sanitizeUsername($username) {
+	public static function sanitizeUsername($username) 
+	{
 		$username = $username;
 		return $username;
-		}
-
-
- 
 	}
+
+	# sanitize form data
+	public static function sanitizeForDB($data)
+	{
+			$data = htmlspecialchars($data);
+			$data = stripslashes($data);
+			$data = trim($data);
+			return $data;
+	}
+
+}
 ?>

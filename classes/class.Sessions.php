@@ -50,7 +50,7 @@ class my_session {
       $result = $pdoCore->query($sql) or die('Errore db linea 48!');
       if ($pdoCore->query("SELECT FOUND_ROWS()")->fetchColumn() > 0) {
          $row = $result->fetch(PDO::FETCH_ASSOC);              		
-       	$_MY_SESSION = unserialize($row['session_vars']); 
+       	if (isset($row['session_vars'])) $_MY_SESSION = unserialize($row['session_vars']); 
        	$_MY_SESSION[$name] = $value;   	
        	Sql::initQuery($this->table_name,array('session_vars'),array(serialize($_MY_SESSION),$this->my_session_id),'sessid = ?');
        	Sql::updateRecord();
