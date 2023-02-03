@@ -30,6 +30,7 @@ return array(
     'ToolsStrings' => $baseDir . '/class.ToolsStrings.php',
     'ToolsUpload' => $baseDir . '/class.ToolsUpload.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+    'Users' => $baseDir . '/class.Users.php',
     'Utilities' => $baseDir . '/class.Utilities.php',
     'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     'my_session' => $baseDir . '/class.Sessions.php',

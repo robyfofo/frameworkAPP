@@ -8,23 +8,23 @@
  * Location language EN v.1.3.0.18/09/2020
 */
 
-$_lang['latitudine'] = 'latitude';
-$_lang['longitudine'] = 'longitude';
-$_lang['nazione'] = 'nazione';
-$_lang['nazioni'] = 'nazioni';
+Config::$localStrings['latitudine'] = 'latitude';
+Config::$localStrings['longitudine'] = 'longitude';
+Config::$localStrings['nazione'] = 'nazione';
+Config::$localStrings['nazioni'] = 'nazioni';
 
-$_lang['voce'] = 'nation';
-$_lang['voci'] = 'nations';
-$_lang['lista voci'] = "nations list";
-$_lang['lista delle voci'] = "list of nations";
-$_lang['torna alla lista voci'] = "back to nations list";
-$_lang['dettagli voce'] = "nation detail";
-$_lang['nuova voce'] = 'nation nation';
-$_lang['inserisci voce'] = 'insert nation';
-$_lang['inserisci una nuova voce'] = 'insert a nation nation';
-$_lang['voce inserita'] = 'nation inserted';
-$_lang['cancella voce'] = 'delete nation';
-$_lang['voce cancellata'] = "nation deleted";
-$_lang['modifica voce'] = "modify nation";
-$_lang['voce modificata'] = "nation changed";
+Config::$localStrings['voce'] = 'nation';
+Config::$localStrings['voci'] = 'nations';
+Config::$localStrings['lista voci'] = "nations list";
+Config::$localStrings['lista delle voci'] = "list of nations";
+Config::$localStrings['torna alla lista voci'] = "back to nations list";
+Config::$localStrings['dettagli voce'] = "nation detail";
+Config::$localStrings['nuova voce'] = 'nation nation';
+Config::$localStrings['inserisci voce'] = 'insert nation';
+Config::$localStrings['inserisci una nuova voce'] = 'insert a nation nation';
+Config::$localStrings['voce inserita'] = 'nation inserted';
+Config::$localStrings['cancella voce'] = 'delete nation';
+Config::$localStrings['voce cancellata'] = "nation deleted";
+Config::$localStrings['modifica voce'] = "modify nation";
+Config::$localStrings['voce modificata'] = "nation changed";
 ?>

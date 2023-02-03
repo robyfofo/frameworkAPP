@@ -8,30 +8,30 @@
  * Invoices language EN v.1.3.0. 08/09/2020
 */
 
-$_lang['voce']  = "invoice sale";
-$_lang['voci']  = "invoices sale";
-$_lang['voce-p']  = "invoice purchase";
-$_lang['voci-p']  = "invoices purchase";
-$_lang['la voce']  = "the invoice sale";
-$_lang['le voci']  = "the invoices sale";
-$_lang['la voce-p']  = "the invoice purchase";
-$_lang['le voci-p']  = "the invoices purchase";
-$_lang['articoli abbreviato'] = "art.";
-$_lang['Note (visibili in fattura)'] = "Note (not show in invoice)";
-$_lang['note'] = "note";
-$_lang['cliente']  = "customer";
-$_lang['tassa aggiuntiva'] = "added tax";
-$_lang['inserisci una tassa aggiuntiva'] = "insert an added tax";
-$_lang['articolì associati']  = "articles associated";
-$_lang['aggiungi articolo']  = "add article";
-$_lang['inserisci testo articolo']  = "insert article text";
-$_lang['totale articolì'] = "total articles";
-$_lang['Fattura non trovata!'] = "Invoice not found!";
-$_lang['Errore lettura dati fattura!'] = "Error read invoice data!";
-$_lang['Errore lettura dati cliente!'] = "Error read customer data!";
-$_lang['segna come pagata'] = "segna come pagata";
-$_lang['fattura segnata come pagata'] = "fattura segnata come pagata!";
-$_lang['il numero fattura è valido!'] = "the invoice number is valid!";
-$_lang['il numero fattura esiste già!'] = "the invoice number already exist!";
-$_lang['ci sono state modifiche negli articoli'] = 'there are been editing in articles';
+Config::$localStrings['voce']  = "invoice sale";
+Config::$localStrings['voci']  = "invoices sale";
+Config::$localStrings['voce-p']  = "invoice purchase";
+Config::$localStrings['voci-p']  = "invoices purchase";
+Config::$localStrings['la voce']  = "the invoice sale";
+Config::$localStrings['le voci']  = "the invoices sale";
+Config::$localStrings['la voce-p']  = "the invoice purchase";
+Config::$localStrings['le voci-p']  = "the invoices purchase";
+Config::$localStrings['articoli abbreviato'] = "art.";
+Config::$localStrings['Note (visibili in fattura)'] = "Note (not show in invoice)";
+Config::$localStrings['note'] = "note";
+Config::$localStrings['cliente']  = "customer";
+Config::$localStrings['tassa aggiuntiva'] = "added tax";
+Config::$localStrings['inserisci una tassa aggiuntiva'] = "insert an added tax";
+Config::$localStrings['articolì associati']  = "articles associated";
+Config::$localStrings['aggiungi articolo']  = "add article";
+Config::$localStrings['inserisci testo articolo']  = "insert article text";
+Config::$localStrings['totale articolì'] = "total articles";
+Config::$localStrings['Fattura non trovata!'] = "Invoice not found!";
+Config::$localStrings['Errore lettura dati fattura!'] = "Error read invoice data!";
+Config::$localStrings['Errore lettura dati cliente!'] = "Error read customer data!";
+Config::$localStrings['segna come pagata'] = "segna come pagata";
+Config::$localStrings['fattura segnata come pagata'] = "fattura segnata come pagata!";
+Config::$localStrings['il numero fattura è valido!'] = "the invoice number is valid!";
+Config::$localStrings['il numero fattura esiste già!'] = "the invoice number already exist!";
+Config::$localStrings['ci sono state modifiche negli articoli'] = 'there are been editing in articles';
 ?>

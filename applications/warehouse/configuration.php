@@ -39,7 +39,7 @@ switch(Core::$request->method) {
 		}
 
 		// parsa i post in base ai campi
-		Form::parsePostByFields($App->params->fields['conf'],$_lang,array());
+		Form::parsePostByFields($App->params->fields['conf'],Config::$localStrings,array());
 		if (Core::$resultOp->error > 0) { 
 			$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 			ToolsStrings::redirect(URL_SITE_ADMIN.Core::$request->action.'/modifyConf/');
@@ -56,13 +56,13 @@ switch(Core::$request->method) {
 			}
 		}
 		
-		$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['configurazione'],$_lang['%ITEM% modificata']));
+		$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['configurazione'],Config::$localStrings['%ITEM% modificata']));
 		ToolsStrings::redirect(URL_SITE_ADMIN.Core::$request->action.'/modifyConf/');
 										
 	break;
 	
 	default;	
-		$App->pageSubTitle = $_lang['configurazione'];
+		$App->pageSubTitle = Config::$localStrings['configurazione'];
 		$App->viewMethod = 'form';	
 	break;	
 	}

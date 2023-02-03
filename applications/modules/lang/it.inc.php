@@ -1,12 +1,12 @@
 <?php
-$_lang['voce'] = 'modulo';
-$_lang['voci'] = 'moduli';
+Config::$localStrings['voce'] = 'modulo';
+Config::$localStrings['voci'] = 'moduli';
 
-$_lang['alias sito'] = "Alias Sito";
-$_lang['alias sito voce'] = "Alias Sito<br><small>nome della pagina php che gestisce il modulo nel sito</small>";
-$_lang['alias sito voce 1'] = "Alias sito della pagina php";
+Config::$localStrings['alias sito'] = "Alias Sito";
+Config::$localStrings['alias sito voce'] = "Alias Sito<br><small>nome della pagina php che gestisce il modulo nel sito</small>";
+Config::$localStrings['alias sito voce 1'] = "Alias sito della pagina php";
 
-$_lang['codice menu'] =  "codice menu";
-$_lang['codice menu testo'] =  "<small><b>%URLSITEADMIN%</b> per URL dinamico</small>";
+Config::$localStrings['codice menu'] =  "codice menu";
+Config::$localStrings['codice menu testo'] =  "<small><b>%URLSITEADMIN%</b> per URL dinamico</small>";
 
 ?>

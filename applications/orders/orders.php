@@ -32,7 +32,7 @@ switch(Core::$request->method) {
 				Sql::initQuery($App->params->tables['articles'],array('id'),array($id_art),'id = ?');
 				Sql::deleteRecord();
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% cancellato'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% cancellato'])).'!';
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id.'/tab/2');
 			} else {
 				ToolsStrings::redirect(URL_SITE.'error/404');
@@ -52,7 +52,7 @@ switch(Core::$request->method) {
 			$count = Sql::countRecordQry($App->params->tables['articles'],'id','orders_id = ?',array($App->id));
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			if ($count > 0) {
-				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articoli'],$_lang['Errore! Ci sono ancora %ITEM% associati!']));
+				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articoli'],Config::$localStrings['Errore! Ci sono ancora %ITEM% associati!']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id);
 			}
 
@@ -71,7 +71,7 @@ switch(Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellato'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listOrders');
 
 
@@ -98,7 +98,7 @@ switch(Core::$request->method) {
 		//if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 		if (isset($obj->newnumber)) $App->item->number = $obj->newnumber;
 
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertOrders';
 		$App->viewMethod = 'form';
 		$_SESSION[$App->sessionName]['formTabActive'] = 1;
@@ -110,14 +110,14 @@ switch(Core::$request->method) {
 			$App->item = new stdClass;
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['orders'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['orders'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newOrders');
 			}
 			// controllo numero fattura
 			if (Sql::countRecordQry($App->params->tables['orders'],'id','number_year = ? AND number = ?',array(intval($_POST['number_year']),intval($_POST['number']))) > 0) {
-				$_SESSION['message'] = '1|'.$_lang['il numero ordine esiste già!'];
+				$_SESSION['message'] = '1|'.Config::$localStrings['il numero ordine esiste già!'];
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newOrders');
 			}
 
@@ -222,7 +222,7 @@ switch(Core::$request->method) {
 			$company_id = Sql::getLastInsertedIdVar();
 			
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% inserito'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% inserito'])).'!';
 			$_SESSION[$App->sessionName]['formTabActive'] = 1;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listOrders');
 		} else {
@@ -290,7 +290,7 @@ switch(Core::$request->method) {
 		$App->item->invoiceTotal_label = '€ '.number_format($App->item->invoiceTotal,2,',','.');
 		// fine articoli
 		
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateOrders';
 		$App->viewMethod = 'form';
 		$_SESSION[$App->sessionName]['formTabActive'] = 2;
@@ -318,7 +318,7 @@ switch(Core::$request->method) {
 					$_POST = $Module->calculateArt($_POST);
 					if (isset($_POST['artFormMode']) &&  $_POST['artFormMode'] == 'ins') {
 						// parsa i campi
-						Form::parsePostByFields($App->params->fields['articles'],$_lang,array());
+						Form::parsePostByFields($App->params->fields['articles'],Config::$localStrings,array());
 						if (Core::$resultOp->error > 0) {
 							$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 							ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id).'/tab/2';
@@ -326,14 +326,14 @@ switch(Core::$request->method) {
 						// memorizza record
 						Sql::insertRawlyPost($App->params->fields['articles'],$App->params->tables['articles']);
 						if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
-						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% inserito'])).'!';
+						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% inserito'])).'!';
 						$tabActive = 2;
 						ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id.'/tab/'.$tabActive);
 					}
 					if (isset($_POST['artFormMode']) &&  $_POST['artFormMode'] == 'mod') {
 						$id_art = (isset($_POST['id_article']) ? intval($_POST['id_article']) : 0);
 						// parsa i campi
-						Form::parsePostByFields($App->params->fields['articles'],$_lang,array());
+						Form::parsePostByFields($App->params->fields['articles'],Config::$localStrings,array());
 						if (Core::$resultOp->error > 0) {
 							$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 							ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id).'/tab/2';
@@ -341,7 +341,7 @@ switch(Core::$request->method) {
 						// memorizza record
 						Sql::updateRawlyPost($App->params->fields['articles'],$App->params->tables['articles'],'id',$id_art);
 						if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
-						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% modificato'])).'!';
+						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% modificato'])).'!';
 						ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id.'/tab/2');
 					}
 				}
@@ -351,7 +351,7 @@ switch(Core::$request->method) {
 				// form invoice */
 
 				// parsa i post in base ai campi
-				Form::parsePostByFields($App->params->fields['orders'],$_lang,array());
+				Form::parsePostByFields($App->params->fields['orders'],Config::$localStrings,array());
    				if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyOrders/'.$App->id);
@@ -465,7 +465,7 @@ switch(Core::$request->method) {
 					Sql::updateRecord();					
 				}
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }				
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificato'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificato'])).'!';
 				
 			}
 
@@ -620,10 +620,10 @@ switch(Core::$request->method) {
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
 				/* crea la colonna actions */
-				$info = '<button type="button" href="'.URL_SITE.Core::$request->action.'/getCompanyDetailAjaxSr/'.$value->id.'" data-remote="false" data-target="#myModal" data-toggle="modal" title="'.ucfirst($_lang['mostra i dati azienda']).'" class="btn btn-default btn-sm"><i class="fas fa-industry" ></i></button>';
-				$info1 = '<button type="button" href="'.URL_SITE.Core::$request->action.'/getThirdpartyDetailAjaxSr/'.$value->id.'" data-remote="false" data-target="#myModal1" data-toggle="modal" title="'.ucfirst($_lang['mostra i dati anagrafica']).'" class="btn btn-default btn-sm"><i class="fas fa-user"></i></button>';
-				$pdf = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/ordersExpPdf/'.$value->id.'" title="'.ucfirst($_lang['esporta in pdf']).' '.$_lang['voce'].'" target="_blank"><i class="fas fa-print"></i></a>';
-				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyOrders/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteOrders/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['voce'].'"><i class="far fa-trash-alt"></i></a>';
+				$info = '<button type="button" href="'.URL_SITE.Core::$request->action.'/getCompanyDetailAjaxSr/'.$value->id.'" data-remote="false" data-target="#myModal" data-toggle="modal" title="'.ucfirst(Config::$localStrings['mostra i dati azienda']).'" class="btn btn-default btn-sm"><i class="fas fa-industry" ></i></button>';
+				$info1 = '<button type="button" href="'.URL_SITE.Core::$request->action.'/getThirdpartyDetailAjaxSr/'.$value->id.'" data-remote="false" data-target="#myModal1" data-toggle="modal" title="'.ucfirst(Config::$localStrings['mostra i dati anagrafica']).'" class="btn btn-default btn-sm"><i class="fas fa-user"></i></button>';
+				$pdf = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/ordersExpPdf/'.$value->id.'" title="'.ucfirst(Config::$localStrings['esporta in pdf']).' '.Config::$localStrings['voce'].'" target="_blank"><i class="fas fa-print"></i></a>';
+				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyOrders/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteOrders/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['voce'].'"><i class="far fa-trash-alt"></i></a>';
 				
 				$value->totalLabel = '€ '.number_format($value->total,2,',','.');			
 				$value->totalTaxesLabel = '€ '.number_format($value->total_tax,2,',','.');
@@ -631,7 +631,7 @@ switch(Core::$request->method) {
 				$tablefields = array(
 					'id'					=> $value->id,
 					'order_number' 			=> $value->order_number,
-					'dateinslocal'			=> DateFormat::convertDateFormats($value->dateins,'Y-m-d',$_lang['data format'],$App->nowDate),
+					'dateinslocal'			=> DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
 					'note'					=> $value->note,
 					'total'					=> $value->totalLabel,
 					'totaltaxes'			=> $value->totalTaxesLabel,
@@ -674,7 +674,7 @@ switch((string)$App->viewMethod) {
 		$App->item = new stdClass;
 		$App->item->dateins = $App->nowDate;
 		$App->item->datesca = $App->nowDate;
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista delle %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listOrders.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listOrders.js"></script>';
 	break;

@@ -36,14 +36,14 @@ $App->params->uploadDirs['item'] = UPLOAD_DIR."modules/";
 $App->params->tables['item'] = $App->params->tableRif;
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'primary'=>true),
-	'name'=>array('required'=>true,'label'=>ucfirst($_lang['nome']),'searchTable'=>true,'type'=>'varchar|255'),
-	'label'=>array('required'=>true,'label'=>ucfirst($_lang['etichetta']),'searchTable'=>true,'type'=>'varchar|255'),
-	'alias'=>array('required'=>true,'label'=>ucfirst($_lang['alias']),'searchTable'=>true,'type'=>'varchar|100'),
-	'content'=>array('label'=>ucfirst($_lang['contenuto']),'searchTable'=>true,'type'=>'text'),
-	'code_menu'=>array('label'=>ucfirst($_lang['codice menu']),'searchTable'=>true,'type'=>'text'),
-	'ordering'=>array('label'=>ucfirst($_lang['ordine']),'searchTable'=>false,'type'=>'int|8','defValue'=>'0'),
-	'section'=>array('label'=>ucfirst($_lang['sezione']),'searchTable'=>false,'type'=>'int|1'),
-	'help_small'=>array('label'=>ucfirst($_lang['aiuto breve']),'searchTable'=>false,'type'=>'varchar|255'),
-	'help'=>array('label'=>ucfirst($_lang['aiuto']),'searchTable'=>false,'type'=>'text'),	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','validate'=>'int|1','defValue'=>'0')
+	'name'=>array('required'=>true,'label'=>ucfirst(Config::$localStrings['nome']),'searchTable'=>true,'type'=>'varchar|255'),
+	'label'=>array('required'=>true,'label'=>ucfirst(Config::$localStrings['etichetta']),'searchTable'=>true,'type'=>'varchar|255'),
+	'alias'=>array('required'=>true,'label'=>ucfirst(Config::$localStrings['alias']),'searchTable'=>true,'type'=>'varchar|100'),
+	'content'=>array('label'=>ucfirst(Config::$localStrings['contenuto']),'searchTable'=>true,'type'=>'text'),
+	'code_menu'=>array('label'=>ucfirst(Config::$localStrings['codice menu']),'searchTable'=>true,'type'=>'text'),
+	'ordering'=>array('label'=>ucfirst(Config::$localStrings['ordine']),'searchTable'=>false,'type'=>'int|8','defValue'=>'0'),
+	'section'=>array('label'=>ucfirst(Config::$localStrings['sezione']),'searchTable'=>false,'type'=>'int|1'),
+	'help_small'=>array('label'=>ucfirst(Config::$localStrings['aiuto breve']),'searchTable'=>false,'type'=>'varchar|255'),
+	'help'=>array('label'=>ucfirst(Config::$localStrings['aiuto']),'searchTable'=>false,'type'=>'text'),	'active'=>array('label'=>'Attiva','required'=>false,'type'=>'int','validate'=>'int|1','defValue'=>'0')
 );		
 ?>

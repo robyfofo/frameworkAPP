@@ -67,9 +67,9 @@ switch(Core::$request->method) {
 				$pdf->openHere('Fit');
 				
 				$datacreator = array (
-					'Title'=>ucfirst($_lang['progetto']).' '.$project->title,
+					'Title'=>ucfirst(Config::$localStrings['progetto']).' '.$project->title,
 					'Author'=>SITE_OWNER,
-					'Subject'=>ucfirst($_lang['progetto']).' '.$idproject->title,
+					'Subject'=>ucfirst(Config::$localStrings['progetto']).' '.$idproject->title,
 					'Creator'=>SITE_NAME,
 					'Producer'=>URL_SITE
 					);
@@ -82,8 +82,8 @@ switch(Core::$request->method) {
 				$colsheadpdf = array('titolo'=>''); 
 				$headpdf[0]['titolo'] = $thirdparty->ragione_sociale;
 				$headpdf[1]['titolo'] = $thirdparty->street.' - '.$thirdparty->zip_code.' - '.$thirdparty->city.' ('.$thirdparty->province.')';
-				$headpdf[2]['titolo'] = $_lang['P. IVA'].' '.$thirdparty->partita_iva.' - '.$_lang['C. Fiscale'].' '.$thirdparty->codice_fiscale;
-				$headpdf[3]['titolo'] = ucfirst($_lang['tempo lavorato al progetto']).': <b>'.$project->title.'</b>';	
+				$headpdf[2]['titolo'] = Config::$localStrings['P. IVA'].' '.$thirdparty->partita_iva.' - '.Config::$localStrings['C. Fiscale'].' '.$thirdparty->codice_fiscale;
+				$headpdf[3]['titolo'] = ucfirst(Config::$localStrings['tempo lavorato al progetto']).': <b>'.$project->title.'</b>';	
 				
 				$y = $pdf->ezTable($headpdf,$colsheadpdf,'',
 					array(
@@ -115,10 +115,10 @@ switch(Core::$request->method) {
 					}
 				}
 				
-				$colsTimecards['data'] = '<b>'.ucfirst($_lang['data']).'</b>';
-				$colsTimecards['content'] = '<b>'.ucfirst($_lang['contenuto']).'</b>';
-				$colsTimecards['starttime'] = '<b>'.ucfirst($_lang['inizio']).' - '.ucfirst($_lang['fine']).'</b>';
-				$colsTimecards['worktime'] = '<b>'.ucfirst($_lang['tempo lavorato']).'</b>';
+				$colsTimecards['data'] = '<b>'.ucfirst(Config::$localStrings['data']).'</b>';
+				$colsTimecards['content'] = '<b>'.ucfirst(Config::$localStrings['contenuto']).'</b>';
+				$colsTimecards['starttime'] = '<b>'.ucfirst(Config::$localStrings['inizio']).' - '.ucfirst(Config::$localStrings['fine']).'</b>';
+				$colsTimecards['worktime'] = '<b>'.ucfirst(Config::$localStrings['tempo lavorato']).'</b>';
 				
 				$opt = array( 'showHeadings' => 1, 'gridlines'=> EZ_GRIDLINE_DEFAULT,'fontSize'=>8,'width'=>400,'shaded'=>0,'rowGap' =>4,'colGap'=>4,'showLines'=>1,'lineCol'=>array(0.7,0.7,0.7),
 					'cols'=> array(
@@ -133,7 +133,7 @@ switch(Core::$request->method) {
 				// totali
 				$pdf->ezSetDy(-5);
 				$cols = array('titolo'=>'titolo','totale'=>'totale'); 
-				$data[0]['titolo'] = '<b>'.ucfirst($_lang['tempo lavorato totale']).'</b>';
+				$data[0]['titolo'] = '<b>'.ucfirst(Config::$localStrings['tempo lavorato totale']).'</b>';
 				$data[0]['totale'] = DateFormat::sum_the_time($timecardsTotal);
 				$pdf->ezTable($data, $cols,'',array(
 					'showHeadings'=>0,
@@ -154,7 +154,7 @@ switch(Core::$request->method) {
 					
 				//Output the pdf as stream, but uncompress
 				/*
-				$namefile = ucfirst($_lang['tempo lavorato']).'-'.$_lang['progetto'].'-'.$project->title.".pdf";
+				$namefile = ucfirst(Config::$localStrings['tempo lavorato']).'-'.Config::$localStrings['progetto'].'-'.$project->title.".pdf";
 				$applicationtype = "application/pdf";   
 				//header("Content-type: $applicationtype");
 				//header("Content-Disposition: attachment; filename=".basename($namefile).";");

@@ -8,7 +8,7 @@ switch (Core::$request->method) {
 
 	case 'activeProvin':
 	case 'disactiveProvin':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-6),$App->params->tables['province'],$App->id,array('label'=>$_lang['provincia'],'attivata'=>$_lang['attivata'],'disattivata'=>$_lang['disattivata']));
+		Sql::manageFieldActive(substr(Core::$request->method,0,-6),$App->params->tables['province'],$App->id,array('label'=>Config::$localStrings['provincia'],'attivata'=>Config::$localStrings['attivata'],'disattivata'=>Config::$localStrings['disattivata']));
 		$_SESSION['message'] = '0|'.Core::$resultOp->message;
 		ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listProvin');	
 	break;
@@ -21,7 +21,7 @@ switch (Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['provincia'],$_lang['%ITEM% cancellata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['provincia'],Config::$localStrings['%ITEM% cancellata'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listProvin');
 
 		} else {
@@ -33,7 +33,7 @@ switch (Core::$request->method) {
 		$App->item = new stdClass;
 		$App->item->created = $App->nowDateTime;
 		$App->item->active = 1;
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['provincia'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['provincia'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertProvin';
 		$App->viewMethod = 'form';	
 	break;
@@ -42,7 +42,7 @@ switch (Core::$request->method) {
 		if ($_POST) {
 			
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['province'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['province'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 			 	$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 			 	ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newProvin');
@@ -53,7 +53,7 @@ switch (Core::$request->method) {
 
 			$App->id = Sql::getLastInsertedIdVar(); /* preleva l'id della pagina */
 			  
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['provincia'],$_lang['%ITEM% inserita'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['provincia'],Config::$localStrings['%ITEM% inserita'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listProvin');
 
 		} else {
@@ -66,7 +66,7 @@ switch (Core::$request->method) {
 		Sql::initQuery($App->params->tables['province'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['provincia'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['provincia'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateProvin';	
 		$App->viewMethod = 'form';
 	break;
@@ -75,7 +75,7 @@ switch (Core::$request->method) {
 		if ($_POST) {
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['province'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['province'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newProvin');
@@ -84,7 +84,7 @@ switch (Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['province'],$App->params->tables['province'],'id',$App->id);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['provincia'],$_lang['%ITEM% modificata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['provincia'],Config::$localStrings['%ITEM% modificata'])).'!';
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyProvin/'.$App->id);
 			} else {
@@ -123,12 +123,12 @@ switch (Core::$request->method) {
 		$App->items = Sql::getRecords();
 		
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->paginationTitle = ucfirst($_lang['mostra da %START% a %END% di %ITEM% elementi']);
+		$App->paginationTitle = ucfirst(Config::$localStrings['mostra da %START% a %END% di %ITEM% elementi']);
 		$App->paginationTitle = preg_replace('/%START%/',$App->pagination->firstPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%END%/',$App->pagination->lastPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['province'],$_lang['lista %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['province'],Config::$localStrings['lista %ITEMS%']);
 		$App->viewMethod = 'list';	
 	break;	
 }

@@ -8,27 +8,27 @@
  * Location language IT v.1.3.0. 18/09/2020
 */
 
-$_lang['latitudine'] = 'latitudine';
-$_lang['longitudine'] = 'longitudine';
-$_lang['nazione'] = 'nazione';
-$_lang['nazioni'] = 'nazioni';
+Config::$localStrings['latitudine'] = 'latitudine';
+Config::$localStrings['longitudine'] = 'longitudine';
+Config::$localStrings['nazione'] = 'nazione';
+Config::$localStrings['nazioni'] = 'nazioni';
 
 
 
 
 
-$_lang['voce'] = 'stato';
-$_lang['voci'] = 'stati';
-$_lang['lista voci'] = "lista stati";
-$_lang['lista delle voci'] = "lista degli stati";
-$_lang['torna alla lista voci'] = "torna alla lista stati";
-$_lang['dettagli voce'] = "dettagli stato";
-$_lang['nuova voce'] = 'nuovo stato';
-$_lang['inserisci voce'] = 'inserisci stato';
-$_lang['inserisci una nuova voce'] = 'inserisci un nuovo stato';
-$_lang['voce inserita'] = 'stato inserito';
-$_lang['cancella voce'] = 'cancella stato';
-$_lang['voce cancellata'] = "stato cancellato";
-$_lang['modifica voce'] = "modifica stato";
-$_lang['voce modificata'] = "stato modificato";
+Config::$localStrings['voce'] = 'stato';
+Config::$localStrings['voci'] = 'stati';
+Config::$localStrings['lista voci'] = "lista stati";
+Config::$localStrings['lista delle voci'] = "lista degli stati";
+Config::$localStrings['torna alla lista voci'] = "torna alla lista stati";
+Config::$localStrings['dettagli voce'] = "dettagli stato";
+Config::$localStrings['nuova voce'] = 'nuovo stato';
+Config::$localStrings['inserisci voce'] = 'inserisci stato';
+Config::$localStrings['inserisci una nuova voce'] = 'inserisci un nuovo stato';
+Config::$localStrings['voce inserita'] = 'stato inserito';
+Config::$localStrings['cancella voce'] = 'cancella stato';
+Config::$localStrings['voce cancellata'] = "stato cancellato";
+Config::$localStrings['modifica voce'] = "modifica stato";
+Config::$localStrings['voce modificata'] = "stato modificato";
 ?>

@@ -8,7 +8,7 @@ switch (Core::$request->method) {
 
 	case 'activeComuni':
 	case 'disactiveComuni':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-6),$App->params->tables['comuni'],$App->id,array('label'=>$_lang['comune'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
+		Sql::manageFieldActive(substr(Core::$request->method,0,-6),$App->params->tables['comuni'],$App->id,array('label'=>Config::$localStrings['comune'],'attivata'=>Config::$localStrings['attivato'],'disattivata'=>Config::$localStrings['disattivato']));
 		$_SESSION['message'] = '0|'.Core::$resultOp->message;
 		ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listComuni');	
 	break;
@@ -21,7 +21,7 @@ switch (Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['comune'],$_lang['%ITEM% cancellato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['comune'],Config::$localStrings['%ITEM% cancellato'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listComuni');
 
 		} else {
@@ -36,7 +36,7 @@ switch (Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
@@ -44,7 +44,7 @@ switch (Core::$request->method) {
 		$App->item->created = $App->nowDateTime;
 		$App->item->active = 1;
 		$App->item->location_nations_id = 116;
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['comune'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['comune'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertComuni';
 		$App->viewMethod = 'form';	
 	break;
@@ -65,16 +65,16 @@ switch (Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
 			}
 			
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['comuni'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['comuni'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 			 	$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 			 	ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newComuni');
@@ -85,7 +85,7 @@ switch (Core::$request->method) {
 
 			$App->id = Sql::getLastInsertedIdVar(); /* preleva l'id della pagina */
 			  
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['comune'],$_lang['%ITEM% inserito'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['comune'],Config::$localStrings['%ITEM% inserito'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listComuni');
 
 		} else {
@@ -101,7 +101,7 @@ switch (Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
@@ -109,7 +109,7 @@ switch (Core::$request->method) {
 		Sql::initQuery($App->params->tables['comuni'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['comune'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['comune'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateComuni';	
 		$App->viewMethod = 'form';
 	break;
@@ -130,16 +130,16 @@ switch (Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
 			}
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['comuni'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['comuni'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newComuni');
@@ -148,7 +148,7 @@ switch (Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['comuni'],$App->params->tables['comuni'],'id',$App->id);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['comune'],$_lang['%ITEM% modificato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['comune'],Config::$localStrings['%ITEM% modificato'])).'!';
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyComuni/'.$App->id);
 			} else {
@@ -187,12 +187,12 @@ switch (Core::$request->method) {
 		$App->items = Sql::getRecords();
 		
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->paginationTitle = ucfirst($_lang['mostra da %START% a %END% di %ITEM% elementi']);
+		$App->paginationTitle = ucfirst(Config::$localStrings['mostra da %START% a %END% di %ITEM% elementi']);
 		$App->paginationTitle = preg_replace('/%START%/',$App->pagination->firstPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%END%/',$App->pagination->lastPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['comuni'],$_lang['lista %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['comuni'],Config::$localStrings['lista %ITEMS%']);
 		$App->viewMethod = 'list';	
 	break;	
 }

@@ -8,10 +8,10 @@
  * Level language EN v.1.0.0. 24/07/2018
 */
 
-$_lang['pagetitle'] = "livelli utente";
-$_lang['pagesubtitle'] = "i livelli di accesso utente";
-$_lang['voce']  = "level";
-$_lang['voci']  = "levels";
-$_lang['la voce']  = "the level";
-$_lang['le voci']  = "the levels";
+Config::$localStrings['pagetitle'] = "livelli utente";
+Config::$localStrings['pagesubtitle'] = "i livelli di accesso utente";
+Config::$localStrings['voce']  = "level";
+Config::$localStrings['voci']  = "levels";
+Config::$localStrings['la voce']  = "the level";
+Config::$localStrings['le voci']  = "the levels";
 ?>

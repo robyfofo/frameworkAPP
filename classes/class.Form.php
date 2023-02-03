@@ -90,7 +90,7 @@ class Form extends Core {
 	}
 
 
-	public static function checkRequirePostByFields($fields, $_lang, $opz)
+	public static function checkRequirePostByFields($fields, Config::$localStrings, $opz)
 	{
 		$opzDef = array();
 		$opz = array_merge($opzDef, $opz);
@@ -99,7 +99,7 @@ class Form extends Core {
 				$namefield = $key;
 				if (isset($value['required']) && $value['required'] == true && (!isset($_POST[$namefield]) || (isset($_POST[$namefield]) && $_POST[$namefield] == ''))) {
 					self::$resultOp->error = 1;
-					self::$resultOp->message = preg_replace('/%FIELD%/', $value['label'], $_lang['Devi inserire il campo %FIELD%!']) . '<br>';
+					self::$resultOp->message = preg_replace('/%FIELD%/', $value['label'], Config::$localStrings['Devi inserire il campo %FIELD%!']) . '<br>';
 				}
 			}
 		}

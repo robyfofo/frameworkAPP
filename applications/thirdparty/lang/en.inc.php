@@ -8,14 +8,14 @@
  * thirdparty language EN v.1.0.0. 24/07/2018
 */
 
-$_lang['voce']  = "customer";
-$_lang['voci']  = "customers";
-$_lang['la voce']  = "the customer";
-$_lang['le voci']  = "the customers";
-$_lang['soggetti terzi associati']  = "customers associated";
+Config::$localStrings['voce']  = "customer";
+Config::$localStrings['voci']  = "customers";
+Config::$localStrings['la voce']  = "the customer";
+Config::$localStrings['le voci']  = "the customers";
+Config::$localStrings['soggetti terzi associati']  = "customers associated";
 
-$_lang['categoria']  = "category";
-$_lang['categorie']  = "categories";
-$_lang['la categoria']  = "the category";
-$_lang['le categorie']  = "the categories";
+Config::$localStrings['categoria']  = "category";
+Config::$localStrings['categorie']  = "categories";
+Config::$localStrings['la categoria']  = "the category";
+Config::$localStrings['le categorie']  = "the categories";
 ?>

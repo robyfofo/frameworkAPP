@@ -1,17 +1,17 @@
 <?php
-$_lang['pagesubtitle'] = "the user's home page";
-$_lang['ultimo accesso'] = "last login";
-$_lang['creata il'] = "create on";
+Config::$localStrings['pagesubtitle'] = "the user's home page";
+Config::$localStrings['ultimo accesso'] = "last login";
+Config::$localStrings['creata il'] = "create on";
 
 /* base */
-$_lang['ultimi utenti'] = "last users";
+Config::$localStrings['ultimi utenti'] = "last users";
 
 /* custom */
-$_lang['terze parti'] = "terze parti";
-$_lang['fatture vendite'] = "fatture vendite";
-$_lang['fatture acquisti'] = "fatture acquisti";
-$_lang['vendite'] = "vendite";
-$_lang['acquisti'] = "acquisti";
-$_lang['preventivi'] = "estimates";
-$_lang['bilancio ultimi 12 mesi'] = "bilancio ultimi 12 mesi";
+Config::$localStrings['terze parti'] = "terze parti";
+Config::$localStrings['fatture vendite'] = "fatture vendite";
+Config::$localStrings['fatture acquisti'] = "fatture acquisti";
+Config::$localStrings['vendite'] = "vendite";
+Config::$localStrings['acquisti'] = "acquisti";
+Config::$localStrings['preventivi'] = "estimates";
+Config::$localStrings['bilancio ultimi 12 mesi'] = "bilancio ultimi 12 mesi";
 ?>

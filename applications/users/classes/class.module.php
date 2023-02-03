@@ -38,7 +38,7 @@ class Module {
 		}	
 
 		
-	public function checkUsername($id,$_lang){
+	public function checkUsername($id,Config::$localStrings){
 		$this->message ='';
 		$this->messages = array();
 		$this->error = 0;
@@ -55,7 +55,7 @@ class Module {
 			Sql::initQuery($this->appTable,array('id'),array($_POST['username']),'username = ?');
 			$count = Sql::countRecord();
 			if ($count > 0) {
-				$this->message = ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],$_lang['username <strong>%USERNAME%</strong> risulta già presente nel nostro database']));
+				$this->message = ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],Config::$localStrings['username <strong>%USERNAME%</strong> risulta già presente nel nostro database']));
 	      	$this->error = 1;
 	      	$this->errorType = 1;
 	   		}	
@@ -63,7 +63,7 @@ class Module {
 	   return $_POST['username'];
 		}
 		
-	public function checkEmail($id,$_lang){
+	public function checkEmail($id,Config::$localStrings){
 		$this->message ='';
 		$this->messages = array();
 		$this->error = 0;
@@ -80,7 +80,7 @@ class Module {
 			Sql::initQuery($this->appTable,array('id'),array($_POST['email']),'email = ?');
 			$count = Sql::countRecord();
 			if ($count > 0) {
-				$this->message = ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],$_lang['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database']));
+				$this->message = ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],Config::$localStrings['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database']));
 	      	$this->error = 1;
 	      	$this->errorType = 1;
 	   		}	
@@ -89,7 +89,7 @@ class Module {
 		}
 
 		
-	public function checkPassword($id,$_lang){
+	public function checkPassword($id,Config::$localStrings){
 		$this->message ='';
 		$this->messages = array();
 		$this->error = 0;
@@ -108,7 +108,7 @@ class Module {
 					$_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 					}	else {		   			
 		   			$_POST['password'] = $oldPassword;
-		   			$this->message = $_lang['Le due password non corrispondono! Sarà comunque mantenuta quella precedentemente memorizzata.'];
+		   			$this->message = Config::$localStrings['Le due password non corrispondono! Sarà comunque mantenuta quella precedentemente memorizzata.'];
 			      	$this->errorType = 2;
 			      	$this->error = 1;
 		   			}
@@ -123,12 +123,12 @@ class Module {
 					if ($_POST['password'] === $_POST['passwordCF']) {
 		      			$_POST['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
 		      		} else {
-		      			$this->message = $_lang['Le due password non corrispondono!'];
+		      			$this->message = Config::$localStrings['Le due password non corrispondono!'];
 		      			$this->error = 1;	
 		      			$this->errorType = 1;	      			
 		      			}
 					} else {
-				 		$this->message = $_lang['Devi inserire una password!'];
+				 		$this->message = Config::$localStrings['Devi inserire una password!'];
 		      		$this->error = 1;
 		      		$_POST['password'] = '';
 		      		$this->errorType = 1;
@@ -180,7 +180,7 @@ class Module {
 		return $count;
 		}
 
-	public function getAvatarData($id,$_lang) {
+	public function getAvatarData($id,Config::$localStrings) {
 		$this->message ='';
 		$this->messages = array();
 		$this->error = 0;
@@ -192,13 +192,13 @@ class Module {
             $max_size = 80000;
             $result = @is_uploaded_file($_FILES['avatar']['tmp_name']);
             if (!$result) {
-               $this->message = $_lang['Impossibile eseguire upload! Se è presente è stato mantenuto il file precedente!'];
+               $this->message = Config::$localStrings['Impossibile eseguire upload! Se è presente è stato mantenuto il file precedente!'];
                $this->error = 0;
                $this->errorType = 2;
                } else {
                   $size = $_FILES['avatar']['size'];
                   if ($size > $max_size) {
-                    	$this->message = $_lang['Il file indicato è troppo grande! Il file deve avere la dimensione massima di %MAZSIZE% KByte! Se esisteva è stato mantenuto il file precedente.'];
+                    	$this->message = Config::$localStrings['Il file indicato è troppo grande! Il file deve avere la dimensione massima di %MAZSIZE% KByte! Se esisteva è stato mantenuto il file precedente.'];
            				$this->message = preg_replace('/%MAZSIZE%/', intval($max_size /1024), $this->message);
            				$this->error = 0;
            				$this->errorType = 2;
@@ -217,7 +217,7 @@ class Module {
                  			}                  
                   }
              }	else {
-             	$this->message = $_lang['Impossibile eseguire upload: problemi accesso immagine! Se è presente è stato mantenuto il file precedente!'];
+             	$this->message = Config::$localStrings['Impossibile eseguire upload: problemi accesso immagine! Se è presente è stato mantenuto il file precedente!'];
                $this->error = 1;
              	}	            
          } else {

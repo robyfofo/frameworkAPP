@@ -32,12 +32,12 @@ $App->params->orderTypes['nations'] = 'ASC';
 $App->params->tables['nations'] = $App->params->tableRif.'_nations';
 $App->params->fields['nations'] = array(
 	'id'			=> array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'targa'			=> array('label'=>$_lang['targa'],'searchTable'=>true,'required'=>true,'type'=>'varchar|8','defValue'=>''),
-	'active'		=> array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
+	'targa'			=> array('label'=>Config::$localStrings['targa'],'searchTable'=>true,'required'=>true,'type'=>'varchar|8','defValue'=>''),
+	'active'		=> array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
 );		
 foreach($globalSettings['languages'] AS $lang) {
-	$required = ($lang == $_lang['user'] ? true : false);
-	$App->params->fields['nations']['title_'.$lang] = array('label'=>$_lang['titolo'].' '.$lang,'searchTable'=>true,'required'=>$required,'type'=>'varchar');
+	$required = ($lang == Config::$localStrings['user'] ? true : false);
+	$App->params->fields['nations']['title_'.$lang] = array('label'=>Config::$localStrings['titolo'].' '.$lang,'searchTable'=>true,'required'=>$required,'type'=>'varchar');
 }
 
 // province
@@ -45,9 +45,9 @@ $App->params->orderTypes['province'] = 'ASC';
 $App->params->tables['province'] = $App->params->tableRif.'_province';
 $App->params->fields['province'] = array(
 	'id'			=> array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'nome'			=> array('label'=>$_lang['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
-	'targa'			=> array('label'=>$_lang['targa'],'searchTable'=>true,'required'=>true,'type'=>'varchar|50','defValue'=>''),
-	'active'		=> array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
+	'nome'			=> array('label'=>Config::$localStrings['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
+	'targa'			=> array('label'=>Config::$localStrings['targa'],'searchTable'=>true,'required'=>true,'type'=>'varchar|50','defValue'=>''),
+	'active'		=> array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
 );
 
 // comuni
@@ -55,15 +55,15 @@ $App->params->orderTypes['comuni'] = 'ASC';
 $App->params->tables['comuni'] = $App->params->tableRif.'_comuni';
 $App->params->fields['comuni'] = array(
 	'id'					=> array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'nome'					=> array('label'=>$_lang['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
-	'cap'					=> array('label'=>$_lang['cap'],'searchTable'=>true,'required'=>true,'type'=>'varchar|50','defValue'=>''),
+	'nome'					=> array('label'=>Config::$localStrings['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
+	'cap'					=> array('label'=>Config::$localStrings['cap'],'searchTable'=>true,'required'=>true,'type'=>'varchar|50','defValue'=>''),
 
-	'provincia'				=> array('label'=>$_lang['provincia'],'searchTable'=>false,'required'=>false,'type'=>'varchar|150','defValue'=>''),
-	'location_province_id'	=> array('label'=>$_lang['provincia'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'provincia'				=> array('label'=>Config::$localStrings['provincia'],'searchTable'=>false,'required'=>false,'type'=>'varchar|150','defValue'=>''),
+	'location_province_id'	=> array('label'=>Config::$localStrings['provincia'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
 
-	'nation'				=> array('label'=>$_lang['nazione'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
-	'location_nations_id'	=> array('label'=>$_lang['nazione'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'nation'				=> array('label'=>Config::$localStrings['nazione'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
+	'location_nations_id'	=> array('label'=>Config::$localStrings['nazione'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
 
-	'active'		=> array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
+	'active'		=> array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
 );
 ?>

@@ -28,8 +28,8 @@ if (in_array(DB_TABLE_PREFIX.'users',$App->tablesOfDatabase) && file_exists(PATH
 		),
 
 		'icon panel'								=> 'fas fa-users',
-		'label'										=> ucfirst($_lang['utenti']),
-		'sex suffix'								=> ucfirst($_lang['nuovi']),
+		'label'										=> ucfirst(Config::$localStrings['utenti']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuovi']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'									=> array (
@@ -42,12 +42,12 @@ if (in_array(DB_TABLE_PREFIX.'users',$App->tablesOfDatabase) && file_exists(PATH
 		'table'										=> DB_TABLE_PREFIX.'users',
 		'sqloption'									=> array('clause'=>'is_root = 0','usersid'=>0),
 		'icon panel'								=> 'fas fa-users',
-		'label'										=> ucfirst($_lang['ultimi utenti']),
+		'label'										=> ucfirst(Config::$localStrings['ultimi utenti']),
 		'fields'									=> array(
 			'username'								=> array(
 				'multilanguage'						=> 0,
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['nome utente']),
+				'label'								=> ucfirst(Config::$localStrings['nome utente']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'users',
@@ -58,7 +58,7 @@ if (in_array(DB_TABLE_PREFIX.'users',$App->tablesOfDatabase) && file_exists(PATH
 			'avatar'								=> array(
 				'multilanguage'						=> 0,
 				'type'								=> 'avatar',
-				'label'								=> ucfirst($_lang['avatar']),
+				'label'								=> ucfirst(Config::$localStrings['avatar']),
 				'url'								=> false,
 			)
 			

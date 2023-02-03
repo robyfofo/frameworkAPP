@@ -9,7 +9,7 @@
 */
 
 $App->params = new stdClass();
-$App->params->label = ucfirst($_lang['fatture']);
+$App->params->label = ucfirst(Config::$localStrings['fatture']);
 /* prende i dati del modulo */
 Sql::initQuery(DB_TABLE_PREFIX.'modules',array('label','help_small','help'),array('bilanciofamiliare'),'name = ?');
 $obj = Sql::getRecord();
@@ -32,14 +32,14 @@ $App->params->ordersType = array();
 $App->params->tables['items']  = DB_TABLE_PREFIX.'bilancio_familiare';
 $App->params->fields['items']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'users_id'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
-	'type'=>array('label'=>$_lang['tipo'],'searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'0','validate'=>'int'),
-	'dateins'=>array('label'=>$_lang['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
-	'amount'=>array('label'=>$_lang['importo'],'searchTable'=>true,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
-	'description'=>array('label'=>$_lang['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'text'),
-	'notax'=>array('label'=>$_lang['tassa'],'searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'1','validate'=>'int'),	
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>1,'validate'=>'int')
+	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'type'=>array('label'=>Config::$localStrings['tipo'],'searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'0','validate'=>'int'),
+	'dateins'=>array('label'=>Config::$localStrings['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
+	'amount'=>array('label'=>Config::$localStrings['importo'],'searchTable'=>true,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
+	'description'=>array('label'=>Config::$localStrings['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'text'),
+	'notax'=>array('label'=>Config::$localStrings['tassa'],'searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'1','validate'=>'int'),	
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>1,'validate'=>'int')
 	);
 	
 ?>

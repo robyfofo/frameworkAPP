@@ -160,7 +160,7 @@ switch(Core::$request->method) {
 		$z = 0;
 		if (is_array($obj) && count($obj) > 0) {
 
-			echo '<table cellpadding="5" border="1" align="center" widtr="400" style="margin-bottom:20px;"><thead><tr> <th>id</th> <th>'.$_lang['utente'].'</th> <th>'.$_lang['progetto'].'</th> <th>'.$_lang['contenuto'].'</th> <th>'.$_lang['data'].'</th> <th>'.$_lang['ora inizio'].'</th> <th>'.$_lang['ora fine'].'</th> <th>'.$_lang['ore lavoro'].'</th> </tr></thead><tbody>';
+			echo '<table cellpadding="5" border="1" align="center" widtr="400" style="margin-bottom:20px;"><thead><tr> <th>id</th> <th>'.Config::$localStrings['utente'].'</th> <th>'.Config::$localStrings['progetto'].'</th> <th>'.Config::$localStrings['contenuto'].'</th> <th>'.Config::$localStrings['data'].'</th> <th>'.Config::$localStrings['ora inizio'].'</th> <th>'.Config::$localStrings['ora fine'].'</th> <th>'.Config::$localStrings['ore lavoro'].'</th> </tr></thead><tbody>';
 
 			foreach ($obj AS $key=>$value) {
 				$datatimecard[] = array
@@ -339,7 +339,7 @@ switch(Core::$request->method) {
 		$z = 0;
 		if (is_array($obj) && count($obj) > 0) {
 
-			echo '<table cellpadding="5" border="1" align="center" widtr="400" style="margin-bottom:20px;"><thead><tr> <th>id</th> <th>'.$_lang['utente'].'</th> <th>'.$_lang['progetto'].'</th> <th>'.$_lang['contenuto'].'</th> <th>'.$_lang['data'].'</th> <th>'.$_lang['ora inizio'].'</th> <th>'.$_lang['ora fine'].'</th> <th>'.$_lang['ore lavoro'].'</th> </tr></thead><tbody>';
+			echo '<table cellpadding="5" border="1" align="center" widtr="400" style="margin-bottom:20px;"><thead><tr> <th>id</th> <th>'.Config::$localStrings['utente'].'</th> <th>'.Config::$localStrings['progetto'].'</th> <th>'.Config::$localStrings['contenuto'].'</th> <th>'.Config::$localStrings['data'].'</th> <th>'.Config::$localStrings['ora inizio'].'</th> <th>'.Config::$localStrings['ora fine'].'</th> <th>'.Config::$localStrings['ore lavoro'].'</th> </tr></thead><tbody>';
 
 			foreach ($obj AS $key=>$value) {
 				$datatimecard[] = array
@@ -390,21 +390,21 @@ die();
 		$pdf->addInfo($datacreator);
 
 		// riga info
-		$info = ucfirst($_lang['archivio timecard']);
+		$info = ucfirst(Config::$localStrings['archivio timecard']);
 		if (isset($_SESSION[$App->sessionNameAite]['intervaldata']) &&  $_SESSION[$App->sessionNameAite]['intervaldata'] == 'cm' ) {
-			$info .= ' '.$_lang['mese corrente'];
+			$info .= ' '.Config::$localStrings['mese corrente'];
 		}
 		if (isset($_SESSION[$App->sessionNameAite]['intervaldata']) &&  $_SESSION[$App->sessionNameAite]['intervaldata'] == 'pm' ) {
-			$info .= ' '.$_lang['mese precedente'];
+			$info .= ' '.Config::$localStrings['mese precedente'];
 		}
 
 		// eleco timecard
-		$colspdf['progetto'] 		= '<b>'.ucfirst($_lang['progetto']).'</b>';
-		$colspdf['contenuto'] 		= '<b>'.ucfirst($_lang['contenuto']).'</b>';
-		$colspdf['data'] 			= '<b>'.ucfirst($_lang['data']).'</b>';
-		$colspdf['orainizio']		= '<b>'.ucwords($_lang['ora inizio']).'</b>';
-		$colspdf['orafine'] 		= '<b>'.ucwords($_lang['ora fine']).'</b>';
-		$colspdf['orelavoro'] 		= '<b>'.ucwords($_lang['ore lavoro']).'</b>';
+		$colspdf['progetto'] 		= '<b>'.ucfirst(Config::$localStrings['progetto']).'</b>';
+		$colspdf['contenuto'] 		= '<b>'.ucfirst(Config::$localStrings['contenuto']).'</b>';
+		$colspdf['data'] 			= '<b>'.ucfirst(Config::$localStrings['data']).'</b>';
+		$colspdf['orainizio']		= '<b>'.ucwords(Config::$localStrings['ora inizio']).'</b>';
+		$colspdf['orafine'] 		= '<b>'.ucwords(Config::$localStrings['ora fine']).'</b>';
+		$colspdf['orelavoro'] 		= '<b>'.ucwords(Config::$localStrings['ore lavoro']).'</b>';
 		$opt = array(
 			'showHeadings'			=> 1,
 			'gridlines'				=> EZ_GRIDLINE_DEFAULT,
@@ -478,21 +478,21 @@ die();
 		// Modified to use the local file if it can
 		$pdf->openHere('Fit');
 		$datacreator = array (
-			'Title'			=> $_lang['lista delle voci'],
+			'Title'			=> Config::$localStrings['lista delle voci'],
 			'Author'		=> SITE_OWNER,
 			'Subject'		=> 'La lista delle timecard del mese selezionato',
 			'Creator'		=> SITE_NAME,
 			'Producer'		=> URL_SITE
 			);
 		$pdf->addInfo($datacreator);
-		$info = ucfirst($_lang['lista delle voci']);
-		$info = ucfirst($_lang['ore lavoro']);
+		$info = ucfirst(Config::$localStrings['lista delle voci']);
+		$info = ucfirst(Config::$localStrings['ore lavoro']);
 
-		$colspdf['data'] 		= '<b>'.ucfirst($_lang['data']).'</b>';
-		$colspdf['contenuto'] 		= '<b>'.ucfirst($_lang['contenuto']).'</b>';
-		$colspdf['orainizio']		= '<b>'.ucwords($_lang['ora inizio']).'</b>';
-		$colspdf['orafine'] 		= '<b>'.ucwords($_lang['ora fine']).'</b>';
-		$colspdf['orelavoro'] 		= '<b>'.ucwords($_lang['ore lavoro']).'</b>';
+		$colspdf['data'] 		= '<b>'.ucfirst(Config::$localStrings['data']).'</b>';
+		$colspdf['contenuto'] 		= '<b>'.ucfirst(Config::$localStrings['contenuto']).'</b>';
+		$colspdf['orainizio']		= '<b>'.ucwords(Config::$localStrings['ora inizio']).'</b>';
+		$colspdf['orafine'] 		= '<b>'.ucwords(Config::$localStrings['ora fine']).'</b>';
+		$colspdf['orelavoro'] 		= '<b>'.ucwords(Config::$localStrings['ore lavoro']).'</b>';
 		$opt = array(
 			'showHeadings'			=> 1,
 			'gridlines'				=> EZ_GRIDLINE_DEFAULT,
@@ -562,7 +562,7 @@ die();
 						$timecardpdf[$z1]['data'] 		= '';
 						$timecardpdf[$z1]['contenuto'] 	= '';
 						$timecardpdf[$z1]['orainizio']	= '';
-						$timecardpdf[$z1]['orafine'] 	= '<b>'.ucwords($_lang['totale']).'</b>';
+						$timecardpdf[$z1]['orafine'] 	= '<b>'.ucwords(Config::$localStrings['totale']).'</b>';
 						$timecardpdf[$z1]['orelavoro'] 	= $projectWorkTime;
 
 					}
@@ -599,7 +599,7 @@ die();
 		);
 		$colspdf['0'] 			= '';
 		$colspdf['1'] 			= '';
-		$timecardpdf[0]['0'] 			= '<b>'.ucfirst($_lang['ore lavoro']).'</b>';
+		$timecardpdf[0]['0'] 			= '<b>'.ucfirst(Config::$localStrings['ore lavoro']).'</b>';
 		$timecardpdf[0]['1'] 	= DateFormat::sum_the_time($timecardsWorkTimeTotal);
 
 		$col = $pdf->ezTable($timecardpdf, $colspdf,'',$opt);

@@ -10,7 +10,7 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 $App->includeJscriptPHPTop = Core::$request->action."/templates/".$App->templateUser."/js/script.js.php";

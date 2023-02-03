@@ -68,19 +68,19 @@ switch(Core::$request->method) {
 
 		$output = '
 		<i class="fas fa-industry"></i>
-		<span><span>'.$_lang['ragione sociale'].'</span>'.$obj->company_ragione_sociale.'</span>
-		<span><span>'.$_lang['nome'].'</span>'.$obj->company_name.'</span>
-		<span><span>'.$_lang['cognome'].'</span>'.$obj->company_surname.'</span>
-		<span><span>'.$_lang['via'].'</span>'.$obj->company_street.'</span>
-		<span><span>'.$_lang['comune'].'</span>'.$obj->company_comune.'</span>
-		<span><span>'.$_lang['cap'].'</span>'.$obj->company_zip_code.'</span>
-  		<span><span>'.$_lang['provincia'].'</span>'.$obj->company_provincia.'</span>
-		<span><span>'.$_lang['nazione'].'</span>'.$obj->company_nation.'</span>
-   		<span><span>'.$_lang['telefono'].'</span>'.$obj->company_telephone.'</span>
-   		<span><span>'.$_lang['email'].'</span>'.$obj->company_email.'</span>
-   		<span><span>'.$_lang['fax'].'</span>'.$obj->company_fax.'</span>
-   		<span><span>'.$_lang['partita IVA'].'</span>'.$obj->company_partita_iva.'</span>
-   		<span><span>'.$_lang['codice fiscale'].'</span>'.$obj->company_codice_fiscale.'</span>
+		<span><span>'.Config::$localStrings['ragione sociale'].'</span>'.$obj->company_ragione_sociale.'</span>
+		<span><span>'.Config::$localStrings['nome'].'</span>'.$obj->company_name.'</span>
+		<span><span>'.Config::$localStrings['cognome'].'</span>'.$obj->company_surname.'</span>
+		<span><span>'.Config::$localStrings['via'].'</span>'.$obj->company_street.'</span>
+		<span><span>'.Config::$localStrings['comune'].'</span>'.$obj->company_comune.'</span>
+		<span><span>'.Config::$localStrings['cap'].'</span>'.$obj->company_zip_code.'</span>
+  		<span><span>'.Config::$localStrings['provincia'].'</span>'.$obj->company_provincia.'</span>
+		<span><span>'.Config::$localStrings['nazione'].'</span>'.$obj->company_nation.'</span>
+   		<span><span>'.Config::$localStrings['telefono'].'</span>'.$obj->company_telephone.'</span>
+   		<span><span>'.Config::$localStrings['email'].'</span>'.$obj->company_email.'</span>
+   		<span><span>'.Config::$localStrings['fax'].'</span>'.$obj->company_fax.'</span>
+   		<span><span>'.Config::$localStrings['partita IVA'].'</span>'.$obj->company_partita_iva.'</span>
+   		<span><span>'.Config::$localStrings['codice fiscale'].'</span>'.$obj->company_codice_fiscale.'</span>
    		<span><span>PEC</span>'.$obj->company_pec.'&nbsp;</span>
   		<span><span>SID</span>'.$obj->company_sid.'&nbsp;</span>';
 
@@ -100,19 +100,19 @@ switch(Core::$request->method) {
 
 		$output = '
 		<i class="fas fa-iuser"></i>
-		<span><span>'.$_lang['ragione sociale'].'</span>'.$obj->thirdparty_ragione_sociale.'</span>
-		<span><span>'.$_lang['nome'].'</span>'.$obj->thirdparty_name.'</span>
-		<span><span>'.$_lang['cognome'].'</span>'.$obj->thirdparty_surname.'</span>
-		<span><span>'.$_lang['via'].'</span>'.$obj->thirdparty_street.'</span>
-		<span><span>'.$_lang['comune'].'</span>'.$obj->thirdparty_comune.'</span>
-		<span><span>'.$_lang['cap'].'</span>'.$obj->thirdparty_zip_code.'</span>
-  		<span><span>'.$_lang['provincia'].'</span>'.$obj->thirdparty_provincia.'</span>
-		<span><span>'.$_lang['nazione'].'</span>'.$obj->thirdparty_nation.'</span>
-   		<span><span>'.$_lang['telefono'].'</span>'.$obj->thirdparty_telephone.'</span>
-   		<span><span>'.$_lang['email'].'</span>'.$obj->thirdparty_email.'</span>
-   		<span><span>'.$_lang['fax'].'</span>'.$obj->thirdparty_fax.'</span>
-   		<span><span>'.$_lang['partita IVA'].'</span>'.$obj->thirdparty_partita_iva.'</span>
-   		<span><span>'.$_lang['codice fiscale'].'</span>'.$obj->thirdparty_codice_fiscale.'</span>
+		<span><span>'.Config::$localStrings['ragione sociale'].'</span>'.$obj->thirdparty_ragione_sociale.'</span>
+		<span><span>'.Config::$localStrings['nome'].'</span>'.$obj->thirdparty_name.'</span>
+		<span><span>'.Config::$localStrings['cognome'].'</span>'.$obj->thirdparty_surname.'</span>
+		<span><span>'.Config::$localStrings['via'].'</span>'.$obj->thirdparty_street.'</span>
+		<span><span>'.Config::$localStrings['comune'].'</span>'.$obj->thirdparty_comune.'</span>
+		<span><span>'.Config::$localStrings['cap'].'</span>'.$obj->thirdparty_zip_code.'</span>
+  		<span><span>'.Config::$localStrings['provincia'].'</span>'.$obj->thirdparty_provincia.'</span>
+		<span><span>'.Config::$localStrings['nazione'].'</span>'.$obj->thirdparty_nation.'</span>
+   		<span><span>'.Config::$localStrings['telefono'].'</span>'.$obj->thirdparty_telephone.'</span>
+   		<span><span>'.Config::$localStrings['email'].'</span>'.$obj->thirdparty_email.'</span>
+   		<span><span>'.Config::$localStrings['fax'].'</span>'.$obj->thirdparty_fax.'</span>
+   		<span><span>'.Config::$localStrings['partita IVA'].'</span>'.$obj->thirdparty_partita_iva.'</span>
+   		<span><span>'.Config::$localStrings['codice fiscale'].'</span>'.$obj->thirdparty_codice_fiscale.'</span>
    		<span><span>PEC</span>'.$obj->thirdparty_pec.'&nbsp;</span>
   		<span><span>SID</span>'.$obj->thirdparty_sid.'&nbsp;</span>';
 

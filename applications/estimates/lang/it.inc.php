@@ -8,31 +8,31 @@
  * Estimate language IT v.1.3.0. 08/09/2020
 */
 
-$_lang['voce']  = "preventivo";
-$_lang['voci']  = "preventivi";
-$_lang['articoli abbreviato'] = "art.";
-$_lang['articolo attivato'] = "articolo attivato";
-$_lang['articolo disattivato'] = "articolo disattivato";
-$_lang['articolo cancellato'] = 'articolo cancellato';
-$_lang['Note'] = "Note";
-$_lang['note'] = "note";
-$_lang['cliente']  = "customer";
-$_lang['tassa aggiuntiva'] = "tassa aggiuntiva";
-$_lang['inserisci una tassa aggiuntiva'] = "inserisci una tassa aggiuntiva";
-$_lang['articoli associati']  = "articoli associati";
-$_lang['inserisci testo articolo']  = "inserisci testo articolo";
-$_lang['totale movimenti'] = "totale movimenti";
-$_lang['Preventivo non trovato!'] = "Preventivo non trovato!";
-$_lang['Errore lettura dati preventivo!'] = "Errore lettura dati preventivo!";
-$_lang['Errore lettura dati cliente!'] = "Errore lettura dati cliente!";
-$_lang['oppure'] = "or";
-$_lang['aggiungi articolo']  = "aggiungi articolo";
-$_lang['articolo non aggiunto']  = "articolo non aggiunto";
+Config::$localStrings['voce']  = "preventivo";
+Config::$localStrings['voci']  = "preventivi";
+Config::$localStrings['articoli abbreviato'] = "art.";
+Config::$localStrings['articolo attivato'] = "articolo attivato";
+Config::$localStrings['articolo disattivato'] = "articolo disattivato";
+Config::$localStrings['articolo cancellato'] = 'articolo cancellato';
+Config::$localStrings['Note'] = "Note";
+Config::$localStrings['note'] = "note";
+Config::$localStrings['cliente']  = "customer";
+Config::$localStrings['tassa aggiuntiva'] = "tassa aggiuntiva";
+Config::$localStrings['inserisci una tassa aggiuntiva'] = "inserisci una tassa aggiuntiva";
+Config::$localStrings['articoli associati']  = "articoli associati";
+Config::$localStrings['inserisci testo articolo']  = "inserisci testo articolo";
+Config::$localStrings['totale movimenti'] = "totale movimenti";
+Config::$localStrings['Preventivo non trovato!'] = "Preventivo non trovato!";
+Config::$localStrings['Errore lettura dati preventivo!'] = "Errore lettura dati preventivo!";
+Config::$localStrings['Errore lettura dati cliente!'] = "Errore lettura dati cliente!";
+Config::$localStrings['oppure'] = "or";
+Config::$localStrings['aggiungi articolo']  = "aggiungi articolo";
+Config::$localStrings['articolo non aggiunto']  = "articolo non aggiunto";
 
-$_lang['elenco lavorazioni da fare']  = 'elenco lavorazioni da fare';
+Config::$localStrings['elenco lavorazioni da fare']  = 'elenco lavorazioni da fare';
 
-$_lang['tipo pagamento']  = '<i>assegno</i>/<i>bonifico</i>/<i>contanti</i>';
-$_lang['dati incaricato']  = 'dati e firma della persona/impresa incaricata del preventivo';
-$_lang['accetto preventivo']  = 'accetto il preventivo';
-$_lang['firma cliente']  = 'nome, cognome e firma del cliente';
+Config::$localStrings['tipo pagamento']  = '<i>assegno</i>/<i>bonifico</i>/<i>contanti</i>';
+Config::$localStrings['dati incaricato']  = 'dati e firma della persona/impresa incaricata del preventivo';
+Config::$localStrings['accetto preventivo']  = 'accetto il preventivo';
+Config::$localStrings['firma cliente']  = 'nome, cognome e firma del cliente';
 ?>

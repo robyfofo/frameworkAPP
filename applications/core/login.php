@@ -16,7 +16,7 @@ $App->templateApp = Core::$request->action.'.html';
 $App->templateBase = 'struttura-login.html';
 $App->coreModule = true;
 
-//Config::$debugMode = 1;
+Config::$debugMode = 1;
 
 switch(Core::$request->method) {
 

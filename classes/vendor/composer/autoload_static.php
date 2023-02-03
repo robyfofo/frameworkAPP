@@ -256,6 +256,7 @@ class ComposerStaticInit3ac764ad0f958ff34ba8adcec2110cee
         'ToolsStrings' => __DIR__ . '/../..' . '/class.ToolsStrings.php',
         'ToolsUpload' => __DIR__ . '/../..' . '/class.ToolsUpload.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'Users' => __DIR__ . '/../..' . '/class.Users.php',
         'Utilities' => __DIR__ . '/../..' . '/class.Utilities.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'my_session' => __DIR__ . '/../..' . '/class.Sessions.php',

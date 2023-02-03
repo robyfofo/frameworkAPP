@@ -9,7 +9,7 @@
 */
 
 $App->params = new stdClass();
-$App->params->label = ucfirst($_lang['soggetti terzi']); 
+$App->params->label = ucfirst(Config::$localStrings['soggetti terzi']); 
 /* prende i dati del modulo */
 Sql::initQuery(DB_TABLE_PREFIX.'modules',array('section','name','label','help_small','help'),array('thirdparty'),'name = ?');
 $obj = Sql::getRecord();
@@ -36,38 +36,38 @@ $App->params->tables['comuni'] = DB_TABLE_PREFIX.'location_comuni';
 $App->params->tables['item']  = DB_TABLE_PREFIX.'thirdparty';
 $App->params->fields['item']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'users_id'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
-	'categories_id'=>array('label'=>'ID '.$_lang['categoria'],'required'=>true,'type'=>'int|8'),
-	'id_type'=>array('label'=>$_lang['tipo'],'required'=>false,'type'=>'int','defValue'=>0,'validate'=>'int|1'),
-	'ragione_sociale'=>array('label'=>$_lang['ragione sociale'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
-	'name'=>array('label'=>$_lang['nome'],'searchTable'=>true,'required'=>false,'type'=>'varchar|50'),
-	'surname'=>array('label'=>$_lang['cognome'],'searchTable'=>true,'required'=>false,'type'=>'varchar|50'),
-	'street'=>array('label'=>$_lang['via'],'searchTable'=>false,'required'=>false,'type'=>'varchar|100'),
+	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'categories_id'=>array('label'=>'ID '.Config::$localStrings['categoria'],'required'=>true,'type'=>'int|8'),
+	'id_type'=>array('label'=>Config::$localStrings['tipo'],'required'=>false,'type'=>'int','defValue'=>0,'validate'=>'int|1'),
+	'ragione_sociale'=>array('label'=>Config::$localStrings['ragione sociale'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
+	'name'=>array('label'=>Config::$localStrings['nome'],'searchTable'=>true,'required'=>false,'type'=>'varchar|50'),
+	'surname'=>array('label'=>Config::$localStrings['cognome'],'searchTable'=>true,'required'=>false,'type'=>'varchar|50'),
+	'street'=>array('label'=>Config::$localStrings['via'],'searchTable'=>false,'required'=>false,'type'=>'varchar|100'),
 	
-	'location_comuni_id'	=> array('label'=>$_lang['comune'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
-	'city'					=>array('label'=>$_lang['altro comune'],'searchTable'=>false,'required'=>false,'type'=>'varchar|150'),
+	'location_comuni_id'	=> array('label'=>Config::$localStrings['comune'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'city'					=>array('label'=>Config::$localStrings['altro comune'],'searchTable'=>false,'required'=>false,'type'=>'varchar|150'),
 
-	'zip_code'=>array('label'=>$_lang['cap'],'searchTable'=>false,'required'=>false,'type'=>'varchar|10'),
-	'telephone'=>array('label'=>$_lang['telefono'],'searchTable'=>false,'required'=>false,'type'=>'varchar|20'),
-	'email'=>array('label'=>$_lang['email'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
-	'mobile'=>array('label'=>$_lang['cellulare'],'searchTable'=>true,'required'=>false,'type'=>'varchar|20'),
-	'fax'=>array('label'=>$_lang['fax'],'searchTable'=>true,'required'=>false,'type'=>'varchar|20'),
-	'partita_iva'=>array('label'=>$_lang['partita IVA'],'searchTable'=>false,'required'=>false,'type'=>'varchar|50'),
-	'codice_fiscale'=>array('label'=>$_lang['codice fiscale'],'searchTable'=>false,'required'=>false,'type'=>'varchar|50'),
+	'zip_code'=>array('label'=>Config::$localStrings['cap'],'searchTable'=>false,'required'=>false,'type'=>'varchar|10'),
+	'telephone'=>array('label'=>Config::$localStrings['telefono'],'searchTable'=>false,'required'=>false,'type'=>'varchar|20'),
+	'email'=>array('label'=>Config::$localStrings['email'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
+	'mobile'=>array('label'=>Config::$localStrings['cellulare'],'searchTable'=>true,'required'=>false,'type'=>'varchar|20'),
+	'fax'=>array('label'=>Config::$localStrings['fax'],'searchTable'=>true,'required'=>false,'type'=>'varchar|20'),
+	'partita_iva'=>array('label'=>Config::$localStrings['partita IVA'],'searchTable'=>false,'required'=>false,'type'=>'varchar|50'),
+	'codice_fiscale'=>array('label'=>Config::$localStrings['codice fiscale'],'searchTable'=>false,'required'=>false,'type'=>'varchar|50'),
 	'pec'=>array('label'=>'PEC','searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
 	'sid'=>array('label'=>'SID','searchTable'=>true,'required'=>false,'type'=>'varchar|50'),
 
-	'provincia'				=> array('label'=>$_lang['altra provincia'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
-	'location_province_id'	=> array('label'=>$_lang['provincia'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'provincia'				=> array('label'=>Config::$localStrings['altra provincia'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
+	'location_province_id'	=> array('label'=>Config::$localStrings['provincia'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
 
-	'nation'				=> array('label'=>$_lang['nazione'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
-	'location_nations_id'	=> array('label'=>$_lang['nazione'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'nation'				=> array('label'=>Config::$localStrings['nazione'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
+	'location_nations_id'	=> array('label'=>Config::$localStrings['nazione'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
 	
 	'stampa_quantita'=>array('label'=>'Stampa quantità','searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'0','validate'=>'int'),
 	'stampa_unita'=>array('label'=>'Stampa unità','searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'0','validate'=>'int'),
 
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
 	);	
 	
 /* SUBCATEGORIES */
@@ -75,11 +75,11 @@ $App->params->orderTypes['cate'] = 'DESC';
 $App->params->tables['cate']  = DB_TABLE_PREFIX.'thirdparty_categories';
 $App->params->fields['cate']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'users_id'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
 	'parent'=>array('label'=>'Parent','required'=>false,'type'=>'int','defValue'=>0,'validate'=>'int'),
-	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
+	'title'=>array('label'=>Config::$localStrings['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
 	);	
 	
 /* TYPES */

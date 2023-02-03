@@ -185,17 +185,17 @@ switch(Core::$request->method) {
 			$html  .= '<div class="company">';
 			$html  .= '<h2>'.$App->company->ragione_sociale.'</h2>';
 			$html  .= $App->company->street.' - '.$App->company->zip_code.' - '.$App->company->city.' ('.$App->company->provincia.')<br />';
-			$html  .= $_lang['P. IVA'].' '.$App->company->partita_iva.' - '.$_lang['C. Fiscale'].' '.$App->company->codice_fiscale.'<br />';
+			$html  .= Config::$localStrings['P. IVA'].' '.$App->company->partita_iva.' - '.Config::$localStrings['C. Fiscale'].' '.$App->company->codice_fiscale.'<br />';
 			$html  .= '</div>';
 
 			// cliente
 			$html  .= '<div class="customer">';
-			$html  .=  '<h1>'.ucfirst($_lang['destinatario']).'</h1>';
+			$html  .=  '<h1>'.ucfirst(Config::$localStrings['destinatario']).'</h1>';
 			if ($App->item->thirdparty_id > 0) {	
-				$html  .=  '<strong>'.$_lang['P.IVA'].'</strong> '.$App->item_customer->partita_iva.'<br />';
-				$html  .=  '<strong>'.$_lang['C.F.'].'</strong> '.$App->item_customer->codice_fiscale.'<br />';
+				$html  .=  '<strong>'.Config::$localStrings['P.IVA'].'</strong> '.$App->item_customer->partita_iva.'<br />';
+				$html  .=  '<strong>'.Config::$localStrings['C.F.'].'</strong> '.$App->item_customer->codice_fiscale.'<br />';
 				$html  .=  '<strong>'.$App->item_customer->ragione_sociale.'</strong><br />';
-				$html  .=  '<strong>'.strtoupper($_lang['email']).'</strong> '.$App->item_customer->email.'<br />';
+				$html  .=  '<strong>'.strtoupper(Config::$localStrings['email']).'</strong> '.$App->item_customer->email.'<br />';
 				$html  .=  $App->item_customer->street.'<br />';
 				$html  .=   $App->item_customer->zip_code.' '.$App->item_customer->city.' ('.$App->item_customer->provincia.')<br />';
 			} else {
@@ -213,10 +213,10 @@ switch(Core::$request->method) {
 			// date
 			$html  .= '<div class="content">
 				<div class="data">
-					<strong>'.strtoupper($_lang['voce']).'</strong> '.$_lang['del'].' <strong>'.DateFormat::convertDateFormats($App->item->dateins,'Y-m-d',$_lang['data format'],$App->nowDate).'</strong>
+					<strong>'.strtoupper(Config::$localStrings['voce']).'</strong> '.Config::$localStrings['del'].' <strong>'.DateFormat::convertDateFormats($App->item->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).'</strong>
 				</div>
 				<div class="scadenza">
-					<strong>'.strtoupper($_lang['scadenza']).'</strong>: '.DateFormat::convertDateFormats($App->item->datesca,'Y-m-d',$_lang['data format'],$App->nowDate).
+					<strong>'.strtoupper(Config::$localStrings['scadenza']).'</strong>: '.DateFormat::convertDateFormats($App->item->datesca,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).
 				'</div>
 				</div>';
 
@@ -232,10 +232,10 @@ switch(Core::$request->method) {
 
 			// articolo
 			if (is_array($App->item_articoli) && count($App->item_articoli) > 0) {
-				$html .= '<div class="content"><h3>'.ucfirst($_lang['elenco lavorazioni da fare']).'</h3>';
+				$html .= '<div class="content"><h3>'.ucfirst(Config::$localStrings['elenco lavorazioni da fare']).'</h3>';
 				$html .= '<table>';
-				//<caption>'.ucfirst($_lang['elenco lavorazioni da fare']).'</caption>
-				$html .= '<thead><tr><th>'.ucfirst($_lang['contenuto']).'</th><th class="th-totale">'.ucfirst($_lang['totale']).'</th></tr></thead><tbody>';
+				//<caption>'.ucfirst(Config::$localStrings['elenco lavorazioni da fare']).'</caption>
+				$html .= '<thead><tr><th>'.ucfirst(Config::$localStrings['contenuto']).'</th><th class="th-totale">'.ucfirst(Config::$localStrings['totale']).'</th></tr></thead><tbody>';
 				foreach ($App->item_articoli AS $key=>$value) {
 
 					$articleTotal = (float)$value->price_total + $value->price_tax;
@@ -263,7 +263,7 @@ switch(Core::$request->method) {
 			}
 
 			$html .= '<tfoot>';
-			$html .=  '<tr><td class="td-lab-totale">'.ucfirst($_lang['totale']).' '.$_lang['preventivo'].'</td><td class="td-tot-totale">€ '.number_format($articlesTotal,2,',','.').'</td></tr>';
+			$html .=  '<tr><td class="td-lab-totale">'.ucfirst(Config::$localStrings['totale']).' '.Config::$localStrings['preventivo'].'</td><td class="td-tot-totale">€ '.number_format($articlesTotal,2,',','.').'</td></tr>';
 			$html .= '</tfoot></table></div>';
 			
 
@@ -272,11 +272,11 @@ switch(Core::$request->method) {
 
 			$html  .= '<div class="content notepagamento">
 				<div class="pagamento">
-					<strong>'.ucfirst($_lang['pagamento']).':</b> '.$_lang['tipo pagamento'].'</strong>
+					<strong>'.ucfirst(Config::$localStrings['pagamento']).':</b> '.Config::$localStrings['tipo pagamento'].'</strong>
 				</div>
 				<div class="firma">
-					<strong>'.mb_strtoupper($_lang['accetto preventivo'],'utf-8').'</strong>
-					<br /><br /><i>'.$_lang['firma cliente'].'</i>
+					<strong>'.mb_strtoupper(Config::$localStrings['accetto preventivo'],'utf-8').'</strong>
+					<br /><br /><i>'.Config::$localStrings['firma cliente'].'</i>
 				</div>
 				</div>';			
 
@@ -299,7 +299,7 @@ switch(Core::$request->method) {
 			$dompdf->render();
 
 			// Output the generated PDF to Browser
-			$filename = ucfirst($_lang['voce']).'-'.$App->item->dateins.".pdf";
+			$filename = ucfirst(Config::$localStrings['voce']).'-'.$App->item->dateins.".pdf";
 			$dompdf->stream($filename);
 		}
 

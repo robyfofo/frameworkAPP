@@ -33,7 +33,7 @@ switch(Core::$request->method) {
 	case 'disactiveItem':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>$_lang['voce'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
+			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>Config::$localStrings['voce'],'attivata'=>Config::$localStrings['attivato'],'disattivata'=>Config::$localStrings['disattivato']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 		} else {
@@ -47,7 +47,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellato'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 		} else {
 			ToolsStrings::redirect(URL_SITE.'error/404');
@@ -61,7 +61,7 @@ switch(Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
@@ -71,7 +71,7 @@ switch(Core::$request->method) {
 		$App->item->active = 1;
 		$App->item->id_level = 0;
 		$App->templatesAvaiable = $Module->getUserTemplatesArray();
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['utente'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['utente'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertItem';
 		$App->viewMethod = 'form';
 	break;
@@ -108,9 +108,9 @@ switch(Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
@@ -119,7 +119,7 @@ switch(Core::$request->method) {
 			}
 
 			// recupero dati avatar
-			list($_POST['avatar'],$_POST['avatar_info']) = $Module->getAvatarData(0,$_lang);
+			list($_POST['avatar'],$_POST['avatar_info']) = $Module->getAvatarData(0,Config::$localStrings);
 			if ($Module->errorType > 0) {
 				if ($Module->message != '') Core::$resultOp->messages[] = $Module->message;
 				Core::$resultOp->error =  $Module->error;
@@ -128,7 +128,7 @@ switch(Core::$request->method) {
 			}
 
 			// controllo password
-			$_POST['password'] = $Module->checkPassword(0,$_lang);
+			$_POST['password'] = $Module->checkPassword(0,Config::$localStrings);
 			if ($Module->error > 0) {
 				if ($Module->message != '') Core::$resultOp->message[] = $Module->message;
 				Core::$resultOp->type =  $Module->errorType;
@@ -137,7 +137,7 @@ switch(Core::$request->method) {
 			}
 
 			// controllo nome utente
-			$_POST['username'] = $Module->checkUsername(0,$_lang);
+			$_POST['username'] = $Module->checkUsername(0,Config::$localStrings);
 			if ($Module->error > 0) {
 				if ($Module->message != '') Core::$resultOp->messages[] = $Module->message;
 				Core::$resultOp->type =  $Module->errorType;
@@ -146,7 +146,7 @@ switch(Core::$request->method) {
 			}
 
 			// controllo email univoca */
-			$_POST['email'] = $Module->checkEmail(0,$_lang);
+			$_POST['email'] = $Module->checkEmail(0,Config::$localStrings);
 			if ($Module->error > 0) {
 				if ($Module->message != '') Core::$resultOp->messages[] = $Module->message;
 				Core::$resultOp->type =  $Module->errorType;
@@ -159,7 +159,7 @@ switch(Core::$request->method) {
 				$_POST['hash'] = SanitizeStrings::base64url_encode($_POST['hash']);
 
 				// parsa i post in base ai campi
-				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+				Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 				if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newItem');
@@ -168,7 +168,7 @@ switch(Core::$request->method) {
 				Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
 				if (Core::$resultOp->error > 0) {ToolsStrings::redirect(URL_SITE.'error/db');}
 
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['utente'],$_lang['%ITEM% inserito'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['utente'],Config::$localStrings['%ITEM% inserito'])).'!';
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 
 			} else {
@@ -191,7 +191,7 @@ switch(Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }	
 	
@@ -208,7 +208,7 @@ switch(Core::$request->method) {
 			$App->comune->selected->nome = $App->item->city;
 		}		
 								
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['utente'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['utente'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateItem';
 		$App->viewMethod = 'form';
 	break;
@@ -245,9 +245,9 @@ switch(Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
@@ -262,7 +262,7 @@ switch(Core::$request->method) {
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 			// recupero dati avatar
-			list($_POST['avatar'],$_POST['avatar_info']) = $Module->getAvatarData($App->id,$_lang);
+			list($_POST['avatar'],$_POST['avatar_info']) = $Module->getAvatarData($App->id,Config::$localStrings);
 			if ($Module->errorType > 0) {
 				if ($Module->message != '') $Core::$resultOp->messages[] = $Module->message;
 				Core::$resultOp->type =  $Module->errorType;
@@ -271,7 +271,7 @@ switch(Core::$request->method) {
 			}
 
 			// controllo password
-			$_POST['password'] = $Module->checkPassword($App->id,$_lang);
+			$_POST['password'] = $Module->checkPassword($App->id,Config::$localStrings);
 			if ($Module->errorType > 0) {
 				if ($Module->message != '') Core::$resultOp->message = $Module->message;
 				Core::$resultOp->type =  $Module->errorType;
@@ -281,7 +281,7 @@ switch(Core::$request->method) {
 
 			// controllo nome utente
 			if ($_POST['username'] != $App->oldItem->username) {
-				$_POST['username'] = $Module->checkUsername($App->id,$_lang);
+				$_POST['username'] = $Module->checkUsername($App->id,Config::$localStrings);
 				if ($Module->errorType > 0) {
 					if ($Module->message != '') Core::$resultOp->messages[] = $Module->message;
 					Core::$resultOp->type =  $Module->errorType;
@@ -292,7 +292,7 @@ switch(Core::$request->method) {
 
 			// controllo email univoca
 			if ($_POST['email'] != $App->oldItem->email) {
-				$_POST['email'] = $Module->checkEmail($_POST['id'],$_lang);
+				$_POST['email'] = $Module->checkEmail($_POST['id'],Config::$localStrings);
 				if ($Module->errorType > 0) {
 					if ($Module->message != '') Core::$resultOp->messages[] = $Module->message;
 					Core::$resultOp->type =  $Module->errorType;
@@ -307,7 +307,7 @@ switch(Core::$request->method) {
 				$_POST['hash'] = SanitizeStrings::base64url_encode($_POST['hash']);
 
 				// parsa i post in base ai campi
-				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+				Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 				if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
@@ -316,7 +316,7 @@ switch(Core::$request->method) {
 				Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['utente'],$_lang['%ITEM% modificato'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['utente'],Config::$localStrings['%ITEM% modificato'])).'!';
 				if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
 				} else {
@@ -337,9 +337,9 @@ switch(Core::$request->method) {
 	case 'checkUserAjaxItem':
 		$count = $Module->checkUsernameAjax($_POST['id'],$_POST['username']);
 		if ($count > 0) {
-			echo '<span style="color:red;">'.ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],$_lang['username <strong>%USERNAME%</strong> risulta già presente nel nostro database'])).'!</span>';
+			echo '<span style="color:red;">'.ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],Config::$localStrings['username <strong>%USERNAME%</strong> risulta già presente nel nostro database'])).'!</span>';
 		} else {
-			echo '<span style="color:green;">'.ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],$_lang['username <strong>%USERNAME%</strong> è libero'])).'!</span>';
+			echo '<span style="color:green;">'.ucfirst(preg_replace('/%USERNAME%/',$_POST['username'],Config::$localStrings['username <strong>%USERNAME%</strong> è libero'])).'!</span>';
 		}
 		$renderTpl = false;
 		die();
@@ -348,9 +348,9 @@ switch(Core::$request->method) {
 	case 'checkEmailAjaxItem':
 		$count = $Module->checkEmailAjax($_POST['id'],$_POST['email']);
 		if($count > 0) {
-			echo '<span style="color:red;">'.ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],$_lang['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database'])).'!</span>';
+			echo '<span style="color:red;">'.ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],Config::$localStrings['indirizzo <strong>%EMAIL%</strong> risulta già presente nel nostro database'])).'!</span>';
 		} else {
-			echo '<span style="color:green;">'.ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],$_lang['indirizzo <strong>%EMAIL%</strong> è libero'])).'!</span>';
+			echo '<span style="color:green;">'.ucfirst(preg_replace('/%EMAIL%/',$_POST['email'],Config::$localStrings['indirizzo <strong>%EMAIL%</strong> è libero'])).'!</span>';
 		}
 		$renderTpl = false;
 		die();
@@ -384,7 +384,7 @@ switch(Core::$request->method) {
 		Sql::setResultPaged(true);
 		if (Core::$resultOp->error <> 1) $App->items = Sql::getRecords();
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->pageSubTitle =  preg_replace('/%ITEMS%/',$_lang['utenti'],$_lang['lista degli %ITEMS%']);
+		$App->pageSubTitle =  preg_replace('/%ITEMS%/',Config::$localStrings['utenti'],Config::$localStrings['lista degli %ITEMS%']);
 		$App->viewMethod = 'list';
 	break;
 	}

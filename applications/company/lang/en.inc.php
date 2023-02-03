@@ -7,6 +7,6 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * Company language EN v.1.2.0. 02/04/2020
 */
-$_lang['voce']  = "dati aziendali";
-$_lang['voci']  = "dati aziendali";
+Config::$localStrings['voce']  = "dati aziendali";
+Config::$localStrings['voci']  = "dati aziendali";
 ?>

@@ -8,8 +8,8 @@
  * app/users language IT v.1.0.0. 02/07/2018
 */
 
-$_lang['voce']  = "utente";
-$_lang['voci']  = "utenti";
-$_lang['la voce']  = "l'utente";
-$_lang['le voci']  = "gli utenti";
+Config::$localStrings['voce']  = "utente";
+Config::$localStrings['voci']  = "utenti";
+Config::$localStrings['la voce']  = "l'utente";
+Config::$localStrings['le voci']  = "gli utenti";
 ?>

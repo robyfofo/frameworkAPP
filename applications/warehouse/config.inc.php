@@ -45,8 +45,8 @@ $App->params->uploadPaths['conf'] = PATH_UPLOAD_DIR."warehouse/";
 $App->params->uploadDirs['conf'] = UPLOAD_DIR."warehouse/";
 $App->params->fields['conf'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>false,'primary'=>false),
-	'filename'=>array('label'=>$_lang['immagine'].' Top','searchTable'=>false,'required'=>false,'type'=>'varchar|255'),
-	'org_filename'=>array('label'=>$_lang['nome file originale'].' Top','searchTable'=>false,'required'=>false,'type'=>'varchar|255'),
+	'filename'=>array('label'=>Config::$localStrings['immagine'].' Top','searchTable'=>false,'required'=>false,'type'=>'varchar|255'),
+	'org_filename'=>array('label'=>Config::$localStrings['nome file originale'].' Top','searchTable'=>false,'required'=>false,'type'=>'varchar|255'),
 );
 
 // categorie e subcategorie */
@@ -55,10 +55,10 @@ $App->params->tables['cate'] = $App->params->tableRif.'categories';
 $App->params->fields['cate'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'primary'=>true),
 	'parent'=>array('label'=>'Parent','searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>0),
-	'users_id'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
-	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
+	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'title'=>array('label'=>Config::$localStrings['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
 );
 
 /* PRODOTTI */
@@ -68,16 +68,16 @@ $App->params->ordersType['prod'] = 'ASC';
 $App->params->tables['prod'] = $App->params->tableRif.'products';
 $App->params->fields['prod'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'primary'=>true),
-	'users_id'			=> array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'users_id'			=> array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
 	'categories_id'		=> array('label'=>'ID Cat','required'=>false,'type'=>'int'),
-	'price_unity'		=> array('label'=>$_lang['prezzo unitario'],'searchTable'=>true,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
-	'tax'				=> array('label'=>$_lang['iva'],'searchTable'=>true,'required'=>false,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
-	'filename'			=> array('label'=>$_lang['immagine'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
-	'org_filename'		=> array('label'=>$_lang['nome file originale'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
-	'created'			=> array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'			=> array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0'),
-	'title' 			=> array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
-	'content'			=> array('label'=>$_lang['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'mediumtext','defValue'=>''),
+	'price_unity'		=> array('label'=>Config::$localStrings['prezzo unitario'],'searchTable'=>true,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
+	'tax'				=> array('label'=>Config::$localStrings['iva'],'searchTable'=>true,'required'=>false,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
+	'filename'			=> array('label'=>Config::$localStrings['immagine'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
+	'org_filename'		=> array('label'=>Config::$localStrings['nome file originale'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
+	'created'			=> array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'			=> array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0'),
+	'title' 			=> array('label'=>Config::$localStrings['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
+	'content'			=> array('label'=>Config::$localStrings['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'mediumtext','defValue'=>''),
 );
 
 
@@ -89,13 +89,13 @@ $App->params->fields['proa'] = array (
 'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'primary'=>true),
 'products_id'=>array('label'=>'ID Prodotto','required'=>false,'searchTable'=>false,'type'=>'int|8'),
 'products_attribute_types_id'=>array('label'=>'ID Tipo Attributo','required'=>false,'searchTable'=>false,'type'=>'int|8'),
-'code'=>array('label'=>$_lang['codice'],'required'=>false,'searchTable'=>false,'type'=>'varchar|100','defValue'=>''),
-'value_string'=>array('label'=>$_lang['valore stringa'],'required'=>false,'searchTable'=>true,'type'=>'varchar|100','defValue'=>''),
-'value_int'=>array('label'=>$_lang['valore intero'],'required'=>false,'searchTable'=>true,'type'=>'int|8','validate'=>'int','defValue'=>'0'),
-'value_float'=>array('label'=>$_lang['valore float'],'required'=>false,'searchTable'=>true,'type'=>'float|10,2','validate'=>'float','defValue'=>'0.00'),
-'value_type'=>array('label'=>$_lang['valore tipo'],'required'=>false,'searchTable'=>true,'type'=>'varchar|10','defValue'=>''),
-'quantity'=>array('label'=>$_lang['quantità'],'required'=>false,'searchTable'=>true,'type'=>'int|8','validate'=>'int','defValue'=>'0'),
-'active'=>array('label'=>$_lang['attivazione'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
+'code'=>array('label'=>Config::$localStrings['codice'],'required'=>false,'searchTable'=>false,'type'=>'varchar|100','defValue'=>''),
+'value_string'=>array('label'=>Config::$localStrings['valore stringa'],'required'=>false,'searchTable'=>true,'type'=>'varchar|100','defValue'=>''),
+'value_int'=>array('label'=>Config::$localStrings['valore intero'],'required'=>false,'searchTable'=>true,'type'=>'int|8','validate'=>'int','defValue'=>'0'),
+'value_float'=>array('label'=>Config::$localStrings['valore float'],'required'=>false,'searchTable'=>true,'type'=>'float|10,2','validate'=>'float','defValue'=>'0.00'),
+'value_type'=>array('label'=>Config::$localStrings['valore tipo'],'required'=>false,'searchTable'=>true,'type'=>'varchar|10','defValue'=>''),
+'quantity'=>array('label'=>Config::$localStrings['quantità'],'required'=>false,'searchTable'=>true,'type'=>'int|8','validate'=>'int','defValue'=>'0'),
+'active'=>array('label'=>Config::$localStrings['attivazione'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
 );
 
 /* MODULES ITEM RESOURCES */
@@ -115,14 +115,14 @@ $App->params->fields['modules_item_resources'] = array (
 	'url_image'=>array('label'=>'Image Url','searchTable'=>false,'required'=>false,'type'=>'varchar|255','defValue'=>''),
 	'module_name'=>array('label'=>'Modulo','searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
 	'module_table'=>array('label'=>'Tabella','searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
-	'ordering'=>array('label'=>$_lang['ordinamento'],'required'=>false,'type'=>'int|8','validate'=>'int'),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attivazione'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
+	'ordering'=>array('label'=>Config::$localStrings['ordinamento'],'required'=>false,'type'=>'int|8','validate'=>'int'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attivazione'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
 );
 foreach($globalSettings['languages'] AS $lang) {
 	$searchTable = true;
-	$required = ($lang == $_lang['user'] ? true : false);
+	$required = ($lang == Config::$localStrings['user'] ? true : false);
 	$App->params->fields['modules_item_resources']['title_'.$lang] = array('label'=>'Titolo '.$lang,'searchTable'=>$searchTable,'required'=>$required,'type'=>'varchar|255');
-	$App->params->fields['modules_item_resources']['content_'.$lang] = array('label'=>$_lang['contenuto'].'  '.$lang,'searchTable'=>true,'required'=>false,'type'=>'text');
+	$App->params->fields['modules_item_resources']['content_'.$lang] = array('label'=>Config::$localStrings['contenuto'].'  '.$lang,'searchTable'=>true,'required'=>false,'type'=>'text');
 }
 ?>

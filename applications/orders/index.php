@@ -10,7 +10,7 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 $App->includeJscriptPHPTop = Core::$request->action."/templates/".$App->templateUser."/js/script.js.php";
@@ -55,7 +55,7 @@ switch(substr(Core::$request->method,-6,6)) {
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>';
 		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/css/ajax-bootstrap-select.min.css" rel="stylesheet">';
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/js/ajax-bootstrap-select.min.js"></script>';
-		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/js/locale/ajax-bootstrap-select.'.$_lang['charset'].'.min.js"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/js/locale/ajax-bootstrap-select.'.Config::$localStrings['charset'].'.min.js"></script>';
 		
 		$App->sessionName .= '-purchase';
 		if (!isset($_MY_SESSION_VARS[$App->sessionName]['page'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10','srcTab'=>'','order'=>'dateins DESC'));
@@ -68,14 +68,14 @@ switch(substr(Core::$request->method,-6,6)) {
 	break;
 	}
 	
-$App->defaultJavascript .= "messages['inserisci articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['inserisci %ITEM%'])))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['inserisci testo articolo'] = '".addslashes(ucfirst($_lang['inserisci testo articolo']))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['modifica articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['modifica %ITEM%'])))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['modifica'] = '".addslashes(ucfirst($_lang['modifica']))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['ci sono state modifiche negli articoli'] = '".addslashes(ucfirst($_lang['ci sono state modifiche negli articoli']))."!';".PHP_EOL;
+$App->defaultJavascript .= "messages['inserisci articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['inserisci %ITEM%'])))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['inserisci testo articolo'] = '".addslashes(ucfirst(Config::$localStrings['inserisci testo articolo']))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['modifica articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['modifica %ITEM%'])))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['modifica'] = '".addslashes(ucfirst(Config::$localStrings['modifica']))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['ci sono state modifiche negli articoli'] = '".addslashes(ucfirst(Config::$localStrings['ci sono state modifiche negli articoli']))."!';".PHP_EOL;
 
-$App->defaultJavascript .= "messages['numero ordine valido'] = '".addslashes(ucfirst($_lang['il numero ordine è valido!']))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['numero ordine esiste'] = '".addslashes(ucfirst($_lang['il numero ordine esiste già!']))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['numero ordine valido'] = '".addslashes(ucfirst(Config::$localStrings['il numero ordine è valido!']))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['numero ordine esiste'] = '".addslashes(ucfirst(Config::$localStrings['il numero ordine esiste già!']))."';".PHP_EOL;
 
 $App->defaultJavascript .= "var defDateins = '".$App->item->dateins."';".PHP_EOL;
 //$App->defaultJavascript .= "var defDatesca = '".$App->item->datesca."';";

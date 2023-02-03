@@ -44,7 +44,7 @@ switch(Core::$request->method) {
 				// crea output
 				$output .= '<div class="table-responsive"><table class="table table-fixed table-sm">';
 				$output .= '<thead>';
-					$output .= '<tr><th scope="col" class="col-3">'.ucfirst($_lang['data']).'</th><th scope="col" class="col-3">'.ucfirst($_lang['contenuto']).'</th><th scope="col" class="col-3">'.ucfirst($_lang['inizio']).' - '.ucfirst($_lang['fine']).'</th><th scope="col" class="col-3">'.ucfirst($_lang['tempo lavorato']).'</th></tr>';
+					$output .= '<tr><th scope="col" class="col-3">'.ucfirst(Config::$localStrings['data']).'</th><th scope="col" class="col-3">'.ucfirst(Config::$localStrings['contenuto']).'</th><th scope="col" class="col-3">'.ucfirst(Config::$localStrings['inizio']).' - '.ucfirst(Config::$localStrings['fine']).'</th><th scope="col" class="col-3">'.ucfirst(Config::$localStrings['tempo lavorato']).'</th></tr>';
 				$output .= '</thead>';
 				$output .= '<tbody>';
 				
@@ -118,7 +118,7 @@ switch(Core::$request->method) {
 			$valuetotalltime = DateFormat::sum_the_time($totalltime);
 			$valuetotmonthtime = DateFormat::sum_the_time($totmonthtime);
 			$valuetotpremonthtime = DateFormat::sum_the_time($totpremonthtime);
-			$output = '<table class="table table-striped table-condensed"><tbody><tr><td>'.ucfirst($_lang['tempo lavorato totale']).':</td><td class="text-right">'.$valuetotalltime.'</td></tr><tr><td><strong>'.ucfirst($_lang['tempo lavorato mese corrente']).':</strong></td><td class="text-right"><strong>'.$valuetotmonthtime.'</strong></td></tr><tr><td>'.ucfirst($_lang['tempo lavorato mese precedente']).':</td><td class="text-right">'.$valuetotpremonthtime.'</td></tr></tbody></table>';
+			$output = '<table class="table table-striped table-condensed"><tbody><tr><td>'.ucfirst(Config::$localStrings['tempo lavorato totale']).':</td><td class="text-right">'.$valuetotalltime.'</td></tr><tr><td><strong>'.ucfirst(Config::$localStrings['tempo lavorato mese corrente']).':</strong></td><td class="text-right"><strong>'.$valuetotmonthtime.'</strong></td></tr><tr><td>'.ucfirst(Config::$localStrings['tempo lavorato mese precedente']).':</td><td class="text-right">'.$valuetotpremonthtime.'</td></tr></tbody></table>';
 			echo $output;
 			}
 		die();	

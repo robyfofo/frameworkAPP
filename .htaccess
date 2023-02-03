@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /frameworkAPP/
+RewriteBase /phprojekt.altervista.org/frameworkAPP/
 
 # Don't compress images
 SetEnvIfNoCase Request_URI \

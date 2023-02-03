@@ -27,8 +27,8 @@ if (in_array(DB_TABLE_PREFIX.'timecard',$App->tablesOfDatabase) && file_exists(P
 		),
 
 		'icon panel'											=> 'fas fa-clock',
-		'label'													=> ucfirst($_lang['timecard']),
-		'sex suffix'											=> ucfirst($_lang['nuove']),
+		'label'													=> ucfirst(Config::$localStrings['timecard']),
+		'sex suffix'											=> ucfirst(Config::$localStrings['nuove']),
 		'type'													=> 'info',
 		'url'													=> true,
 		'url item'=>array (
@@ -47,11 +47,11 @@ if (in_array(DB_TABLE_PREFIX.'timecard',$App->tablesOfDatabase) && file_exists(P
 		),
 
 		'icon panel'								=> 'fas fa-clock',
-		'label'										=> ucfirst($_lang['ultime']).' '.$_lang['timecard'],
+		'label'										=> ucfirst(Config::$localStrings['ultime']).' '.Config::$localStrings['timecard'],
 		'fields'									=> array(
 			'content'								=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['contenuto']),
+				'label'								=> ucfirst(Config::$localStrings['contenuto']),
 				'url'								=> true,
 				'url item'=>array(
 					'string'						=> URL_SITE.'timecard',
@@ -60,7 +60,7 @@ if (in_array(DB_TABLE_PREFIX.'timecard',$App->tablesOfDatabase) && file_exists(P
 				)
 			),
 			'worktime'=>array(
-				'type'								=> ucfirst($_lang['tempo']),
+				'type'								=> ucfirst(Config::$localStrings['tempo']),
 				'label'								=> 'Tempo',
 				'url'								=> false
 			)
@@ -75,8 +75,8 @@ if (in_array(DB_TABLE_PREFIX.'thirdparty',$App->tablesOfDatabase) && file_exists
 	$App->homeBlocks['thirdparty'] = array(
 		'table'										=> DB_TABLE_PREFIX.'thirdparty',
 		'icon panel'								=> 'fas fa-users',
-		'label'										=> ucfirst($_lang['terze parti']),
-		'sex suffix'								=> ucfirst($_lang['nuove']),
+		'label'										=> ucfirst(Config::$localStrings['terze parti']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuove']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'=>array (
@@ -88,11 +88,11 @@ if (in_array(DB_TABLE_PREFIX.'thirdparty',$App->tablesOfDatabase) && file_exists
 	$App->homeTables['contacts'] = array(
 		'table'										=> DB_TABLE_PREFIX.'thirdparty',
 		'icon panel'								=> 'fas fa-users',
-		'label'										=> ucfirst($_lang['ultime']).' '.$_lang['terze parti'],
+		'label'										=> ucfirst(Config::$localStrings['ultime']).' '.Config::$localStrings['terze parti'],
 		'fields'									=> array(
 			'ragione_sociale'						=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['ragione sociale']),
+				'label'								=> ucfirst(Config::$localStrings['ragione sociale']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'third-party/listItem',
@@ -111,8 +111,8 @@ if (in_array(DB_TABLE_PREFIX.'projects',$App->tablesOfDatabase) && file_exists(P
 	$App->homeBlocks['projects'] = array(
 		'table'										=> DB_TABLE_PREFIX.'projects',
 		'icon panel'								=> 'fas fa-project-diagram',
-		'label'										=> ucfirst($_lang['progetti']),
-		'sex suffix'								=> ucfirst($_lang['nuovi']),
+		'label'										=> ucfirst(Config::$localStrings['progetti']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuovi']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'									=> array (
@@ -123,11 +123,11 @@ if (in_array(DB_TABLE_PREFIX.'projects',$App->tablesOfDatabase) && file_exists(P
 	$App->homeTables['projects'] = array(
 		'table'										=> DB_TABLE_PREFIX.'projects',
 		'icon panel'								=> 'fas fa-project-diagram',
-		'label'										=> ucfirst($_lang['ultimi']).' '.$_lang['progetti'],
+		'label'										=> ucfirst(Config::$localStrings['ultimi']).' '.Config::$localStrings['progetti'],
 		'fields'									=> array(
 			'title'									=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['titolo']),
+				'label'								=> ucfirst(Config::$localStrings['titolo']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'projects',
@@ -146,8 +146,8 @@ if (in_array(DB_TABLE_PREFIX.'todo',$App->tablesOfDatabase) && file_exists(PATH.
 	$App->homeBlocks['todo'] = array(
 		'table'										=> DB_TABLE_PREFIX.'todo',
 		'icon panel'								=> 'fas fa-bookmark',
-		'label'										=> ucfirst($_lang['da fare']),
-		'sex suffix'								=> ucfirst($_lang['nuovi']),
+		'label'										=> ucfirst(Config::$localStrings['da fare']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuovi']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'									=> array (
@@ -159,11 +159,11 @@ if (in_array(DB_TABLE_PREFIX.'todo',$App->tablesOfDatabase) && file_exists(PATH.
 	$App->homeTables['todo'] = array(
 		'table'										=> DB_TABLE_PREFIX.'todo',
 		'icon panel'								=> 'fas fa-bookmark',
-		'label'										=> ucfirst($_lang['ultimi']).' '.$_lang['da fare'],
+		'label'										=> ucfirst(Config::$localStrings['ultimi']).' '.Config::$localStrings['da fare'],
 		'fields'=>array(
 			'title'									=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['titolo']),
+				'label'								=> ucfirst(Config::$localStrings['titolo']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'todo',
@@ -182,8 +182,8 @@ if (in_array(DB_TABLE_PREFIX.'invoices_sales',$App->tablesOfDatabase) && file_ex
 	$App->homeBlocks['invoices_sales'] = array(
 		'table'										=> DB_TABLE_PREFIX.'invoices_sales',
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['fatture vendite']),
-		'sex suffix'								=> ucfirst($_lang['nuove']),
+		'label'										=> ucfirst(Config::$localStrings['fatture vendite']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuove']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'									=> array (
@@ -204,11 +204,11 @@ if (in_array(DB_TABLE_PREFIX.'invoices_sales',$App->tablesOfDatabase) && file_ex
 			'order'									=> "created DESC"
 			),
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['ultime']).' '.$_lang['fatture vendite'],
+		'label'										=> ucfirst(Config::$localStrings['ultime']).' '.Config::$localStrings['fatture vendite'],
 		'fields'									=> array(
 			'number'								=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['numero']),
+				'label'								=> ucfirst(Config::$localStrings['numero']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'invoices/listInvSal',
@@ -218,14 +218,14 @@ if (in_array(DB_TABLE_PREFIX.'invoices_sales',$App->tablesOfDatabase) && file_ex
 				),
 			'total'=>array(
 				'type'								=> 'amount',
-				'label'								=> ucfirst($_lang['importo']),
+				'label'								=> ucfirst(Config::$localStrings['importo']),
 				'class'								=> 'text-right',
 				'url'								=> false,
 				'url item'							=> array()
 				),
 			'onorario'								=> array(
 				'type'								=> 'amount',
-				'label'								=> ucfirst($_lang['totale']),
+				'label'								=> ucfirst(Config::$localStrings['totale']),
 				'class'								=> 'text-right',
 				'url'								=> false,
 				'url item'							=> array()
@@ -241,8 +241,8 @@ if (in_array(DB_TABLE_PREFIX.'invoices_purchases',$App->tablesOfDatabase) && fil
 	$App->homeBlocks['invoices_purchases'] = array(
 		'table'										=> DB_TABLE_PREFIX.'invoices_purchases',
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['fatture acquisti']),
-		'sex suffix'								=> ucfirst($_lang['nuove']),
+		'label'										=> ucfirst(Config::$localStrings['fatture acquisti']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuove']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'									=> array (
@@ -261,11 +261,11 @@ if (in_array(DB_TABLE_PREFIX.'invoices_purchases',$App->tablesOfDatabase) && fil
 			'order'									=> "created DESC"
 		),
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['ultime']).' '.$_lang['fatture acquisti'],
+		'label'										=> ucfirst(Config::$localStrings['ultime']).' '.Config::$localStrings['fatture acquisti'],
 		'fields'									=> array(
 			'number'								=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['numero']),
+				'label'								=> ucfirst(Config::$localStrings['numero']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'invoices/listInvPur',
@@ -275,7 +275,7 @@ if (in_array(DB_TABLE_PREFIX.'invoices_purchases',$App->tablesOfDatabase) && fil
 			),
 			'total'=>array(
 				'type'								=> 'amount',
-				'label'								=> ucfirst($_lang['totale']),
+				'label'								=> ucfirst(Config::$localStrings['totale']),
 				'class'								=> 'text-right',
 				'url'								=> false,
 				'url item'							=> array()
@@ -299,8 +299,8 @@ if (in_array(DB_TABLE_PREFIX.'estimates',$App->tablesOfDatabase) && file_exists(
 		),
 
 		'icon panel'								=> 'fa fa-bullseye',
-		'label'										=> ucfirst($_lang['preventivi']),
-		'sex suffix'								=> ucfirst($_lang['nuovi']),
+		'label'										=> ucfirst(Config::$localStrings['preventivi']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuovi']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'=>array (
@@ -323,11 +323,11 @@ if (in_array(DB_TABLE_PREFIX.'estimates',$App->tablesOfDatabase) && file_exists(
 		),
 
 		'icon panel'								=> 'fa fa-bullseye',
-		'label'										=> ucfirst($_lang['ultimi']).' '.$_lang['preventivi'],
+		'label'										=> ucfirst(Config::$localStrings['ultimi']).' '.Config::$localStrings['preventivi'],
 		'fields'									=> array(
 			'note' 									=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['nota']),
+				'label'								=> ucfirst(Config::$localStrings['nota']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'estimates/listItem',
@@ -336,7 +336,7 @@ if (in_array(DB_TABLE_PREFIX.'estimates',$App->tablesOfDatabase) && file_exists(
 			),
 			'total'									=> array(
 				'type'								=> 'amount',
-				'label'								=> ucfirst($_lang['totale']),
+				'label'								=> ucfirst(Config::$localStrings['totale']),
 				'class'								=> 'text-right',
 				'url'								=> false,
 				'url item'							=> array()
@@ -360,8 +360,8 @@ if (in_array(DB_TABLE_PREFIX.'bilancio_familiare',$App->tablesOfDatabase) && fil
 		),
 
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['bilancio entrate']),
-		'sex suffix'								=> ucfirst($_lang['nuove']),
+		'label'										=> ucfirst(Config::$localStrings['bilancio entrate']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuove']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'=>array (
@@ -380,8 +380,8 @@ if (in_array(DB_TABLE_PREFIX.'bilancio_familiare',$App->tablesOfDatabase) && fil
 		),
 
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['bilancio uscite']),
-		'sex suffix'								=> ucfirst($_lang['nuove']),
+		'label'										=> ucfirst(Config::$localStrings['bilancio uscite']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuove']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'=>array (
@@ -400,11 +400,11 @@ if (in_array(DB_TABLE_PREFIX.'bilancio_familiare',$App->tablesOfDatabase) && fil
 		),
 
 		'icon panel'								=> 'fas fa-euro-sign',
-		'label'										=> ucfirst($_lang['ultime']).' '.$_lang['bilancio entrate'],
+		'label'										=> ucfirst(Config::$localStrings['ultime']).' '.Config::$localStrings['bilancio entrate'],
 		'fields'									=> array(
 			'description' 							=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['descrizione']),
+				'label'								=> ucfirst(Config::$localStrings['descrizione']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'bilanciofamiliare/listEntr',
@@ -424,11 +424,11 @@ if (in_array(DB_TABLE_PREFIX.'bilancio_familiare',$App->tablesOfDatabase) && fil
 		),
 
 		'icon panel'								=> 'fas fa-euro-sign',
- 		'label'										=> ucfirst($_lang['ultime']).' '.$_lang['bilancio uscite'],
+ 		'label'										=> ucfirst(Config::$localStrings['ultime']).' '.Config::$localStrings['bilancio uscite'],
 		'fields'									=> array(
 			'description' 							=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['descrizione']),
+				'label'								=> ucfirst(Config::$localStrings['descrizione']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'bilanciofamiliare/listOutp',
@@ -453,8 +453,8 @@ if (in_array(DB_TABLE_PREFIX.'orders',$App->tablesOfDatabase) && file_exists(PAT
 			'order'									=> "created DESC"
 		),
 		'icon panel'								=> 'fas fa-shopping-basket',
-		'label'										=> ucfirst($_lang['ordini']),
-		'sex suffix'								=> ucfirst($_lang['nuovi']),
+		'label'										=> ucfirst(Config::$localStrings['ordini']),
+		'sex suffix'								=> ucfirst(Config::$localStrings['nuovi']),
 		'type'										=> 'info',
 		'url'										=> true,
 		'url item'=>array (
@@ -478,11 +478,11 @@ if (in_array(DB_TABLE_PREFIX.'orders',$App->tablesOfDatabase) && file_exists(PAT
 		),
 
 		'icon panel'								=> 'fas fa-shopping-basket',
-		'label'										=> ucfirst($_lang['ultimi']).' '.$_lang['ordini'],
+		'label'										=> ucfirst(Config::$localStrings['ultimi']).' '.Config::$localStrings['ordini'],
 		'fields'									=> array(
 			'order_number' 							=> array(
 				'type'								=> 'varchar',
-				'label'								=> ucfirst($_lang['numero']),
+				'label'								=> ucfirst(Config::$localStrings['numero']),
 				'url'								=> true,
 				'url item'							=> array(
 					'string'						=> URL_SITE.'orders/listOrders',
@@ -491,7 +491,7 @@ if (in_array(DB_TABLE_PREFIX.'orders',$App->tablesOfDatabase) && file_exists(PAT
 			),
 			'total'									=> array(
 				'type'								=> 'amount',
-				'label'								=> ucfirst($_lang['totale']),
+				'label'								=> ucfirst(Config::$localStrings['totale']),
 				'class'								=> 'text-right',
 				'url'								=> false,
 				'url item'							=> array()

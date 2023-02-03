@@ -33,9 +33,9 @@ $App->params->moduleAccessWrite = (Permissions::checkIfModulesIsWritable($App->p
 $App->params->tables['item'] = DB_TABLE_PREFIX.'levels';
 $App->params->fields['item'] = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'title'=>array('label'=>$_lang['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
-	'modules'=>array('label'=>$_lang['moduli'],'searchTable'=>false,'required'=>false,'type'=>'varchar|255','defValue'=>'','validate'=>'explodearray'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
+	'title'=>array('label'=>Config::$localStrings['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
+	'modules'=>array('label'=>Config::$localStrings['moduli'],'searchTable'=>false,'required'=>false,'type'=>'varchar|255','defValue'=>'','validate'=>'explodearray'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0)
 	);
 	
 $App->params->tables['ass-item'] = DB_TABLE_PREFIX.'modules_levels_access';

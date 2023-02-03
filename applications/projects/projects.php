@@ -26,7 +26,7 @@ switch(Core::$request->method) {
 	case 'disactiveItem':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>$_lang['voce'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
+			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>Config::$localStrings['voce'],'attivata'=>Config::$localStrings['attivato'],'disattivata'=>Config::$localStrings['disattivato']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');	
 		} else {
@@ -52,7 +52,7 @@ switch(Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellato'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 
 		} else {
@@ -68,7 +68,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('current'),array('1',$App->id),'id = ?');
 			Sql::updateRecord();
 			if ( Core::$resultOp->error > 0 ) { ToolsStrings::redirect(URL_SITE.'error/db');}
-			$_SESSION['message'] = '0|'.ucfirst($_lang['voce corrente']).'!';
+			$_SESSION['message'] = '0|'.ucfirst(Config::$localStrings['voce corrente']).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 		} else {
 			ToolsStrings::redirect(URL_SITE.'error/404'); die();
@@ -77,7 +77,7 @@ switch(Core::$request->method) {
 	
 	case 'timecardItem':
 		if ($App->id > 0) {
-			Sql::switchFieldOnOff($App->params->tables['item'],'timecard','id',$App->id,array('labelOn'=>ucfirst(preg_replace('/%ITEM%/',$_lang['timecard'],$_lang['%ITEM% attivata'])).'!','labelOff'=>ucfirst(preg_replace('/%ITEM%/',$_lang['timecard'],$_lang['%ITEM% disattivata'])).'!'));
+			Sql::switchFieldOnOff($App->params->tables['item'],'timecard','id',$App->id,array('labelOn'=>ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['timecard'],Config::$localStrings['%ITEM% attivata'])).'!','labelOff'=>ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['timecard'],Config::$localStrings['%ITEM% disattivata'])).'!'));
 			}		
 		$App->viewMethod = 'list';	
 	break;
@@ -89,7 +89,7 @@ switch(Core::$request->method) {
 		$App->item->active = 1;
 		$App->item->id_contact = 0;
 		$App->item->created = $App->nowDateTime;
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->defaultJavascript = "var idproject = '0';";
 		$App->methodForm = 'insertItem';
 		$App->viewMethod = 'form';	
@@ -100,7 +100,7 @@ switch(Core::$request->method) {
 		if ($_POST) {
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newItem');
@@ -116,7 +116,7 @@ switch(Core::$request->method) {
 			Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
 			if ( Core::$resultOp->error > 0 ) { ToolsStrings::redirect(URL_SITE.'error/db');}
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% inserito'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% inserito'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 
 		} else {
@@ -140,7 +140,7 @@ switch(Core::$request->method) {
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
 				$s = $App->params->statusTodo[$value->status];
-				$value->statusLabel = (isset($_lang[$App->params->statusTodo[$value->status]]) ? $_lang[$App->params->statusTodo[$value->status]] : $App->params->statusTodo[$value->status]);
+				$value->statusLabel = (isset(Config::$localStrings[$App->params->statusTodo[$value->status]]) ? Config::$localStrings[$App->params->statusTodo[$value->status]] : $App->params->statusTodo[$value->status]);
 				$arr[] = $value;
 			}
 		}
@@ -152,7 +152,7 @@ switch(Core::$request->method) {
 		if ( Core::$resultOp->error > 0 ) { ToolsStrings::redirect(URL_SITE.'error/db');}
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
 
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']);
 		$App->defaultJavascript = "var idproject = '".$App->id."';";
 		$App->methodForm = 'updateItem';
 		$App->viewMethod = 'form';
@@ -170,7 +170,7 @@ switch(Core::$request->method) {
 			if ($_POST) {	
 
 				// parsa i post in base ai campi
-				Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+				Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 				if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
@@ -186,7 +186,7 @@ switch(Core::$request->method) {
 				Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificato'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificato'])).'!';
 				if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
 				} else {
@@ -197,7 +197,7 @@ switch(Core::$request->method) {
 				ToolsStrings::redirect(URL_SITE.'error/404');
 			}
 		} else {
-			$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['non hai il permesso per modificare il %ITEM%'])).'!';
+			$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['non hai il permesso per modificare il %ITEM%'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 		}
 	break;
@@ -282,16 +282,16 @@ switch(Core::$request->method) {
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
-				$actions = '<a class="btn btn-sm btn-default" href="'.URL_SITE.Core::$request->action.'/'.($value->active == 1 ? 'disactive' : 'active').'Item/'.$value->id.'" title="'.($value->active == 1 ? ucfirst($_lang['disattiva']).' '.$_lang['la voce'] : ucfirst($_lang['attiva']).' '.$_lang['la voce']).'"><i class="fas fa-'.($value->active == 1 ? 'unlock' : 'lock').'"> </i></a><a class="btn btn-sm btn-default" href="'.URL_SITE.Core::$request->action.'/modifyItem/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce'].'"><i class="far fa-edit"> </i></a><a class="btn btn-sm btn-default confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="far fa-trash-alt"></i></a>';
+				$actions = '<a class="btn btn-sm btn-default" href="'.URL_SITE.Core::$request->action.'/'.($value->active == 1 ? 'disactive' : 'active').'Item/'.$value->id.'" title="'.($value->active == 1 ? ucfirst(Config::$localStrings['disattiva']).' '.Config::$localStrings['la voce'] : ucfirst(Config::$localStrings['attiva']).' '.Config::$localStrings['la voce']).'"><i class="fas fa-'.($value->active == 1 ? 'unlock' : 'lock').'"> </i></a><a class="btn btn-sm btn-default" href="'.URL_SITE.Core::$request->action.'/modifyItem/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce'].'"><i class="far fa-edit"> </i></a><a class="btn btn-sm btn-default confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce'].'"><i class="far fa-trash-alt"></i></a>';
 				
-				$timecards = '<button type="button" href="'.URL_SITE.Core::$request->action.'/getTimecardsProjectAjax/'.$value->id.'" data-remote="false" data-target="#myModal" data-toggle="modal" title="'.ucfirst($_lang['mostra tempo lavorato al progetto']).'" class="btn btn-sm btn-default"><i class="far fa-clock"></i></button>';											
-				$options = '<a class="btn btn-sm '.($value->timecard == 1 ? 'btn-info' : 'btn-warning').'" href="'.URL_SITE.Core::$request->action.'/timecardItem/'.$value->id.'" title="'.($value->timecard == 1 ? ucfirst($_lang['non associa timecard']) : ucfirst($_lang['associa timecard'])).'"><i class="'.($value->timecard == 1 ? 'far fa-clock' : 'fas fa-ban').'"></i></a>&nbsp;
-				<a class="btn btn-sm btn-default" href="'.URL_SITE.Core::$request->action.'/currentItem/'.$value->id.'" title="'.($value->current == 1 ? ucfirst($_lang['imposta come non corrente']) : ucfirst($_lang['imposta come corrente'])).'"><i class="'.($value->current == 1 ? 'fas fa-star' : 'far fa-star').'"></i></a>';
+				$timecards = '<button type="button" href="'.URL_SITE.Core::$request->action.'/getTimecardsProjectAjax/'.$value->id.'" data-remote="false" data-target="#myModal" data-toggle="modal" title="'.ucfirst(Config::$localStrings['mostra tempo lavorato al progetto']).'" class="btn btn-sm btn-default"><i class="far fa-clock"></i></button>';											
+				$options = '<a class="btn btn-sm '.($value->timecard == 1 ? 'btn-info' : 'btn-warning').'" href="'.URL_SITE.Core::$request->action.'/timecardItem/'.$value->id.'" title="'.($value->timecard == 1 ? ucfirst(Config::$localStrings['non associa timecard']) : ucfirst(Config::$localStrings['associa timecard'])).'"><i class="'.($value->timecard == 1 ? 'far fa-clock' : 'fas fa-ban').'"></i></a>&nbsp;
+				<a class="btn btn-sm btn-default" href="'.URL_SITE.Core::$request->action.'/currentItem/'.$value->id.'" title="'.($value->current == 1 ? ucfirst(Config::$localStrings['imposta come non corrente']) : ucfirst(Config::$localStrings['imposta come corrente'])).'"><i class="'.($value->current == 1 ? 'fas fa-star' : 'far fa-star').'"></i></a>';
 
 				$tablefields = array(
 					'id'=>$value->id,
 					'title'=>$value->title,
-					'status'=>'(<small>'.$value->status.'</small>) '.ucfirst(isset($_lang[$App->params->status[$value->status]]) ? $_lang[$App->params->status[$value->status]] : $App->params->status[$value->status]),
+					'status'=>'(<small>'.$value->status.'</small>) '.ucfirst(isset(Config::$localStrings[$App->params->status[$value->status]]) ? Config::$localStrings[$App->params->status[$value->status]] : $App->params->status[$value->status]),
 					'completato'=>$value->completato.' %',
 					'times'=>$timecards,
 					'opts'=>$options,
@@ -330,7 +330,7 @@ switch((string)$App->viewMethod) {
 	case 'list':
 	default:
 
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista dei %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->templateApp = 'listProjects.html';			
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listProjects.js"></script>';	
 	break;

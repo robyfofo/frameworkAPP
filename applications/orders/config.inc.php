@@ -9,7 +9,7 @@
 */
 
 $App->params = new stdClass();
-$App->params->label = ucfirst($_lang['fatture']);
+$App->params->label = ucfirst(Config::$localStrings['fatture']);
 /* prende i dati del modulo */
 Sql::initQuery(DB_TABLE_PREFIX.'modules',array('section','name','label','help_small','help'),array('orders'),'name = ?');
 $obj = Sql::getRecord();
@@ -36,29 +36,29 @@ $App->params->moduleAccessWrite = (Permissions::checkIfModulesIsWritable($App->p
 $App->params->tables['orders']  = DB_TABLE_PREFIX.'orders';
 $App->params->fields['orders']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'users_id'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
-	'dateins'=>array('label'=>$_lang['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
-	'number'=>array('label'=>$_lang['numero'],'searchTable'=>true,'required'=>true,'type'=>'varchar|20','defValue'=>''),
-	'number_year'=>array('label'=>$_lang['anno'],'searchTable'=>true,'required'=>true,'type'=>'varchar|4','defValue'=>$App->params->defaultNumberYear,'validate'=>'int'),
-	'note'=>array('label'=>$_lang['Note (visibili in fattura)'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255','defValue'=>''),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
+	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'dateins'=>array('label'=>Config::$localStrings['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
+	'number'=>array('label'=>Config::$localStrings['numero'],'searchTable'=>true,'required'=>true,'type'=>'varchar|20','defValue'=>''),
+	'number_year'=>array('label'=>Config::$localStrings['anno'],'searchTable'=>true,'required'=>true,'type'=>'varchar|4','defValue'=>$App->params->defaultNumberYear,'validate'=>'int'),
+	'note'=>array('label'=>Config::$localStrings['Note (visibili in fattura)'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255','defValue'=>''),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
 	);
 	
 // order articles
 $App->params->tables['articles']  = DB_TABLE_PREFIX.'orders_articles';
 $App->params->fields['articles']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'users_id'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
-	'orders_id'=>array('label'=>$_lang['voce'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>'0','validate'=>'int'),
-	'content'=>array('label'=>$_lang['contenuto'],'searchTable'=>false,'required'=>true,'type'=>'text','defValue'=>''),
-	'price_unity'=>array('label'=>$_lang['prezzo unitario'],'searchTable'=>true,'required'=>false,'type'=>'float|','defValue'=>'0.00','validate'=>'float'),
-	'price_tax'=>array('label'=>$_lang['imponibile'],'searchTable'=>true,'required'=>false,'type'=>'float','defValue'=>'0.00','validate'=>'float'),
-	'price_total'=>array('label'=>$_lang['prezzo totale'],'searchTable'=>true,'required'=>false,'type'=>'float','defValue'=>'0.00','validate'=>'float'),
-	'quantity'=>array('label'=>$_lang['quantità'],'searchTable'=>true,'required'=>true,'type'=>'int','defValue'=>'22','validate'=>'float|4,1'),	
-	'tax'=>array('label'=>$_lang['tassa'],'searchTable'=>true,'required'=>true,'type'=>'varchar','defValue'=>'22'),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
+	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'orders_id'=>array('label'=>Config::$localStrings['voce'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>'0','validate'=>'int'),
+	'content'=>array('label'=>Config::$localStrings['contenuto'],'searchTable'=>false,'required'=>true,'type'=>'text','defValue'=>''),
+	'price_unity'=>array('label'=>Config::$localStrings['prezzo unitario'],'searchTable'=>true,'required'=>false,'type'=>'float|','defValue'=>'0.00','validate'=>'float'),
+	'price_tax'=>array('label'=>Config::$localStrings['imponibile'],'searchTable'=>true,'required'=>false,'type'=>'float','defValue'=>'0.00','validate'=>'float'),
+	'price_total'=>array('label'=>Config::$localStrings['prezzo totale'],'searchTable'=>true,'required'=>false,'type'=>'float','defValue'=>'0.00','validate'=>'float'),
+	'quantity'=>array('label'=>Config::$localStrings['quantità'],'searchTable'=>true,'required'=>true,'type'=>'int','defValue'=>'22','validate'=>'float|4,1'),	
+	'tax'=>array('label'=>Config::$localStrings['tassa'],'searchTable'=>true,'required'=>true,'type'=>'varchar','defValue'=>'22'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
 );
 
 $App->params->tables['orders_thirdparty']  = DB_TABLE_PREFIX.'orders_thirdparty';

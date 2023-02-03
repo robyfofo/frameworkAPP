@@ -8,30 +8,30 @@
  * Invoices language IT v.1.3.0. 08/09/2020
 */
 
-$_lang['voce']  = "fattura vendita";
-$_lang['voci']  = "fatture vendita";
-$_lang['voce-p']  = "fattura acquisto";
-$_lang['voci-p']  = "fattura acquisto";
-$_lang['la voce']  = "la fattura vendita";
-$_lang['le voci']  = "le fatture vendita";
-$_lang['la voce-p']  = "la fattura acquisto";
-$_lang['le voci-p']  = "le fatture acquisto";
-$_lang['articoli abbreviato'] = "art.";
-$_lang['Note (visibili in fattura)'] = "Note (visibili in fattura)";
-$_lang['note'] = "note";
-$_lang['cliente']  = "cliente";
-$_lang['tassa aggiuntiva'] = "tassa aggiuntiva";
-$_lang['inserisci una tassa aggiuntiva'] = "inserisci una tassa aggiuntiva";
-$_lang['articoli associati']  = "articoli associati";
-$_lang['aggiungi articolo']  = "aggiungi articolo";
-$_lang['inserisci testo articolo']  = "inserisci testo articolo";
-$_lang['totale movimenti'] = "total movimenti";
-$_lang['Fattura non trovata!'] = "Fattura non trovata!";
-$_lang['Errore lettura dati fattura!'] = "Errore lettura dati fattura!";
-$_lang['Errore lettura dati cliente!'] = "Errore lettura dati cliente!";
-$_lang['segna come pagata'] = "segna come pagata";
-$_lang['fattura segnata come pagata'] = "fattura segnata come pagata!";
-$_lang['il numero fattura è valido!'] = "il numero fattura è valido!";
-$_lang['il numero fattura esiste già!'] = "il numero fattura esiste già!";
-$_lang['ci sono state modifiche negli articoli'] = 'ci sono state modifiche negli articoli';
+Config::$localStrings['voce']  = "fattura vendita";
+Config::$localStrings['voci']  = "fatture vendita";
+Config::$localStrings['voce-p']  = "fattura acquisto";
+Config::$localStrings['voci-p']  = "fattura acquisto";
+Config::$localStrings['la voce']  = "la fattura vendita";
+Config::$localStrings['le voci']  = "le fatture vendita";
+Config::$localStrings['la voce-p']  = "la fattura acquisto";
+Config::$localStrings['le voci-p']  = "le fatture acquisto";
+Config::$localStrings['articoli abbreviato'] = "art.";
+Config::$localStrings['Note (visibili in fattura)'] = "Note (visibili in fattura)";
+Config::$localStrings['note'] = "note";
+Config::$localStrings['cliente']  = "cliente";
+Config::$localStrings['tassa aggiuntiva'] = "tassa aggiuntiva";
+Config::$localStrings['inserisci una tassa aggiuntiva'] = "inserisci una tassa aggiuntiva";
+Config::$localStrings['articoli associati']  = "articoli associati";
+Config::$localStrings['aggiungi articolo']  = "aggiungi articolo";
+Config::$localStrings['inserisci testo articolo']  = "inserisci testo articolo";
+Config::$localStrings['totale movimenti'] = "total movimenti";
+Config::$localStrings['Fattura non trovata!'] = "Fattura non trovata!";
+Config::$localStrings['Errore lettura dati fattura!'] = "Errore lettura dati fattura!";
+Config::$localStrings['Errore lettura dati cliente!'] = "Errore lettura dati cliente!";
+Config::$localStrings['segna come pagata'] = "segna come pagata";
+Config::$localStrings['fattura segnata come pagata'] = "fattura segnata come pagata!";
+Config::$localStrings['il numero fattura è valido!'] = "il numero fattura è valido!";
+Config::$localStrings['il numero fattura esiste già!'] = "il numero fattura esiste già!";
+Config::$localStrings['ci sono state modifiche negli articoli'] = 'ci sono state modifiche negli articoli';
 ?>

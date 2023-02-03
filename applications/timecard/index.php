@@ -10,7 +10,7 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 $App->includeJscriptPHPTop = Core::$request->action."/templates/".$App->templateUser."/js/script.js.php";
@@ -70,7 +70,7 @@ switch(substr(Core::$request->method,-4,4)) {
 
 		$App->defaultJavascript = "let defaultDataini = '".$_SESSION[$App->sessionName]['dataini']."';";
 		$App->defaultJavascript .= "let defaultDataend = '".$_SESSION[$App->sessionName]['dataend']."';";
-		$App->defaultJavascript .= "messages['Intervallo tra le due date errato!'] = '".ucfirst($_lang['Intervallo tra le due date errato!'])."';";
+		$App->defaultJavascript .= "messages['Intervallo tra le due date errato!'] = '".ucfirst(Config::$localStrings['Intervallo tra le due date errato!'])."';";
 
 
 	break;
@@ -101,8 +101,8 @@ switch(substr(Core::$request->method,-4,4)) {
 		if (!isset($_MY_SESSION_VARS[$App->sessionName]['data-timecard'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$App->nowDate);
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.$App->pathApplications.Core::$request->action."/items.php");
-		$App->defaultJavascript = "messages['Devi selezionare un progetto'] = '".preg_replace('/%ITEM%/',$_lang['progetto'],$_lang['Devi selezionare un %ITEM%!'])."';";
-		$App->defaultJavascript .= "messages['intervallo di tempo si sovrappone ad un altro inserito nella stessa data'] = '".ucfirst($_lang['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'])."';";
+		$App->defaultJavascript = "messages['Devi selezionare un progetto'] = '".preg_replace('/%ITEM%/',Config::$localStrings['progetto'],Config::$localStrings['Devi selezionare un %ITEM%!'])."';";
+		$App->defaultJavascript .= "messages['intervallo di tempo si sovrappone ad un altro inserito nella stessa data'] = '".ucfirst(Config::$localStrings['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'])."';";
 		$App->defaultJavascript .= "defaultappdata = '".$_MY_SESSION_VARS[$App->sessionName]['data-timecard']."';";
 		$App->defaultJavascript .= "defaultdata = '".$App->defaultFormData."';";
 		$App->defaultJavascript .= "defaultdata1 = '".$App->defaultFormData1."';";

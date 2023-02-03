@@ -15,7 +15,7 @@ class Customers {
 		$this->messages = array();		
 		}
 		
-	public function checkUsername($id,$_lang){
+	public function checkUsername($id,Config::$localStrings){
 		$this->error = 0;
 		$oldUsername = '';
 		$App = new stdClass;	
@@ -30,7 +30,7 @@ class Customers {
 			Sql::initQuery($this->appTable,array('id'),array($_POST['username']),'username = ?');
 			$count = Sql::countRecord();
 			if ($count > 0) {
-				$this->message = preg_replace('/%USERNAME%/',$_POST['username'],$_lang['Username %USERNAME% risulta già presente nel nostro database!']);
+				$this->message = preg_replace('/%USERNAME%/',$_POST['username'],Config::$localStrings['Username %USERNAME% risulta già presente nel nostro database!']);
 
 	      	$this->error = 1;
 	     	 	$_POST['username'] = '';
@@ -39,7 +39,7 @@ class Customers {
 	   return $_POST['username'];
 		}
 				
-	public function checkPassword($id,$_lang) {
+	public function checkPassword($id,Config::$localStrings) {
 		$id = intval($id);
 		$App = new stdClass;	
       $App->oldItem = new stdClass;
@@ -55,7 +55,7 @@ class Customers {
 					$_POST['password'] = md5($_POST['password']);
 		   		}	else {
 		   			$_POST['password'] = $oldPassword;
-		   			$this->message = $_lang['Le due password non corrispondono! Sarà comunque mantenuta quella precedentemente memorizzata'];
+		   			$this->message = Config::$localStrings['Le due password non corrispondono! Sarà comunque mantenuta quella precedentemente memorizzata'];
 			      	$this->errorType = 2;
 		   			}
 				
@@ -69,11 +69,11 @@ class Customers {
 					if ($_POST['password'] === $_POST['passwordCF']) {
 		      			$_POST['password'] = md5($_POST['password']);
 		      		} else {
-		      			$this->message = $_lang['Le due password non corrispondono!'];
+		      			$this->message = Config::$localStrings['Le due password non corrispondono!'];
 		      			$this->error = 1;		      			
 		      			}
 					} else {
-				 		$this->message = $_lang['Devi inserire la password!'];
+				 		$this->message = Config::$localStrings['Devi inserire la password!'];
 		      		$this->error = 1;
 		      		$_POST['password'] = '';
 				 	}
@@ -99,7 +99,7 @@ class Customers {
 		return $count;
 		}
 		
-	public function checkExistEmail($id,$_lang) {
+	public function checkExistEmail($id,Config::$localStrings) {
 		$this->error = 0;
 		$oldEmail = '';
 		$App = new stdClass;	
@@ -114,7 +114,7 @@ class Customers {
 			Sql::initQuery($this->appTable,array('id'),array($_POST['email']),'email = ?');
 			$count = Sql::countRecord();
 			if ($count > 0) {
-				$this->message = preg_replace('/%EMAIL%/',$_POST['email'],$_lang['Indirizzo email %EMAIL% risulta già presente nel nostro database!']);
+				$this->message = preg_replace('/%EMAIL%/',$_POST['email'],Config::$localStrings['Indirizzo email %EMAIL% risulta già presente nel nostro database!']);
 	      	$this->error = 1;
 	     	 	$_POST['email'] = '';
 	   		}	

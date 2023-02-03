@@ -10,7 +10,7 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 
 //print_r($App->tablesOfDatabase);
@@ -27,17 +27,14 @@ if (!isset($App->params->label) || (isset($App->params->label) && $App->params->
 /* variabili ambiente */
 $App->codeVersion = ' 1.3.0.';
 $App->pageTitle = $App->params->label;
-$App->pageSubTitle = $_lang['pagesubtitle'];
+$App->pageSubTitle = Config::$localStrings['pagesubtitle'];
 $Module = new Module('','home');
 $App->Module = $Module;
 
 $App->params->breadcrumb = '<li class="active"><i class="icon-user"></i> '.$App->params->label.'</li>';
 
 $App->countPanel = array();
-$today = $App->nowDateTime;
-$App->lastLogin = (isset($_MY_SESSION_VARS['lastLogin']) ? $_MY_SESSION_VARS['lastLogin'] : $today);
-//$App->lastLogin = '2015-01-01 00:00:00';
-$App->lastLoginLang = DateFormat::getDateTimeIsoFormatString($App->lastLogin,$_lang['data time format string'],$_lang['months'],$_lang['months'],array());
+$App->lastLoginLang = DateFormat::getDateTimeIsoFormatString($App->lastLogin,Config::$localStrings['data time format string'],Config::$localStrings['months'],Config::$localStrings['months'],array());
 
 $App->templateApp = 'list.html';
 $numCountPanel = 0;
@@ -219,10 +216,10 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 				$datecreateformat = (isset($value['sqloption']['datecreateformat']) ? $value['sqloption']['datecreateformat'] : 'datetime');
 				if ($datecreateformat == 'date') {
 					$data = DateTime::createFromFormat('Y-m-d',$value1->$fieldcreated);				
-					$value1->datacreated = '<a href="'.URL_SITE.$key.'" title="'.ucfirst($_lang['creata il']).' '.$data->format('d/m/Y').'"><i class="fas fa-clock"></i></a>';
+					$value1->datacreated = '<a href="'.URL_SITE.$key.'" title="'.ucfirst(Config::$localStrings['creata il']).' '.$data->format('d/m/Y').'"><i class="fas fa-clock"></i></a>';
 				} else {
 					$data = DateTime::createFromFormat('Y-m-d H:i:s',$value1->$fieldcreated);				
-					$value1->datacreated = '<a href="'.URL_SITE.$key.'" title="'.ucfirst($_lang['creata il']).' '.$data->format('d/m/Y').' '.$data->format('H:i:s').'"><i class="fas fa-clock"></i></a>';
+					$value1->datacreated = '<a href="'.URL_SITE.$key.'" title="'.ucfirst(Config::$localStrings['creata il']).' '.$data->format('d/m/Y').' '.$data->format('H:i:s').'"><i class="fas fa-clock"></i></a>';
 				}
 				/* genera url */
 				$value1->url = URL_SITE.$key;				
@@ -237,7 +234,7 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 								case 'text':
 									$f = $keyF;
 									if (isset($value['fields'][$keyF]['multilanguage']) && $value['fields'][$keyF]['multilanguage'] == 1) {
-										$f = $keyF.$_lang['field_suffix'];
+										$f = $keyF.Config::$localStrings['field_suffix'];
 										}
 									$output = ToolsStrings::getStringFromTotNumberChar($value1->$f,array('numchars'=>200,'suffix'=>'...'));
 								break;
@@ -246,9 +243,9 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 									$pathdef = (isset($value['fields'][$keyF]['path def']) ? $value['fields'][$keyF]['path def'] :  '');	
 									if ($pathdef == '')	$pathdef = $path;																																
 									if ($value1->$keyF != ''){
-										$output = '<a class="" href="'.$path.$value1->$keyF.'" data-lightbox="image-1" data-title="'.$value1->$keyF.'" title="'.ucfirst($_lang['immagine zoom']).'"><img class="img-thumbnail img-miniature"  src="'.$path.$value1->$keyF.'" alt="'.$path.$value1->$keyF.'"></a>';
+										$output = '<a class="" href="'.$path.$value1->$keyF.'" data-lightbox="image-1" data-title="'.$value1->$keyF.'" title="'.ucfirst(Config::$localStrings['immagine zoom']).'"><img class="img-thumbnail img-miniature"  src="'.$path.$value1->$keyF.'" alt="'.$path.$value1->$keyF.'"></a>';
 									} else {
-										$output = '<img class="img-thumbnail img-miniature"  src="'.$pathdef.$value1->$keyF.'default/image.png" alt="'.ucfirst($_lang['immagine di default']).'">';
+										$output = '<img class="img-thumbnail img-miniature"  src="'.$pathdef.$value1->$keyF.'default/image.png" alt="'.ucfirst(Config::$localStrings['immagine di default']).'">';
 									}
 								break;							
 								case 'imagefolder':		
@@ -256,19 +253,19 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 									$path = (isset($value['fields'][$keyF]['path']) ? $value['fields'][$keyF]['path'] :  UPLOAD_DIR.'/');
 									$path =	$path.$value1->$folderField;																		
 									if ($value1->$keyF != ''){
-										$output = '<a class="" href="'.$path.$value1->$keyF.'" title="'.ucfirst($_lang['immagine zoom']).'"><img class="img-thumbnail"  src="'.$path.$value1->$keyF.'" alt=""></a>';
+										$output = '<a class="" href="'.$path.$value1->$keyF.'" title="'.ucfirst(Config::$localStrings['immagine zoom']).'"><img class="img-thumbnail"  src="'.$path.$value1->$keyF.'" alt=""></a>';
 									}
 								break;																
 								case 'file':															
 									if ($value1->$keyF != ''){
 										$u = $Module->getItemUrl($value1,$value['fields'][$keyF]['url item']);
-										$output = '<a class="" href="'.$u.'" title="'.ucfirst($_lang['scarica il file']).'">'.$value1->$keyF.'</a>';
+										$output = '<a class="" href="'.$u.'" title="'.ucfirst(Config::$localStrings['scarica il file']).'">'.$value1->$keyF.'</a>';
 									}
 								break;
 								
 								case 'avatar':															
 									if ($value1->$keyF != ''){
-										$output = '<a class="" href="'.URL_SITE.'ajax/renderuseravatarfromdb.php?id='.$value1->id.'" data-lightbox="image-1" data-title="Avatar" title="'.ucfirst($_lang['immagine zoom']).'"><img class="img-thumbnail img-miniature" src="'.URL_SITE.'ajax/renderuseravatarfromdb.php?id='.$value1->id.'" alt="Avatar"></a>';
+										$output = '<a class="" href="'.URL_SITE.'ajax/renderuseravatarfromdb.php?id='.$value1->id.'" data-lightbox="image-1" data-title="Avatar" title="'.ucfirst(Config::$localStrings['immagine zoom']).'"><img class="img-thumbnail img-miniature" src="'.URL_SITE.'ajax/renderuseravatarfromdb.php?id='.$value1->id.'" alt="Avatar"></a>';
 									}
 								break;
 								
@@ -283,7 +280,7 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 								default:
 									$f = $keyF;
 									if (isset($value['fields'][$keyF]['multilanguage']) && $value['fields'][$keyF]['multilanguage'] == 1) {
-										$f = $keyF.$_lang['field_suffix'];
+										$f = $keyF.Config::$localStrings['field_suffix'];
 										}
 									$output = $value1->$f;
 								break;
@@ -294,9 +291,9 @@ if (is_array($App->homeTables) && count($App->homeTables) > 0) {
 							if (isset($value['fields'][$keyF]['url']) && $value['fields'][$keyF]['url'] == true) {
 								if (isset($value['fields'][$keyF]['url item']) && is_array($value['fields'][$keyF]['url item']) && count($value['fields'][$keyF]['url item']) > 0) {
 									$u = $Module->getItemUrl($value1,$value['fields'][$keyF]['url item']);
-									$output = '<a href="'.$u.'" title="'.ucfirst($_lang['vai alla lista']).'">'.$output.'</a>';								
+									$output = '<a href="'.$u.'" title="'.ucfirst(Config::$localStrings['vai alla lista']).'">'.$output.'</a>';								
 								} else {
-									$output = '<a href="'.URL_SITE.$key.'" title="'.ucfirst($_lang['vai alla lista']).'">'.$output.'</a>';										
+									$output = '<a href="'.URL_SITE.$key.'" title="'.ucfirst(Config::$localStrings['vai alla lista']).'">'.$output.'</a>';										
 								}							
 							}								
 								$value1->$keyF = $output;							

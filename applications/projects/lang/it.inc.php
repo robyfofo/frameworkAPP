@@ -8,44 +8,44 @@
  * Projects language IT v.1.0.0. 24/07/2018
 */
 
-$_lang['pagetitle'] = "Progetti";
-$_lang['pagesubtitle'] = "pagina dei progetti";
+Config::$localStrings['pagetitle'] = "Progetti";
+Config::$localStrings['pagesubtitle'] = "pagina dei progetti";
 
-$_lang['voce']  = "progetto";
-$_lang['voci']  = "progetti";
-$_lang['la voce']  = "il progetto";
-$_lang['le voci']  = "i progetti";
+Config::$localStrings['voce']  = "progetto";
+Config::$localStrings['voci']  = "progetti";
+Config::$localStrings['la voce']  = "il progetto";
+Config::$localStrings['le voci']  = "i progetti";
 
-$_lang['voce corrente'] = "progetto selezionato";
+Config::$localStrings['voce corrente'] = "progetto selezionato";
 
-$_lang['tempo lavorato'] = "tempo lavorato";
-$_lang['tempo lavorato al progetto'] = "tempo lavorato al progetto";
-$_lang['mostra tempo lavorato al progetto'] = "mostra tempo lavorato al progetto";
+Config::$localStrings['tempo lavorato'] = "tempo lavorato";
+Config::$localStrings['tempo lavorato al progetto'] = "tempo lavorato al progetto";
+Config::$localStrings['mostra tempo lavorato al progetto'] = "mostra tempo lavorato al progetto";
 
-$_lang['non timecard'] = "non timecard";
-$_lang['timecard'] = "timecard";
-$_lang['non corrente'] = "non corrente";
-$_lang['timecards'] = "timecards";
-$_lang['corrente'] = "corrente";
+Config::$localStrings['non timecard'] = "non timecard";
+Config::$localStrings['timecard'] = "timecard";
+Config::$localStrings['non corrente'] = "non corrente";
+Config::$localStrings['timecards'] = "timecards";
+Config::$localStrings['corrente'] = "corrente";
 
-$_lang['associa timecard'] = "abilita l'associazione delle timecard a questo progetto";
-$_lang['non associa timecard'] = "disabilita l'accociazione delle timecard a questo progetto";
+Config::$localStrings['associa timecard'] = "abilita l'associazione delle timecard a questo progetto";
+Config::$localStrings['non associa timecard'] = "disabilita l'accociazione delle timecard a questo progetto";
 
-$_lang['da fare associati al progetto'] = "da fare associati al progetto";
+Config::$localStrings['da fare associati al progetto'] = "da fare associati al progetto";
 
-$_lang['imposta come corrente'] = "imposta questo progetto come corrente";
-$_lang['imposta come non corrente'] = "imposta questo progetto come non corrente";
+Config::$localStrings['imposta come corrente'] = "imposta questo progetto come corrente";
+Config::$localStrings['imposta come non corrente'] = "imposta questo progetto come non corrente";
 
-$_lang['tempo lavorato totale'] = "tempo lavorato totale";
-$_lang['tempo lavorato mese corrente'] = "tempo lavorato mese corrente";
-$_lang['tempo lavorato mese precedente'] = "tempo lavorato mese precedente";
+Config::$localStrings['tempo lavorato totale'] = "tempo lavorato totale";
+Config::$localStrings['tempo lavorato mese corrente'] = "tempo lavorato mese corrente";
+Config::$localStrings['tempo lavorato mese precedente'] = "tempo lavorato mese precedente";
 
-$_lang['stampa il report del tempo lavorato'] = 'stampa il report del tempo lavorato';
-$_lang['stampa il report del tempo lavorato il mese corrente'] = 'stampa il report del tempo lavorato il mese corrente';
-$_lang['stampa il report del tempo lavorato il mese precedente'] = 'stampa il report del tempo lavorato il mese precedente';
+Config::$localStrings['stampa il report del tempo lavorato'] = 'stampa il report del tempo lavorato';
+Config::$localStrings['stampa il report del tempo lavorato il mese corrente'] = 'stampa il report del tempo lavorato il mese corrente';
+Config::$localStrings['stampa il report del tempo lavorato il mese precedente'] = 'stampa il report del tempo lavorato il mese precedente';
 
-$_lang['visualizza il tempo lavorato'] = 'visualizza il tempo lavorato';
-$_lang['visualizza il tempo lavorato il mese corrente'] = 'visualizza il tempo lavorato il mese corrente';
-$_lang['visualizza il tempo lavorato il mese precedente'] = 'visualizza il tempo lavorato il mese precedente';
+Config::$localStrings['visualizza il tempo lavorato'] = 'visualizza il tempo lavorato';
+Config::$localStrings['visualizza il tempo lavorato il mese corrente'] = 'visualizza il tempo lavorato il mese corrente';
+Config::$localStrings['visualizza il tempo lavorato il mese precedente'] = 'visualizza il tempo lavorato il mese precedente';
 
 ?>

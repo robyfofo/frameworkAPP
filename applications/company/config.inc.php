@@ -34,40 +34,40 @@ $App->params->tables['comuni'] = DB_TABLE_PREFIX.'location_comuni';
 $App->params->tables['item']  = DB_TABLE_PREFIX.'company';
 $App->params->fields['item']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'autoinc','primary'=>true),
-	'ragione_sociale'=>array('label'=>$_lang['ragione sociale'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'name'=>array('label'=>$_lang['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'surname'=>array('label'=>$_lang['cognome'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
-	'street'=>array('label'=>$_lang['via'],'searchTable'=>false,'required'=>false,'type'=>'varchar'),
+	'ragione_sociale'=>array('label'=>Config::$localStrings['ragione sociale'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'name'=>array('label'=>Config::$localStrings['nome'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'surname'=>array('label'=>Config::$localStrings['cognome'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
+	'street'=>array('label'=>Config::$localStrings['via'],'searchTable'=>false,'required'=>false,'type'=>'varchar'),
 
-	'location_comuni_id'	=> array('label'=>$_lang['comune'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
-	'city'=>array('label'=>$_lang['altro comune'],'searchTable'=>false,'required'=>false,'type'=>'varchar|150'),
+	'location_comuni_id'	=> array('label'=>Config::$localStrings['comune'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'city'=>array('label'=>Config::$localStrings['altro comune'],'searchTable'=>false,'required'=>false,'type'=>'varchar|150'),
 
-	'zip_code'=>array('label'=>$_lang['c.a.p.'],'searchTable'=>false,'required'=>false,'type'=>'varchar'),
-	'telephone'=>array('label'=>$_lang['telefono'],'searchTable'=>false,'required'=>false,'type'=>'varchar'),
-	'email'=>array('label'=>$_lang['email'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
-	'mobile'=>array('label'=>$_lang['cellulare'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
-	'fax'=>array('label'=>$_lang['fax'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
+	'zip_code'=>array('label'=>Config::$localStrings['c.a.p.'],'searchTable'=>false,'required'=>false,'type'=>'varchar'),
+	'telephone'=>array('label'=>Config::$localStrings['telefono'],'searchTable'=>false,'required'=>false,'type'=>'varchar'),
+	'email'=>array('label'=>Config::$localStrings['email'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
+	'mobile'=>array('label'=>Config::$localStrings['cellulare'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
+	'fax'=>array('label'=>Config::$localStrings['fax'],'searchTable'=>true,'required'=>false,'type'=>'varchar'),
 	
-	'partita_iva'=>array('label'=>$_lang['partita IVA'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'codice_fiscale'=>array('label'=>$_lang['codice fiscale'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'partita_iva'=>array('label'=>Config::$localStrings['partita IVA'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'codice_fiscale'=>array('label'=>Config::$localStrings['codice fiscale'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
 	
-	'gestione_iva'=>array('label'=>$_lang['gestione IVA'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int'),
-	'iva'=>array('label'=>$_lang['IVA'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int'),
-	'text_noiva'=>array('label'=>$_lang['testo no IVA'],'searchTable'=>true,'required'=>false,'type'=>'varchar','defValue'=>''),
-	'gestione_rivalsa'=>array('label'=>$_lang['gestione rivalsa'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>'1','validate'=>'int'),
-	'rivalsa'=>array('label'=>$_lang['rivalsa'],'searchTable'=>true,'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int'),
-	'text_rivalsa'=>array('label'=>$_lang['testo rivalsa'],'searchTable'=>true,'required'=>false,'type'=>'varchar','defValue'=>''),
+	'gestione_iva'=>array('label'=>Config::$localStrings['gestione IVA'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int'),
+	'iva'=>array('label'=>Config::$localStrings['IVA'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int'),
+	'text_noiva'=>array('label'=>Config::$localStrings['testo no IVA'],'searchTable'=>true,'required'=>false,'type'=>'varchar','defValue'=>''),
+	'gestione_rivalsa'=>array('label'=>Config::$localStrings['gestione rivalsa'],'searchTable'=>false,'required'=>false,'type'=>'int','defValue'=>'1','validate'=>'int'),
+	'rivalsa'=>array('label'=>Config::$localStrings['rivalsa'],'searchTable'=>true,'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int'),
+	'text_rivalsa'=>array('label'=>Config::$localStrings['testo rivalsa'],'searchTable'=>true,'required'=>false,'type'=>'varchar','defValue'=>''),
 	
-	'banca'=>array('label'=>$_lang['banca'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'intestatario'=>array('label'=>$_lang['intestatario'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'iban'=>array('label'=>$_lang['iban'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
-	'bic_swift'=>array('label'=>$_lang['bic swift'],'searchTable'=>false,'required'=>true,'type'=>'varchar'),
+	'banca'=>array('label'=>Config::$localStrings['banca'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'intestatario'=>array('label'=>Config::$localStrings['intestatario'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'iban'=>array('label'=>Config::$localStrings['iban'],'searchTable'=>true,'required'=>true,'type'=>'varchar'),
+	'bic_swift'=>array('label'=>Config::$localStrings['bic swift'],'searchTable'=>false,'required'=>true,'type'=>'varchar'),
 
-	'provincia'				=> array('label'=>$_lang['altra provincia'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
-	'location_province_id'	=> array('label'=>$_lang['provincia'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'provincia'				=> array('label'=>Config::$localStrings['altra provincia'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
+	'location_province_id'	=> array('label'=>Config::$localStrings['provincia'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
 
-	'nation'				=> array('label'=>$_lang['nazione'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
-	'location_nations_id'	=> array('label'=>$_lang['nazione'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
+	'nation'				=> array('label'=>Config::$localStrings['nazione'],'searchTable'=>true,'required'=>false,'type'=>'varchar|150','defValue'=>''),
+	'location_nations_id'	=> array('label'=>Config::$localStrings['nazione'],'searchTable'=>false,'required'=>false,'type'=>'int|10','defValue'=>0),
 
 );
 ?>

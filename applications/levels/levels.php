@@ -17,7 +17,7 @@ switch(Core::$request->method) {
 	case 'disactiveItem':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>$_lang['voce'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
+			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>Config::$localStrings['voce'],'attivata'=>Config::$localStrings['attivato'],'disattivata'=>Config::$localStrings['disattivato']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');	
 		} else {
@@ -31,7 +31,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellato'])).'!';	
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellato'])).'!';	
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');		
 		} else {
 			ToolsStrings::redirect(URL_SITE.'error/404');
@@ -43,7 +43,7 @@ switch(Core::$request->method) {
 		$App->item = new stdClass;		
 		$App->item->active = 1;
 		$App->item->modules = array();		
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertItem';
 		$App->viewMethod = 'form';	
 	break;
@@ -56,7 +56,7 @@ switch(Core::$request->method) {
 			$_POST['modules_read'][$App->module_home_id] = 1;
 			
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newItem');
@@ -84,7 +84,7 @@ switch(Core::$request->method) {
 				}
 			}
 				
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% inserito']));
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% inserito']));
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 						
 		} else {
@@ -99,7 +99,7 @@ switch(Core::$request->method) {
 		$App->item = Sql::getRecord();		
 		$App->level_modules = Permissions::getLevelModulesRights($App->id);
 		//print_r($App->level_modules);
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateItem';
 		$App->viewMethod = 'form';
 	break;
@@ -128,7 +128,7 @@ switch(Core::$request->method) {
 				}
 			}
 						
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
@@ -137,7 +137,7 @@ switch(Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db');die(); }	
 			
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificato']));
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificato']));
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
 			} else {
@@ -196,7 +196,7 @@ switch(Core::$request->method) {
 		}
 		$App->items = $arr;
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista dei %ITEMS%']);		
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista dei %ITEMS%']);		
 		$App->viewMethod = 'list';	
 	break;	
 	}

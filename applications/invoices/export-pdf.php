@@ -98,9 +98,9 @@ switch(Core::$request->method) {
 								$pdf->openHere('Fit');
 								
 								$datacreator = array (
-									'Title'=>ucfirst($_lang['fattura']).' '.$App->invoice->number,
+									'Title'=>ucfirst(Config::$localStrings['fattura']).' '.$App->invoice->number,
 									'Author'=>SITE_OWNER,
-									'Subject'=>ucfirst($_lang['fattura']).' '.$App->invoice->number,
+									'Subject'=>ucfirst(Config::$localStrings['fattura']).' '.$App->invoice->number,
 									'Creator'=>SITE_NAME,
 									'Producer'=>URL_SITE
 									);
@@ -111,8 +111,8 @@ switch(Core::$request->method) {
 								$colsheadpdf = array('titolo'=>''); 
 								$headpdf[0]['titolo'] = $App->company->ragione_sociale;
 								$headpdf[1]['titolo'] = $App->company->street.' - '.$App->company->zip_code.' - '.$App->company->city.' ('.$App->company->province.')';
-								$headpdf[2]['titolo'] = $_lang['P. IVA'].' '.$App->company->partita_iva.' - '.$_lang['C. Fiscale'].' '.$App->company->codice_fiscale;
-								$headpdf[3]['titolo'] = '<strong>'.strtoupper($_lang['fattura']).'</strong> '.$_lang['nr.'].' <b>'.$App->invoice->number_complete.'</b> '.$_lang['del'].' <b>'.DateFormat::convertDateFormats($App->invoice->dateins,'Y-m-d',$_lang['data format'],$App->nowDate).'</b>';	
+								$headpdf[2]['titolo'] = Config::$localStrings['P. IVA'].' '.$App->company->partita_iva.' - '.Config::$localStrings['C. Fiscale'].' '.$App->company->codice_fiscale;
+								$headpdf[3]['titolo'] = '<strong>'.strtoupper(Config::$localStrings['fattura']).'</strong> '.Config::$localStrings['nr.'].' <b>'.$App->invoice->number_complete.'</b> '.Config::$localStrings['del'].' <b>'.DateFormat::convertDateFormats($App->invoice->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).'</b>';	
 	
 								
 															
@@ -126,11 +126,11 @@ switch(Core::$request->method) {
 								$pdf->ezSetDy(-20);
 								$tablecols = array('titolo'=>'','testo'=>'Cliente'); 
 								$tabledata = array();
-								$tabledata[0]['titolo'] = '<strong>'.$_lang['P.IVA'].'</strong> '.$App->invoice->customer_partita_iva;
-								$tabledata[0]['testo'] = ucfirst($_lang['destinatario']);
-								$tabledata[1]['titolo'] = '<strong>'.$_lang['C.F.'].'</strong> '.$App->invoice->customer_codice_fiscale;
+								$tabledata[0]['titolo'] = '<strong>'.Config::$localStrings['P.IVA'].'</strong> '.$App->invoice->customer_partita_iva;
+								$tabledata[0]['testo'] = ucfirst(Config::$localStrings['destinatario']);
+								$tabledata[1]['titolo'] = '<strong>'.Config::$localStrings['C.F.'].'</strong> '.$App->invoice->customer_codice_fiscale;
 								$tabledata[1]['testo'] = '<strong>'.$App->invoice->customer_ragione_sociale.'</strong>';
-								$tabledata[2]['titolo'] = '<strong>'.strtoupper($_lang['email']).'</strong> '.$App->invoice->customer_email;
+								$tabledata[2]['titolo'] = '<strong>'.strtoupper(Config::$localStrings['email']).'</strong> '.$App->invoice->customer_email;
 								$tabledata[2]['testo'] = $App->invoice->customer_street;
 								$tabledata[3]['titolo'] = '';
 								$tabledata[3]['testo'] = $App->invoice->customer_zip_code.' '.$App->invoice->customer_city.' ('.$App->invoice->customer_province.')';
@@ -144,20 +144,20 @@ switch(Core::$request->method) {
 								$pdf->line(30,$col-10,560,$col-10);
 								$pdf->ezSetDy(-30);
 				
-								$colsArticolipdf['descrizione'] = '<b>'.ucfirst($_lang['descrizione']).'</b>';
+								$colsArticolipdf['descrizione'] = '<b>'.ucfirst(Config::$localStrings['descrizione']).'</b>';
 								
 								if ($App->invoice->stampa_quantita == 1) {
-									$colsArticolipdf['quantità'] = '<b>'.ucfirst($_lang['quantità']).'</b>';
+									$colsArticolipdf['quantità'] = '<b>'.ucfirst(Config::$localStrings['quantità']).'</b>';
 								}
 								
 								if ($App->invoice->stampa_unita == 1) {
-									$colsArticolipdf['prezzounitario'] = '<b>'.ucwords($_lang['prezzo unità']).'</b>';
+									$colsArticolipdf['prezzounitario'] = '<b>'.ucwords(Config::$localStrings['prezzo unità']).'</b>';
 								}
 								
-								$colsArticolipdf['importo'] = '<b>'.ucwords($_lang['importo']).'</b>';
+								$colsArticolipdf['importo'] = '<b>'.ucwords(Config::$localStrings['importo']).'</b>';
 								/* se iva */
 								if ($App->company->gestione_iva == 1) {
-									$colsArticolipdf['tax'] = '<b>'.ucwords($_lang['iva']).'</b>';
+									$colsArticolipdf['tax'] = '<b>'.ucwords(Config::$localStrings['iva']).'</b>';
 									}
 								$opt = array( 'showHeadings' => 1, 'gridlines'=> EZ_GRIDLINE_DEFAULT,'fontSize'=>10,'width'=>500,'shaded'=>0,'rowGap' =>5,'colGap'=>7,'showLines'=>1,'lineCol'=>array(0.7,0.7,0.7),'cols'=> array('quantità'=>array('width'=>90,'justification'=>'center'),'prezzounitario'=>array('width'=>90,'justification' =>'right'),'importo'=>array('width'=>80,'justification' =>'right' )));							
 								if ($App->company->gestione_iva = 1) {
@@ -174,10 +174,10 @@ switch(Core::$request->method) {
 								
 								$pdf->ezSetY($y);
 																
-								$colspdf = array('titolo'=>mb_strtoupper($_lang['modalità pagamento'],'UTF-8'),'testo'=>strtoupper($_lang['scadenze'])); 
+								$colspdf = array('titolo'=>mb_strtoupper(Config::$localStrings['modalità pagamento'],'UTF-8'),'testo'=>strtoupper(Config::$localStrings['scadenze'])); 
 								$datapdf = array();
-								$datapdf[1]['titolo'] = '<b>'.ucwords($_lang['bonifico bancario']).'</b>';
-								$datapdf[1]['testo'] = '<b>'.DateFormat::convertDateFormats($App->invoice->datesca,'Y-m-d',$_lang['data format'],$App->nowDate).'</b>';
+								$datapdf[1]['titolo'] = '<b>'.ucwords(Config::$localStrings['bonifico bancario']).'</b>';
+								$datapdf[1]['testo'] = '<b>'.DateFormat::convertDateFormats($App->invoice->datesca,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).'</b>';
 								$datapdf[2]['titolo'] = 'IBAN: <b>'.$App->company->iban.'</b>';
 								$datapdf[2]['testo'] = '';
 								$datapdf[3]['titolo'] = $App->company->intestatario;
@@ -187,7 +187,7 @@ switch(Core::$request->method) {
 								
 								/* NOTE */
 								$pdf->ezSetDy(-10);
-								$colspdf = array('riepilogo'=>strtoupper($_lang['riepilogo iva']),'importo'=>strtoupper($_lang['importo lordo']),'imposte'=>strtoupper($_lang['imposte'])); 
+								$colspdf = array('riepilogo'=>strtoupper(Config::$localStrings['riepilogo iva']),'importo'=>strtoupper(Config::$localStrings['importo lordo']),'imposte'=>strtoupper(Config::$localStrings['imposte'])); 
 								$datapdf = array();								
 								$datapdf[0]['riepilogo'] = $App->company->text_noiva;
 								$datapdf[0]['importo'] = '€ '.number_format($articlesTotal,2,',','.');
@@ -201,13 +201,13 @@ switch(Core::$request->method) {
 								$colspdf = array('titolo'=>'titolo','testo'=>'testo'); 
 								$datapdf = array();
 								$z = 0;
-								$datapdf[$z]['titolo'] = strtoupper($_lang['totale onorario']);
+								$datapdf[$z]['titolo'] = strtoupper(Config::$localStrings['totale onorario']);
 								$datapdf[$z]['testo'] = '€ '.number_format($articlesTotal,2,',','.');
 				
 								
 								if ($App->invoice->tax > 0) {
 									$z++;
-									$datapdf[$z]['titolo'] = strtoupper($_lang['tassa aggiuntiva']);
+									$datapdf[$z]['titolo'] = strtoupper(Config::$localStrings['tassa aggiuntiva']);
 									$datapdf[$z]['testo'] = '€ '.number_format($invoiceTotalTax,2,',','.');
 									$z++;
 									}
@@ -225,13 +225,13 @@ switch(Core::$request->method) {
 								/* TOTALI */
 								$pdf->ezSetDy(-5);
 								$cols = array('titolo'=>'titolo','testo'=>'testo'); 
-								$data[0]['titolo'] = '<strong>'.strtoupper($_lang['totale']).'</strong>';
+								$data[0]['titolo'] = '<strong>'.strtoupper(Config::$localStrings['totale']).'</strong>';
 								$data[0]['testo'] = '€ <strong>'.number_format($invoiceTotal,2,',','.').'</strong>';
 								$pdf->ezTable($data, $cols,'',array('showHeadings'=>0,'gridlines'=>EZ_GRIDLINE_DEFAULT,'fontSize' =>12,'width'=>500,'shaded'=>0,'rowGap'=>5,'colGap'=>10,'showLines'=>0,'lineCol'=>array(0.7,0.7,0.7),'cols'=>array('titolo'=>array('justification'=>'right'),'testo'=>array('width'=>110,'justification'=>'right'))));
 								/* FINE TOTALI */
 								
 								//Output the pdf as stream, but uncompress
-								$namefile = ucfirst($_lang['fattura']).'-'.$App->invoice->number_complete.".pdf";
+								$namefile = ucfirst(Config::$localStrings['fattura']).'-'.$App->invoice->number_complete.".pdf";
 								$applicationtype = "application/pdf";   
 								header("Content-type: $applicationtype");
 								header("Content-Disposition: attachment; filename=".basename($namefile).";");

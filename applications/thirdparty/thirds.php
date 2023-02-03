@@ -24,7 +24,7 @@ Subcategories::$fieldKey =	'id';
 $App->categories = Subcategories::getObjFromSubCategories();
 
 if (!is_array($App->categories) || (is_array($App->categories) && count($App->categories) == 0)) {
-	$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['Devi creare o attivare almeno una %ITEM%'].'!'));
+	$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['Devi creare o attivare almeno una %ITEM%'].'!'));
 	ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 }
 
@@ -34,7 +34,7 @@ switch(Core::$request->method) {
 	case 'disactiveItem':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>$_lang['voce'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
+			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,array('label'=>Config::$localStrings['voce'],'attivata'=>Config::$localStrings['attivato'],'disattivata'=>Config::$localStrings['disattivato']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 		} else {
@@ -48,7 +48,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellato'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 		} else {
 			ToolsStrings::redirect(URL_SITE.'error/404');
@@ -64,7 +64,7 @@ switch(Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
@@ -74,7 +74,7 @@ switch(Core::$request->method) {
 		$App->item->stampa_quantita = 1;
 		$App->item->stampa_unita = 1;
 
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertItem';
 		$App->viewMethod = 'form';
 	break;
@@ -108,9 +108,9 @@ switch(Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
@@ -119,7 +119,7 @@ switch(Core::$request->method) {
 			}
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newItem');
@@ -128,7 +128,7 @@ switch(Core::$request->method) {
 			Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
 			if (Core::$resultOp->error > 0) {ToolsStrings::redirect(URL_SITE.'error/db');}
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% inserito'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% inserito'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listItem');
 
 		} else {
@@ -145,7 +145,7 @@ switch(Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }	
 
@@ -162,7 +162,7 @@ switch(Core::$request->method) {
 			$App->comune->selected->nome = $App->item->city;
 		}		
 				
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateItem';
 		$App->viewMethod = 'form';
 
@@ -197,9 +197,9 @@ switch(Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
@@ -208,7 +208,7 @@ switch(Core::$request->method) {
 			}
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
@@ -217,7 +217,7 @@ switch(Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificato'])).'!';
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyItem/'.$App->id);
 			} else {
@@ -358,7 +358,7 @@ switch(Core::$request->method) {
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
-				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/'.($value->active == 0 ? 'active' : 'disactive').'Item/'.$value->id.'" title="'.($value->active == 0 ? ucfirst($_lang['attiva']).' '.$_lang['la voce'] : ucfirst($_lang['disattiva']).' '.$_lang['la voce']).'"><i class="fas fa-'.($value->active == 1 ? 'unlock' : 'lock').'"></i></a><a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyItem/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="fa fa-trash-alt"></i></a>';
+				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/'.($value->active == 0 ? 'active' : 'disactive').'Item/'.$value->id.'" title="'.($value->active == 0 ? ucfirst(Config::$localStrings['attiva']).' '.Config::$localStrings['la voce'] : ucfirst(Config::$localStrings['disattiva']).' '.Config::$localStrings['la voce']).'"><i class="fas fa-'.($value->active == 1 ? 'unlock' : 'lock').'"></i></a><a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyItem/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce'].'"><i class="fa fa-trash-alt"></i></a>';
 				$tablefields = array(
 					'id'					=>	$value->id,
 					'category'				=>	$value->category,
@@ -384,7 +384,7 @@ switch(Core::$request->method) {
 
 	case 'listItem':
 	default;	
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista dei %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->viewMethod = 'list';	
 	break;	
 

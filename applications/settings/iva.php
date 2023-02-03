@@ -15,7 +15,7 @@ switch(Core::$request->method) {
 
 	case 'activeItem':
 	case 'disactiveItem':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$opt=array('labelA'=>$_lang['voce'].' '.$_lang['attivato'],'labelD'=>$_lang['voce'].' '.$_lang['disattivato']));
+		Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['item'],$App->id,$opt=array('labelA'=>Config::$localStrings['voce'].' '.Config::$localStrings['attivato'],'labelD'=>Config::$localStrings['voce'].' '.Config::$localStrings['disattivato']));
 		$App->viewMethod = 'list';		
 	break;
 	
@@ -25,7 +25,7 @@ switch(Core::$request->method) {
 			/* controlla se ha figli */
 			if (Sql::countRecordQry($App->params->tables['arts'],'id','id_estimate = ?',array($App->id)) > 0) {
 				Core::$resultOp->error = 2;
-				Core::$resultOp->message = $_lang['Errore! Ci sono ancora figli associati!'];
+				Core::$resultOp->message = Config::$localStrings['Errore! Ci sono ancora figli associati!'];
 				$delete = false;	
 				}
 			
@@ -33,7 +33,7 @@ switch(Core::$request->method) {
 				Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 				Sql::deleteRecord();
 				if (Core::$resultOp->error == 0) {
-					Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellato'])).'!';
+					Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellato'])).'!';
 					}
 				}
 			}		
@@ -41,7 +41,7 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'newItem':			
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->viewMethod = 'formNew';	
 		$App->tabActive = 1;
 	break;
@@ -49,7 +49,7 @@ switch(Core::$request->method) {
 	case 'insertItem':
 		if ($_POST) {
 			/* parsa i post in base ai campi */
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());			
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());			
 			if (Core::$resultOp->error == 0) {
 				if (DateFormat::checkDateFormatIniEndInterval($_POST['dateins'],$_POST['datesca'],'Y-m-d','>') == true) {									
 					Sql::insertRawlyPost($App->params->fields['item'],$App->params->tables['item']);
@@ -57,18 +57,18 @@ switch(Core::$request->method) {
 		   			}
 		   		} else {
 		   			Core::$resultOp->error = 1;
-						Core::$resultOp->message = $_lang['Intervallo tra le due date errato!'];	 
+						Core::$resultOp->message = Config::$localStrings['Intervallo tra le due date errato!'];	 
 						}
 				}
 			} else {
 				Core::$resultOp->error = 1;
 				}
-		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getInsertRecordFromPostResults(0,Core::$resultOp,array('label inserted'=>preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% inserito']),'label insert'=>preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%'])));				
+		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getInsertRecordFromPostResults(0,Core::$resultOp,array('label inserted'=>preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% inserito']),'label insert'=>preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%'])));				
 		$App->tabActive = 1;	
 	break;
 	
 	case 'modifyItem':				
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']);
 		$App->viewMethod = 'formMod';
 		$App->tabActive = 2;
 	break;
@@ -90,11 +90,11 @@ switch(Core::$request->method) {
 					$_POST = $Module->calculateArt($_POST);	
 									
 					if (isset($_POST['artFormMode']) &&  $_POST['artFormMode'] == 'ins') {
-						Form::parsePostByFields($App->params->fields['arts'],$_lang,array());	
+						Form::parsePostByFields($App->params->fields['arts'],Config::$localStrings,array());	
 						if (Core::$resultOp->error == 0) {
 							Sql::insertRawlyPost($App->params->fields['arts'],$App->params->tables['arts']);
 							if (Core::$resultOp->error == 0) {
-								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% inserito'])).'!';
+								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% inserito'])).'!';
 								$App->tabActive = 2;
 								}
 							} else {
@@ -104,11 +104,11 @@ switch(Core::$request->method) {
 				
 					if (isset($_POST['artFormMode']) &&  $_POST['artFormMode'] == 'mod') {
 						$id_art = (isset($_POST['id_article']) ? intval($_POST['id_article']) : 0);
-						Form::parsePostByFields($App->params->fields['arts'],$_lang,array());	
+						Form::parsePostByFields($App->params->fields['arts'],Config::$localStrings,array());	
 						if (Core::$resultOp->error == 0) {
 							Sql::updateRawlyPost($App->params->fields['arts'],$App->params->tables['arts'],'id',$id_art);	
 							if (Core::$resultOp->error == 0) {
-								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% modificato'])).'!';
+								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% modificato'])).'!';
 								$App->tabActive = 2;
 								}
 							} else {
@@ -121,7 +121,7 @@ switch(Core::$request->method) {
 				} else {
 					/* form estimates */
 					/* parsa i post in base ai campi */ 
-					Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+					Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 					if (Core::$resultOp->error == 0) {
 						if (DateFormat::checkDateFormatIniEndInterval($_POST['dateins'],$_POST['datesca'],'Y-m-d','>') == true) {												
 							Sql::updateRawlyFields($App->params->fields['item'],$App->params->tables['item'],$_POST,array('clause'=>'id = ?','clauseVals'=>array($App->id)));
@@ -130,7 +130,7 @@ switch(Core::$request->method) {
 								}							
 				   		} else {
 				   			Core::$resultOp->error = 1;
-								Core::$resultOp->message = $_lang['Intervallo tra le due date errato!'];	 
+								Core::$resultOp->message = Config::$localStrings['Intervallo tra le due date errato!'];	 
 								}			
 						}
 					/* end form estimates */	
@@ -139,7 +139,7 @@ switch(Core::$request->method) {
 			} else {
 				Core::$resultOp->error = 1;
 				}	
-		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getUpdateRecordFromPostResults($App->id,Core::$resultOp,array('label done'=>$_lang['modifiche effettuate'],'label modified'=>preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificato']),'label modify'=>preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']),'label insert'=>preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%'])));	
+		list($id,$App->viewMethod,$App->pageSubTitle,Core::$resultOp->message) = Form::getUpdateRecordFromPostResults($App->id,Core::$resultOp,array('label done'=>Config::$localStrings['modifiche effettuate'],'label modified'=>preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificato']),'label modify'=>preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']),'label insert'=>preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%'])));	
 	break;
 
 	case 'messageItem':
@@ -210,7 +210,7 @@ switch(Core::$request->method) {
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
-				$actions = '<a class="btn btn-default btn-circle" href="'.URL_SITE.Core::$request->action.'/modifyIvaa/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce'].'"><i class="fa fa-edit"> </i></a><a class="btn btn-default btn-circle confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="fa fa-cut"> </i></a>';					
+				$actions = '<a class="btn btn-default btn-circle" href="'.URL_SITE.Core::$request->action.'/modifyIvaa/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce'].'"><i class="fa fa-edit"> </i></a><a class="btn btn-default btn-circle confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce'].'"><i class="fa fa-cut"> </i></a>';					
 				$tablefields = array(
 					'id'=>$value->id,
 					'note'=>$value->note,
@@ -317,7 +317,7 @@ switch((string)$App->viewMethod) {
 		$App->item = new stdClass;		
 		$App->item->dateins = $App->nowDate;
 		$App->item->datesca = $App->nowDate;
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['percentuali iva'],$_lang['lista dei %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['percentuali iva'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->templateApp = 'listIvaa.tpl.php';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listIvaa.js"></script>';	
 	break;

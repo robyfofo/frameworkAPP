@@ -9,7 +9,7 @@
 */
 
 $App->params = new stdClass();
-$App->params->label = ucfirst($_lang['impostazioni']);
+$App->params->label = ucfirst(Config::$localStrings['impostazioni']);
 /* prende i dati del modulo */
 Sql::initQuery(DB_TABLE_PREFIX.'modules',array('label','help_small','help'),array('settings'),'name = ?');
 $obj = Sql::getRecord();
@@ -32,10 +32,10 @@ $App->params->ordersType = array();
 $App->params->tables['ivaa']  = DB_TABLE_PREFIX.'percentuali_iva';
 $App->params->fields['ivaa']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
-	'id_user'=>array('label'=>$_lang['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
-	'note'=>array('label'=>$_lang['note'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255','defValue'=>''),
+	'id_user'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
+	'note'=>array('label'=>Config::$localStrings['note'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255','defValue'=>''),
 	'amount'=>array('label'=>'IVA','searchTable'=>false,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
-	'created'=>array('label'=>$_lang['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
-	'active'=>array('label'=>$_lang['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
 	);
 ?>

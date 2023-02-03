@@ -48,10 +48,10 @@ switch(Core::$request->method) {
 		$id_project = (isset($_POST['id_project']) ? intval($_POST['id_project']) : 0);
 		if ($id_project > 0) {
 			
-			$data = DateFormat::convertDatepickerToIso($_POST['data'],$_lang['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);					
+			$data = DateFormat::convertDatepickerToIso($_POST['data'],Config::$localStrings['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);					
 			// controlla l'ora iniziale
-			$starttimeiso = DateFormat::convertDatepickerToIso($_POST['startTime'],$_lang['datepicker time format'],'H:i:s','00:00:01');
-			$endtimeiso = DateFormat::convertDatepickerToIso($_POST['endTime'],$_lang['datepicker time format'],'H:i:s','00:00:01');							
+			$starttimeiso = DateFormat::convertDatepickerToIso($_POST['startTime'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');
+			$endtimeiso = DateFormat::convertDatepickerToIso($_POST['endTime'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');							
 			$datatimeisoini = $data .' '.$starttimeiso;
 			$datatimeisoend = $data .' '.$endtimeiso;
 			DateFormat::checkDateTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
@@ -69,7 +69,7 @@ switch(Core::$request->method) {
 
 	case 'modappData':
 		if (isset($_POST['appdata'])) {
-			$data = DateFormat::convertDatepickerToIso($_POST['appdata'],$_lang['datepicker data format'],'Y-m-d',$App->nowDate);
+			$data = DateFormat::convertDatepickerToIso($_POST['appdata'],Config::$localStrings['datepicker data format'],'Y-m-d',$App->nowDate);
 			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$data);			
 			}	
 		$App->viewMethod = 'list';
@@ -98,7 +98,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if (Core::$resultOp->error == 0) {
-				Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellata'])).'!';
+				Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellata'])).'!';
 				}
 				
 			}		
@@ -121,7 +121,7 @@ switch(Core::$request->method) {
 		if ($_POST) {	
 			$id_progetto = (isset($_POST['project1']) ? intval($_POST['project1']) : 0);
 			if ($id_progetto > 0) {
-				$datarif = DateFormat::convertDatepickerToIso($_POST['data1'],$_lang['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);
+				$datarif = DateFormat::convertDatepickerToIso($_POST['data1'],Config::$localStrings['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);
 				$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$datarif);
 				/* trova la timecard */
 				if (isset($_POST['timecard']) && $_POST['timecard'] != '') {											
@@ -132,7 +132,7 @@ switch(Core::$request->method) {
 						$starttimeiso = $App->timecard->starttime;
 						$holdtime = 0;
 						if (isset($_POST['usedata']) && $_POST['usedata'] == 1)	{
-							$starttimeiso = DateFormat::convertDatepickerToIso($_POST['starttime1'],$_lang['datepicker time format'],'H:i:s','00:00:01');							
+							$starttimeiso = DateFormat::convertDatepickerToIso($_POST['starttime1'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');							
 							$holdtime = 1;
 						}										
 						$endtimeiso = $App->timecard->endtime;
@@ -150,7 +150,7 @@ switch(Core::$request->method) {
 								$time->add(new DateInterval($st));
 								$endtimeiso = $time->format("H:i:s");		
 							} else {
-								Core::$resultOp->message = $_lang['La data inserita non è valida!'];
+								Core::$resultOp->message = Config::$localStrings['La data inserita non è valida!'];
 	      					Core::$resultOp->error = 1;
 							}
 						}																
@@ -162,24 +162,24 @@ switch(Core::$request->method) {
 			  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
 	 						Sql::insertRecord();					
 							if (Core::$resultOp->error == 0) {
-	 								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['tempo'],$_lang['%ITEM% inserito']))."!";
+	 								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['tempo'],Config::$localStrings['%ITEM% inserito']))."!";
 	 						}
 
 						} else {
-		      			Core::$resultOp->message = $_lang['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'];
+		      			Core::$resultOp->message = Config::$localStrings['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'];
 		      			Core::$resultOp->error = 1;
 						}									
 					} else {
-	     				Core::$resultOp->message = $_lang['Timecard non trovata!'];	
+	     				Core::$resultOp->message = Config::$localStrings['Timecard non trovata!'];	
 	      			Core::$resultOp->error = 1;
 					}					
 				} else {
-		     		Core::$resultOp->message = $_lang['Devi selezionare una timecard!'];
+		     		Core::$resultOp->message = Config::$localStrings['Devi selezionare una timecard!'];
 		      	Core::$resultOp->error = 1;
 				}
 						
 			} else {
-				Core::$resultOp->message = $_lang['Devi selezionare un progetto!'];	 
+				Core::$resultOp->message = Config::$localStrings['Devi selezionare un progetto!'];	 
 				Core::$resultOp->error = 1;
 			}
 		
@@ -193,11 +193,11 @@ switch(Core::$request->method) {
 		if ($_POST) {
 			$id_progetto = (isset($_POST['progetto']) ? intval($_POST['progetto']) : 0);
 			if ($id_progetto > 0) {	
-				$datarif = DateFormat::convertDatepickerToIso($_POST['data'],$_lang['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);					
+				$datarif = DateFormat::convertDatepickerToIso($_POST['data'],Config::$localStrings['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);					
 				$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'Y-m-d',$datarif);
 				/* controlla l'ora iniziale */
-				$starttimeiso = DateFormat::convertDatepickerToIso($_POST['startTime'],$_lang['datepicker time format'],'H:i:s','00:00:01');
-				$endtimeiso = DateFormat::convertDatepickerToIso($_POST['endTime'],$_lang['datepicker time format'],'H:i:s','00:00:01');							
+				$starttimeiso = DateFormat::convertDatepickerToIso($_POST['startTime'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');
+				$endtimeiso = DateFormat::convertDatepickerToIso($_POST['endTime'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');							
 				/* controlla l'intervallo */
 				$datatimeisoini = $datarif .' '.$starttimeiso;
 				$datatimeisoend = $datarif .' '.$endtimeiso;
@@ -214,20 +214,20 @@ switch(Core::$request->method) {
 		  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'');
  						Sql::insertRecord();					
 						if (Core::$resultOp->error == 0) {
- 								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['tempo'],$_lang['%ITEM% inserito']))."!";
+ 								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['tempo'],Config::$localStrings['%ITEM% inserito']))."!";
  						}
 					} else {
-	      			Core::$resultOp->message = $_lang['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'];
+	      			Core::$resultOp->message = Config::$localStrings['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'];
 	      			Core::$resultOp->error = 1;
 					}							
  												
 				} else {
-      			Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
+      			Core::$resultOp->message = Config::$localStrings['La ora inizio deve essere prima della ora fine!'];	 
       			Core::$resultOp->error = 1;
 				}			   		
 							
 			} else {
-				Core::$resultOp->message = $_lang['Devi selezionare un progetto!'];	 
+				Core::$resultOp->message = Config::$localStrings['Devi selezionare un progetto!'];	 
 				Core::$resultOp->error = 1;
 			}
 		} else {
@@ -242,11 +242,11 @@ switch(Core::$request->method) {
 			$id = (isset($_POST['id']) ? intval($_POST['id']) : 0);
 			if ($id > 0) {
 				if ($id_progetto > 0) {
-					$datarif = DateFormat::convertDatepickerToIso($_POST['data'],$_lang['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);					
+					$datarif = DateFormat::convertDatepickerToIso($_POST['data'],Config::$localStrings['datepicker data format'],'Y-m-d',$_MY_SESSION_VARS[$App->sessionName]['data-timecard']);					
 					$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$datarif);
 					/* controlla l'ora iniziale */
-					$starttimeiso = DateFormat::convertDatepickerToIso($_POST['startTime'],$_lang['datepicker time format'],'H:i:s','00:00:01');
-					$endtimeiso = DateFormat::convertDatepickerToIso($_POST['endTime'],$_lang['datepicker time format'],'H:i:s','00:00:01');							
+					$starttimeiso = DateFormat::convertDatepickerToIso($_POST['startTime'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');
+					$endtimeiso = DateFormat::convertDatepickerToIso($_POST['endTime'],Config::$localStrings['datepicker time format'],'H:i:s','00:00:01');							
 					/* controlla l'intervallo */
 					$datatimeisoini = $datarif .' '.$starttimeiso;
 					$datatimeisoend = $datarif .' '.$endtimeiso;
@@ -265,25 +265,25 @@ switch(Core::$request->method) {
 			  	  	 		Sql::initQuery($App->params->tables['item'],$fields,$fieldsValues,'id = ?');
 	 						Sql::updateRecord();					
 							if (Core::$resultOp->error == 0) {
-	 								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',$_lang['tempo'],$_lang['%ITEM% modificato']))."!";
+	 								Core::$resultOp->message = ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['tempo'],Config::$localStrings['%ITEM% modificato']))."!";
 	 							}
 				 										 							
 							} else {
-		      				Core::$resultOp->message = $_lang['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'];
+		      				Core::$resultOp->message = Config::$localStrings['Intervallo di tempo si sovrappone ad un altro inserito nella stessa data!'];
 		      				Core::$resultOp->error = 1;
 								}			 							
 			 											
 						} else {
-	      				Core::$resultOp->message = $_lang['La ora inizio deve essere prima della ora fine!'];	 
+	      				Core::$resultOp->message = Config::$localStrings['La ora inizio deve essere prima della ora fine!'];	 
 	      				Core::$resultOp->error = 1;
 							}
 							
 					} else {
-				     	Core::$resultOp->message = $_lang['Devi selezionare un progetto!'];	 
+				     	Core::$resultOp->message = Config::$localStrings['Devi selezionare un progetto!'];	 
 				      Core::$resultOp->error = 1;
 						}
 				} else {
-  					Core::$resultOp->message = $_lang['Timecard non trovata!'];	 
+  					Core::$resultOp->message = Config::$localStrings['Timecard non trovata!'];	 
    				Core::$resultOp->error = 1;
 					}
 			} else {
@@ -324,7 +324,7 @@ echo ' - currentProjectId: '.$App->currentProjectId;
 		$dateL = $data1->format('d/m/Y');
 		$dateV = $data1->format('Y-m-d');
 		$numberday = $data1->format('w');
-		$nameday = $_lang['days'][$numberday];
+		$nameday = Config::$localStrings['days'][$numberday];
 		$nameabbday = ucfirst((strlen($nameday) > 3 ? mb_strcut($nameday,0,3) : $nameday));
 		
 		$App->dates_month[$i] = array('label'=>$dateL,'value'=>$dateV,'numberday'=>$numberday,'nameabbday'=>$nameabbday,'nameday'=>$nameday);	
@@ -368,11 +368,11 @@ switch((string)$App->viewMethod) {
 		$App->item->id_project = $App->currentProjectId;
 		/* sistemo ora inizio e fine */
 		$time = DateTime::createFromFormat('H:i:s',$App->nowTime);
-		$App->timeIniTimecard =  $time->format($_lang['datepicker time format']);
+		$App->timeIniTimecard =  $time->format(Config::$localStrings['datepicker time format']);
 		$time->add(new DateInterval('PT1H'));
-		$App->timeEndTimecard = $time->format($_lang['datepicker time format']);	
+		$App->timeEndTimecard = $time->format(Config::$localStrings['datepicker time format']);	
 		$App->defaultFormData = $_MY_SESSION_VARS[$App->sessionName]['data-timecard'];
-		$App->pageSubTitle = $_lang['lista delle voci'];
+		$App->pageSubTitle = Config::$localStrings['lista delle voci'];
 		$App->methodForm = 'insertTime';
 		$App->templateApp = 'formItem.html';
 	break;

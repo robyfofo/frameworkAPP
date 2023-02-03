@@ -26,7 +26,7 @@ $App->categories = Subcategories::getObjFromSubCategories();
 //print_r($App->categories);//die();
 
 if (!is_array($App->categories) || (is_array($App->categories) && count($App->categories) == 0)) {
-	$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['Devi creare o attivare almeno una %ITEM%'].'!'));
+	$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['Devi creare o attivare almeno una %ITEM%'].'!'));
 	ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 }
 
@@ -35,7 +35,7 @@ switch(Core::$request->method) {
 	case 'disactiveProd':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['prod'],$App->id,array('label'=>$_lang['prodotto'],'attivata'=>$_lang['attivato'],'disattivata'=>$_lang['disattivato']));
+			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['prod'],$App->id,array('label'=>Config::$localStrings['prodotto'],'attivata'=>Config::$localStrings['attivato'],'disattivata'=>Config::$localStrings['disattivato']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listProd');
 		} else {
@@ -68,7 +68,7 @@ switch(Core::$request->method) {
 				@unlink($App->params->uploadPaths['prod'].$App->itemOld->filename);
 			}
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['prodotto'],$_lang['%ITEM% cancellato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['prodotto'],Config::$localStrings['%ITEM% cancellato'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listProd');
 
 		} else {
@@ -81,7 +81,7 @@ switch(Core::$request->method) {
 		$App->item = new stdClass;
 		$App->item->active = 1;
 		$App->item->tax = 20.00;
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['prodotto'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['prodotto'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertProd';
 		$App->viewMethod = 'form';
 	break;
@@ -101,7 +101,7 @@ switch(Core::$request->method) {
 	   		$_POST['org_filename'] = ToolsUpload::getOrgFilename();
 
 	   		// parsa i post in base ai campi
-	   		Form::parsePostByFields($App->params->fields['prod'],$_lang,array());
+	   		Form::parsePostByFields($App->params->fields['prod'],Config::$localStrings,array());
 	   		if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newProd');
@@ -116,7 +116,7 @@ switch(Core::$request->method) {
 				move_uploaded_file(ToolsUpload::getTempFilename(),$App->params->uploadPaths['prod'].$_POST['filename']) or die('Errore caricamento file');
 			}
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['prodotto'],$_lang['%ITEM% inserito'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['prodotto'],Config::$localStrings['%ITEM% inserito'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listProd');
 			
 		} else {
@@ -132,7 +132,7 @@ switch(Core::$request->method) {
 		$App->item = Sql::getRecord();
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
 		$App->categories_id = $App->item->categories_id;
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['prodotto'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['prodotto'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateProd';
 		$App->viewMethod = 'form';
 	break;
@@ -170,7 +170,7 @@ switch(Core::$request->method) {
 			}
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['prod'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['prod'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyProd/'.$App->id);
@@ -187,7 +187,7 @@ switch(Core::$request->method) {
 				}
 			}
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['prodotto'],$_lang['%ITEM% modificato'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['prodotto'],Config::$localStrings['%ITEM% modificato'])).'!';
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyProd/'.$App->id);
 			} else {
@@ -209,7 +209,7 @@ switch(Core::$request->method) {
 	default;
 		Products::setDbTable(Sql::getTablePrefix().'warehouse_products');
 		Products::setDbTableCat(Sql::getTablePrefix().'warehouse_categories');
-		Products::setLangUser($_lang['user']);
+		Products::setLangUser(Config::$localStrings['user']);
 		$App->items = new stdClass;
 		$App->item = new stdClass;
 		$App->itemsForPage = (isset($_MY_SESSION_VARS[$App->sessionName]['ifp']) ? $_MY_SESSION_VARS[$App->sessionName]['ifp'] : 5);
@@ -236,12 +236,12 @@ switch(Core::$request->method) {
 		Sql::setOrder('title '.$App->params->ordersType['prod']);
 		$App->items = Products::getProductsList($App->categories_id);
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->paginationTitle = $_lang['mostra da %START% a %END% di %ITEM% elementi'];
+		$App->paginationTitle = Config::$localStrings['mostra da %START% a %END% di %ITEM% elementi'];
 		$App->paginationTitle = preg_replace('/%START%/',$App->pagination->firstPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%END%/',$App->pagination->lastPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['prodotti'],$_lang['lista dei %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['prodotti'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->viewMethod = 'list';
 	break;
 	}

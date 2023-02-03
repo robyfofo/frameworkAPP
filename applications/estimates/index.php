@@ -10,7 +10,7 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 $App->includeJscriptPHPTop = Core::$request->action."/templates/".$App->templateUser."/js/script.js.php";
@@ -55,10 +55,10 @@ switch(substr(Core::$request->method,-6,6)) {
 	break;
 }
 
-$App->defaultJavascript .= "messages['inserisci articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['inserisci %ITEM%'])))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['inserisci testo articolo'] = '".addslashes(ucfirst($_lang['inserisci testo articolo']))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['modifica articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['modifica %ITEM%'])))."';".PHP_EOL;
-$App->defaultJavascript .= "messages['modifica'] = '".addslashes(ucfirst($_lang['modifica']))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['inserisci articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['inserisci %ITEM%'])))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['inserisci testo articolo'] = '".addslashes(ucfirst(Config::$localStrings['inserisci testo articolo']))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['modifica articolo'] = '".addslashes(ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['modifica %ITEM%'])))."';".PHP_EOL;
+$App->defaultJavascript .= "messages['modifica'] = '".addslashes(ucfirst(Config::$localStrings['modifica']))."';".PHP_EOL;
 $App->defaultJavascript .= "var defDateins = '".$App->item->dateins."';".PHP_EOL;
 $App->defaultJavascript .= "var defDatesca = '".$App->item->datesca."';";
 $App->defaultJavascript .= "var module = '".Core::$request->action."';";

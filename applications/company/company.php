@@ -51,16 +51,16 @@ switch(Core::$request->method) {
 			$_POST['nation'] = '';
 			if (isset($_POST['location_nations_id']) && intval($_POST['location_nations_id']) > 0) {
 				$App->nation = new stdClass;
-				Sql::initQuery($App->params->tables['nations'],array('title_'.$_lang['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
+				Sql::initQuery($App->params->tables['nations'],array('title_'.Config::$localStrings['user']),array(intval($_POST['location_nations_id'])),'id = ? AND active = 1');
 				$App->nation = Sql::getRecord();
-				$field = 'title_'.$_lang['user'];
+				$field = 'title_'.Config::$localStrings['user'];
 				if (isset($App->nation->$field)) {
 					$_POST['nation'] =$App->nation->$field;
 				}
 			}
 			
 			/* parsa i post in base ai campi */ 	
-			Form::parsePostByFields($App->params->fields['item'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['item'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/editItem');
@@ -69,7 +69,7 @@ switch(Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['item'],$App->params->tables['item'],'id',$App->id);
 	   		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			echo 'aaa'.$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificati'])).'!';
+			echo 'aaa'.$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificati'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/editItem');
 					
 		} else {
@@ -85,7 +85,7 @@ switch(Core::$request->method) {
 		//if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->nations = new stdClass;
-		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.$_lang['user'].' ASC');
+		Sql::initQuery($App->params->tables['nations'],array('*'),array(),'active = 1','title_'.Config::$localStrings['user'].' ASC');
 		$App->nations = Sql::getRecords();
 		//if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 		
@@ -104,7 +104,7 @@ switch(Core::$request->method) {
 		}
 		
 		$App->methodForm = 'updateItem';	
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voci'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voci'],Config::$localStrings['modifica %ITEM%']);
 		$App->viewMethod = 'form';	
 	break;	
 	}

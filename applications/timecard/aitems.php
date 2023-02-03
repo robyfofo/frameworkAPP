@@ -224,7 +224,7 @@ switch(Core::$request->method) {
 			Sql::initQuery($App->params->tables['item'],array('id'),array($App->id),'id = ?');
 			Sql::deleteRecord();
 			if (Core::$resultOp->error == 0) {
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% cancellata'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% cancellata'])).'!';
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listAite');
 			} else {
 				ToolsStrings::redirect(URL_SITE.'error');
@@ -398,13 +398,13 @@ switch(Core::$request->method) {
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
-				$actions = '<a class="btn btn-sm btn-default confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteAite/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="fas fa-trash-alt"></i></a>';
+				$actions = '<a class="btn btn-sm btn-default confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteAite/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce'].'"><i class="fas fa-trash-alt"></i></a>';
 				$tablefields = array(
 					'id'=>$value->id,
 					'id_user'=>$value->username,
 					'project'=>$value->project,
 					'content'=>$value->content,
-					'datains'=>DateFormat::convertDateFormats($value->datains,'Y-m-d',$_lang['data format'],$App->nowDate),
+					'datains'=>DateFormat::convertDateFormats($value->datains,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
 					'starttime'=>$value->starttime,
 					'endtime'=>$value->endtime,
 					'worktime'=>$value->worktime,
@@ -441,7 +441,7 @@ switch(Core::$request->method) {
 switch((string)$App->viewMethod) {
 
 	case 'list':
-		$App->pageSubTitle = $_lang['lista delle voci'];
+		$App->pageSubTitle = Config::$localStrings['lista delle voci'];
 		$App->templateApp = 'listAitems.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listAitems.js"></script>';
 	break;

@@ -33,7 +33,7 @@ switch(Core::$request->method) {
 				Sql::deleteRecord();
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 				
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% cancellato'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% cancellato'])).'!';
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id.'/tab/2');
 		
 			} else {
@@ -53,7 +53,7 @@ switch(Core::$request->method) {
 			$count = Sql::countRecordQry($App->params->tables['ArtPur'],'id','id_invoice = ?',array($App->id));
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			if ($count > 0) {
-				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articoli'],$_lang['Errore! Ci sono ancora %ITEM% associati!']));
+				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articoli'],Config::$localStrings['Errore! Ci sono ancora %ITEM% associati!']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id);	
 			}
 
@@ -62,7 +62,7 @@ switch(Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce-p'],$_lang['%ITEM% cancellata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce-p'],Config::$localStrings['%ITEM% cancellata'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listInvPur');
 			
 				
@@ -72,7 +72,7 @@ switch(Core::$request->method) {
 	break;
 	
 	case 'newInvPur':			
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce-p'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce-p'],Config::$localStrings['inserisci %ITEM%']);
 		$App->viewMethod = 'formNew';	
 		$App->tabActive = 1;
 	break;
@@ -80,7 +80,7 @@ switch(Core::$request->method) {
 	case 'insertInvPur':
 		if ($_POST) {
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['InvPur'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['InvPur'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) { 
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newInvPur');
@@ -89,7 +89,7 @@ switch(Core::$request->method) {
 			// controllo date
 			DateFormat::checkDateFormatIniEndInterval($_POST['dateins'],$_POST['datesca'],'Y-m-d','>');
 			if (Core::$resultOp->error > 0) { 
-				$_SESSION['message'] = '1|'.$_lang['Intervallo tra le due date errato!'];
+				$_SESSION['message'] = '1|'.Config::$localStrings['Intervallo tra le due date errato!'];
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newInvPur/'.$App->id);
 			}
 	
@@ -97,7 +97,7 @@ switch(Core::$request->method) {
 			Sql::insertRawlyPost($App->params->fields['InvPur'],$App->params->tables['InvPur']);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce-p'],$_lang['%ITEM% inserita'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce-p'],Config::$localStrings['%ITEM% inserita'])).'!';
 			$tabActive = 1;
 			
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listInvPur');
@@ -108,7 +108,7 @@ switch(Core::$request->method) {
 	break;
 
 	case 'modifyInvPur':				
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce-p'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce-p'],Config::$localStrings['modifica %ITEM%']);
 		$App->viewMethod = 'formMod';
 		$App->tabActive = 1;
 		if ( (isset(Core::$request->params[0]) && Core::$request->params[0] == 'tab') && isset(Core::$request->params[1]) ) $App->tabActive = Core::$request->params[1];
@@ -134,7 +134,7 @@ switch(Core::$request->method) {
 					if (isset($_POST['artFormMode']) &&  $_POST['artFormMode'] == 'ins') {
 						
 						// parsa i campi
-						Form::parsePostByFields($App->params->fields['ArtPur'],$_lang,array());	
+						Form::parsePostByFields($App->params->fields['ArtPur'],Config::$localStrings,array());	
 						if (Core::$resultOp->error > 0) { 
 							$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 							ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id).'/tab/2';
@@ -144,7 +144,7 @@ switch(Core::$request->method) {
 						Sql::insertRawlyPost($App->params->fields['ArtPur'],$App->params->tables['ArtPur']);
 						if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 						
-						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% inserito'])).'!';
+						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% inserito'])).'!';
 						$tabActive = 2;
 						
 						ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id.'/tab/'.$tabActive);
@@ -157,7 +157,7 @@ switch(Core::$request->method) {
 						$id_art = (isset($_POST['id_article']) ? intval($_POST['id_article']) : 0);
 						
 						// parsa i campi
-						Form::parsePostByFields($App->params->fields['ArtPur'],$_lang,array());	
+						Form::parsePostByFields($App->params->fields['ArtPur'],Config::$localStrings,array());	
 						if (Core::$resultOp->error > 0) { 
 							$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 							ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id).'/tab/2';
@@ -167,7 +167,7 @@ switch(Core::$request->method) {
 						Sql::updateRawlyPost($App->params->fields['ArtPur'],$App->params->tables['ArtPur'],'id',$id_art);
 						if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 							
-						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% modificato'])).'!';
+						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% modificato'])).'!';
 						$tabActive = 2;
 						
 						ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id.'/tab/'.$tabActive);
@@ -181,7 +181,7 @@ switch(Core::$request->method) {
 				// form invoice	
 										
 				// parsa i post in base ai campi */ 	
-				Form::parsePostByFields($App->params->fields['InvPur'],$_lang,array());
+				Form::parsePostByFields($App->params->fields['InvPur'],Config::$localStrings,array());
    			if (Core::$resultOp->error > 0) { 
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id);
@@ -190,7 +190,7 @@ switch(Core::$request->method) {
 				// controllo date
 				DateFormat::checkDateFormatIniEndInterval($_POST['dateins'],$_POST['datesca'],'Y-m-d','>');
 				if (Core::$resultOp->error > 0) { 
-					$_SESSION['message'] = '1|'.$_lang['Intervallo tra le due date errato!'];
+					$_SESSION['message'] = '1|'.Config::$localStrings['Intervallo tra le due date errato!'];
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvPur/'.$App->id);
 				}
 				
@@ -198,7 +198,7 @@ switch(Core::$request->method) {
 				Sql::updateRawlyPost($App->params->fields['InvPur'],$App->params->tables['InvPur'],'id',$App->id);
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 									
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce-p'],$_lang['%ITEM% modificata'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce-p'],Config::$localStrings['%ITEM% modificata'])).'!';
 				$tabActive = 1;
 			}
 					
@@ -330,7 +330,7 @@ switch(Core::$request->method) {
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
 				/* crea la colonna actions */
-				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyInvPur/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce-p'].'"><i class="far fa-edit"> </i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteInvPur/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce-p'].'"><i class="fas fa-trash-alt"> </i></a>';
+				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyInvPur/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce-p'].'"><i class="far fa-edit"> </i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteInvPur/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce-p'].'"><i class="fas fa-trash-alt"> </i></a>';
 				$data = DateTime::createFromFormat('Y-m-d',$value->dateins);
 				$data1 = DateTime::createFromFormat('Y-m-d',$value->datesca);						
 				$value->totalLabel = '€ '.number_format($value->total + $value->total_tax,2,',','.');				
@@ -338,8 +338,8 @@ switch(Core::$request->method) {
 				$tablefields = array(
 					'id'=>$value->id,
 					'number'=>$value->number,
-					'dateinslocal'=>$data->format($_lang['data format']),
-					'datescalocal'=>$data1->format($_lang['data format']),
+					'dateinslocal'=>$data->format(Config::$localStrings['data format']),
+					'datescalocal'=>$data1->format(Config::$localStrings['data format']),
 					'customer'=>$value->customer_ragione_sociale,
 					'total'=>$value->totalLabel,
 					'actions'=>$actions
@@ -453,7 +453,7 @@ switch((string)$App->viewMethod) {
 		$App->item = new stdClass;		
 		$App->item->dateins = $App->nowDate;
 		$App->item->datesca = $App->nowDate;
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci-p'],$_lang['lista delle %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci-p'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listInvPur.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listInvPur.js"></script>';	
 	break;

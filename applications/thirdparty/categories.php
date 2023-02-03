@@ -19,7 +19,7 @@ switch(Core::$request->method) {
 	case 'disactiveCate':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		if ($App->id > 0) {
-			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['cate'],$App->id,array('label'=>$_lang['categoria'],'attivata'=>$_lang['attivata'],'disattivata'=>$_lang['disattivata']));
+			Sql::manageFieldActive(substr(Core::$request->method,0,-4),$App->params->tables['cate'],$App->id,array('label'=>Config::$localStrings['categoria'],'attivata'=>Config::$localStrings['attivata'],'disattivata'=>Config::$localStrings['disattivata']));
 			$_SESSION['message'] = '0|'.Core::$resultOp->message;
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 		} else {
@@ -35,7 +35,7 @@ switch(Core::$request->method) {
 			$count = Sql::countRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			if ($count > 0) {
-				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['categorie'],$_lang['Errore! Ci sono ancora %ITEM% associate!']));
+				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['categorie'],Config::$localStrings['Errore! Ci sono ancora %ITEM% associate!']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 			}
 
@@ -44,7 +44,7 @@ switch(Core::$request->method) {
 			$count = Sql::countRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			if ($count > 0) {
-				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['prodotti'],$_lang['Errore! Ci sono ancora %ITEM% associati!']));
+				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['prodotti'],Config::$localStrings['Errore! Ci sono ancora %ITEM% associati!']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 			}
 
@@ -61,7 +61,7 @@ switch(Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['%ITEM% cancellata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['%ITEM% cancellata'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 
 		} else {
@@ -83,7 +83,7 @@ switch(Core::$request->method) {
 		Subcategories::$levelString = '-->';
 		$App->categories = Subcategories::getObjFromSubCategories();
 
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertCate';
 		$App->viewMethod = 'form';
 	break;
@@ -92,7 +92,7 @@ switch(Core::$request->method) {
 		if ($_POST) {
 
 	   		// parsa i post in base ai campi
-	   		Form::parsePostByFields($App->params->fields['cate'],$_lang,array());
+	   		Form::parsePostByFields($App->params->fields['cate'],Config::$localStrings,array());
 	   		if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newCate');
@@ -104,7 +104,7 @@ switch(Core::$request->method) {
 			$App->id = Sql::getLastInsertedIdVar(); /* preleva l'id della pagina */
 			// sposto il file
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['%ITEM% inserita'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['%ITEM% inserita'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listCate');
 
 		} else {
@@ -129,7 +129,7 @@ switch(Core::$request->method) {
 		$App->item = Sql::getRecord();
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
 
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['modifica %ITEM%']).'!';
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['modifica %ITEM%']).'!';
 		$App->methodForm = 'updateCate';
 		$App->viewMethod = 'form';
 	break;
@@ -143,7 +143,7 @@ switch(Core::$request->method) {
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['cate'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['cate'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyCate/'.$App->id);
@@ -152,7 +152,7 @@ switch(Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['cate'],$App->params->tables['cate'],'id',$App->id);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['categoria'],$_lang['%ITEM% modificata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['categoria'],Config::$localStrings['%ITEM% modificata'])).'!';
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyCate/'.$App->id);
 			} else {
@@ -209,12 +209,12 @@ switch(Core::$request->method) {
 		}
 
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->paginationTitle = ucfirst($_lang['mostra da %START% a %END% di %ITEM% elementi']);
+		$App->paginationTitle = ucfirst(Config::$localStrings['mostra da %START% a %END% di %ITEM% elementi']);
 		$App->paginationTitle = preg_replace('/%START%/',$App->pagination->firstPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%END%/',$App->pagination->lastPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['categorie'],$_lang['lista delle %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['categorie'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->viewMethod = 'list';
 	break;
 	}

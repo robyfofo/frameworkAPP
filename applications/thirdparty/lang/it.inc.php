@@ -8,16 +8,16 @@
  * thirdparty language IT v.1.0.0. 24/07/2018
 */
 
-$_lang['voce']  = "soggetto terzo";
-$_lang['voci']  = "soggetti terzi";
-$_lang['la voce']  = "il soggetto terzo";
-$_lang['le voci']  = "i soggetti terzi";
-$_lang['soggetti terzi associati']  = "soggetti terzi associati";
+Config::$localStrings['voce']  = "soggetto terzo";
+Config::$localStrings['voci']  = "soggetti terzi";
+Config::$localStrings['la voce']  = "il soggetto terzo";
+Config::$localStrings['le voci']  = "i soggetti terzi";
+Config::$localStrings['soggetti terzi associati']  = "soggetti terzi associati";
 
-$_lang['opzioni stampa']  = "opzioni stampa";
+Config::$localStrings['opzioni stampa']  = "opzioni stampa";
 
-$_lang['categoria']  = "categoria";
-$_lang['categorie']  = "categorie";
-$_lang['la categoria']  = "la categoria";
-$_lang['le categorie']  = "le categorie";
+Config::$localStrings['categoria']  = "categoria";
+Config::$localStrings['categorie']  = "categorie";
+Config::$localStrings['la categoria']  = "la categoria";
+Config::$localStrings['le categorie']  = "le categorie";
 ?>

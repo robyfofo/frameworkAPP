@@ -9,7 +9,7 @@ switch (Core::$request->method) {
 
 	case 'activeNation':
 	case 'disactiveNation':
-		Sql::manageFieldActive(substr(Core::$request->method,0,-6),$App->params->tables['nations'],$App->id,array('label'=>$_lang['nazione'],'attivata'=>$_lang['attivata'],'disattivata'=>$_lang['disattivata']));
+		Sql::manageFieldActive(substr(Core::$request->method,0,-6),$App->params->tables['nations'],$App->id,array('label'=>Config::$localStrings['nazione'],'attivata'=>Config::$localStrings['attivata'],'disattivata'=>Config::$localStrings['disattivata']));
 		$_SESSION['message'] = '0|'.Core::$resultOp->message;
 		ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listNation');	
 	break;
@@ -22,7 +22,7 @@ switch (Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['nazione'],$_lang['%ITEM% cancellata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['nazione'],Config::$localStrings['%ITEM% cancellata'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listNation');
 
 		} else {
@@ -34,7 +34,7 @@ switch (Core::$request->method) {
 		$App->item = new stdClass;
 		$App->item->created = $App->nowDateTime;
 		$App->item->active = 1;
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['nazione'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['nazione'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertNation';
 		$App->viewMethod = 'form';	
 	break;
@@ -43,7 +43,7 @@ switch (Core::$request->method) {
 		if ($_POST) {
 			
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['nations'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['nations'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 			 	$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 			 	ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newNation');
@@ -54,7 +54,7 @@ switch (Core::$request->method) {
 
 			$App->id = Sql::getLastInsertedIdVar(); /* preleva l'id della pagina */
 			  
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['nazione'],$_lang['%ITEM% inserita'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['nazione'],Config::$localStrings['%ITEM% inserita'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listNation');
 
 		} else {
@@ -67,7 +67,7 @@ switch (Core::$request->method) {
 		Sql::initQuery($App->params->tables['nations'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['nazione'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['nazione'],Config::$localStrings['modifica %ITEM%']);
 		$App->methodForm = 'updateNation';	
 		$App->viewMethod = 'form';
 	break;
@@ -76,7 +76,7 @@ switch (Core::$request->method) {
 		if ($_POST) {
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['nations'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['nations'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newNation');
@@ -85,7 +85,7 @@ switch (Core::$request->method) {
 			Sql::updateRawlyPost($App->params->fields['nations'],$App->params->tables['nations'],'id',$App->id);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['nazione'],$_lang['%ITEM% modificata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['nazione'],Config::$localStrings['%ITEM% modificata'])).'!';
 			if (isset($_POST['applyForm']) && $_POST['applyForm'] == 'apply') {
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyNation/'.$App->id);
 			} else {
@@ -120,16 +120,16 @@ switch (Core::$request->method) {
 		Sql::setItemsForPage($App->itemsForPage);	
 		Sql::setPage($App->page);		
 		Sql::setResultPaged(true);
-		Sql::setOrder('title_'.$_lang['user'].' '.$App->params->orderTypes['nations']);	
+		Sql::setOrder('title_'.Config::$localStrings['user'].' '.$App->params->orderTypes['nations']);	
 		$App->items = Sql::getRecords();
 		
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->paginationTitle = ucfirst($_lang['mostra da %START% a %END% di %ITEM% elementi']);
+		$App->paginationTitle = ucfirst(Config::$localStrings['mostra da %START% a %END% di %ITEM% elementi']);
 		$App->paginationTitle = preg_replace('/%START%/',$App->pagination->firstPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%END%/',$App->pagination->lastPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['nazioni'],$_lang['lista %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['nazioni'],Config::$localStrings['lista %ITEMS%']);
 		$App->viewMethod = 'list';	
 	break;	
 }

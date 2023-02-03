@@ -9,6 +9,6 @@
 */
 
 /* IVA */
-$_lang['percentuale iva']  = "percentuale iva";
-$_lang['percentuali iva']  = "percentuali iva";
+Config::$localStrings['percentuale iva']  = "percentuale iva";
+Config::$localStrings['percentuali iva']  = "percentuali iva";
 ?>

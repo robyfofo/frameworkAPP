@@ -21,7 +21,7 @@ switch(Core::$request->method) {
 			$App->item = Sql::getRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db');die(); }
 			if (isset($App->item->id) && $App->item->id > 0) {
-				$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce-o'],$_lang['modifica %ITEM%']);
+				$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce-o'],Config::$localStrings['modifica %ITEM%']);
 				$App->methodForm = 'updateOutp';
 				$App->viewMethod = 'form';		
 										
@@ -37,11 +37,11 @@ switch(Core::$request->method) {
 	case 'updateOutp':
 		if ($_POST) {
 			/* parsa i post in base ai campi */ 	
-			Form::parsePostByFields($App->params->fields['items'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['items'],Config::$localStrings,array());
 			if (Core::$resultOp->error == 0) {
 				Sql::updateRawlyPost($App->params->fields['items'],$App->params->tables['items'],'id',$App->id);
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db');die(); }	
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce-o'],$_lang['%ITEM% modificata']));
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce-o'],Config::$localStrings['%ITEM% modificata']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listOutp');
 				die();				
 			} else {
@@ -60,7 +60,7 @@ switch(Core::$request->method) {
 		$App->item = new stdClass;		
 		$App->item->dateins = $App->nowDate;
 		$App->item->active = 1;	
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce-o'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce-o'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertOutp';
 		$App->viewMethod = 'form';		
 	break;
@@ -68,11 +68,11 @@ switch(Core::$request->method) {
 	case 'insertOutp':
 		if ($_POST) {
 			/* parsa i post in base ai campi */ 	
-			Form::parsePostByFields($App->params->fields['items'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['items'],Config::$localStrings,array());
 			if (Core::$resultOp->error == 0) {
 				Sql::insertRawlyPost($App->params->fields['items'],$App->params->tables['items']);
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db');die(); }
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce-o'],$_lang['%ITEM% inserita']));
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce-o'],Config::$localStrings['%ITEM% inserita']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listOutp');
 				die();
 			} else {
@@ -233,7 +233,7 @@ switch(Core::$request->method) {
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
 				/* crea la colonna actions */
-				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyOutp/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce-o'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteOutp/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce-o'].'"><i class="fas fa-trash-alt"></i></a>';						
+				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyOutp/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce-o'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteOutp/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce-o'].'"><i class="fas fa-trash-alt"></i></a>';						
 
 				$output = $value->amount;
 				if ( $value->type == 0) {
@@ -243,7 +243,7 @@ switch(Core::$request->method) {
 				
 				$tablefields = array(
 					'id'						=> $value->id,
-					'dateinslocal'			=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',$_lang['data format'],$App->nowDate),
+					'dateinslocal'			=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
 					'output'					=> ($output != '' ? '€ '.number_format($output,2,',','.') : ''),
 					'description'			=> $value->description,
 					'actions'				=> $actions
@@ -288,7 +288,7 @@ switch((string)$App->viewMethod) {
 	case 'list':
 		$App->item = new stdClass;		
 		$App->item->dateins = $App->nowDate;
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci-o'],$_lang['lista delle %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci-o'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listOutputs.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listOutputs.js"></script>';	
 	break;

@@ -29,7 +29,7 @@ switch(Core::$request->method) {
 			Sql::updateRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst($_lang['fattura segnata come pagata']);
+			$_SESSION['message'] = '0|'.ucfirst(Config::$localStrings['fattura segnata come pagata']);
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listInvSal');
 
 		} else {
@@ -49,7 +49,7 @@ switch(Core::$request->method) {
 				Sql::deleteRecord();
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% cancellato'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% cancellato'])).'!';
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id.'/tab/2');
 
 			} else {
@@ -69,7 +69,7 @@ switch(Core::$request->method) {
 			$count = Sql::countRecordQry($App->params->tables['ArtSal'],'id','id_invoice = ?',array($App->id));
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 			if ($count > 0) {
-				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articoli'],$_lang['Errore! Ci sono ancora %ITEM% associati!']));
+				$_SESSION['message'] = '2|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articoli'],Config::$localStrings['Errore! Ci sono ancora %ITEM% associati!']));
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id);
 			}
 
@@ -78,7 +78,7 @@ switch(Core::$request->method) {
 			Sql::deleteRecord();
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce-p'],$_lang['%ITEM% cancellata'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce-p'],Config::$localStrings['%ITEM% cancellata'])).'!';
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listInvSal');
 
 
@@ -88,7 +88,7 @@ switch(Core::$request->method) {
 	break;
 
 	case 'newInvSal':
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['inserisci %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->viewMethod = 'formNew';
 		$App->tabActive = 1;
 	break;
@@ -98,7 +98,7 @@ switch(Core::$request->method) {
 		if ($_POST) {
 
 			// parsa i post in base ai campi
-			Form::parsePostByFields($App->params->fields['InvSal'],$_lang,array());
+			Form::parsePostByFields($App->params->fields['InvSal'],Config::$localStrings,array());
 			if (Core::$resultOp->error > 0) {
 				$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newInvSal');
@@ -107,13 +107,13 @@ switch(Core::$request->method) {
 			// controllo date
 			DateFormat::checkDateFormatIniEndInterval($_POST['dateins'],$_POST['datesca'],'Y-m-d','>');
 			if (Core::$resultOp->error > 0) {
-				$_SESSION['message'] = '1|'.$_lang['Intervallo tra le due date errato!'];
+				$_SESSION['message'] = '1|'.Config::$localStrings['Intervallo tra le due date errato!'];
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newInvSal');
 			}
 
 			// controllo numero fattura
 			if (Sql::countRecordQry($App->params->tables['InvSal'],'id','id_customer = ? AND number_year = ? AND number = ?',array(intval($_POST['id_customer']),intval($_POST['number_year']),intval($_POST['number']))) > 0) {
-				$_SESSION['message'] = '1|'.$_lang['il numero fattura esiste già!'];
+				$_SESSION['message'] = '1|'.Config::$localStrings['il numero fattura esiste già!'];
 				ToolsStrings::redirect(URL_SITE.Core::$request->action.'/newInvSal');
 			}
 
@@ -121,7 +121,7 @@ switch(Core::$request->method) {
 			Sql::insertRawlyPost($App->params->fields['InvSal'],$App->params->tables['InvSal']);
 			if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% inserita'])).'!';
+			$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% inserita'])).'!';
 			$tabActive = 1;
 
 			ToolsStrings::redirect(URL_SITE.Core::$request->action.'/listInvSal');
@@ -132,7 +132,7 @@ switch(Core::$request->method) {
 	break;
 
 	case 'modifyInvSal':
-		$App->pageSubTitle = preg_replace('/%ITEM%/',$_lang['voce'],$_lang['modifica %ITEM%']);
+		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['modifica %ITEM%']);
 		$App->viewMethod = 'formMod';
 		$App->tabActive = 1;
 		if ( (isset(Core::$request->params[0]) && Core::$request->params[0] == 'tab') && isset(Core::$request->params[1]) ) $App->tabActive = Core::$request->params[1];
@@ -157,7 +157,7 @@ switch(Core::$request->method) {
 					if (isset($_POST['artFormMode']) &&  $_POST['artFormMode'] == 'ins') {
 
 						// parsa i campi
-						Form::parsePostByFields($App->params->fields['ArtSal'],$_lang,array());
+						Form::parsePostByFields($App->params->fields['ArtSal'],Config::$localStrings,array());
 						if (Core::$resultOp->error > 0) {
 							$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 							ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id).'/tab/2';
@@ -167,7 +167,7 @@ switch(Core::$request->method) {
 						Sql::insertRawlyPost($App->params->fields['ArtSal'],$App->params->tables['ArtSal']);
 						if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% inserito'])).'!';
+						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% inserito'])).'!';
 						$tabActive = 2;
 
 						ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id.'/tab/'.$tabActive);
@@ -179,7 +179,7 @@ switch(Core::$request->method) {
 						$id_art = (isset($_POST['id_article']) ? intval($_POST['id_article']) : 0);
 
 						// parsa i campi
-						Form::parsePostByFields($App->params->fields['ArtSal'],$_lang,array());
+						Form::parsePostByFields($App->params->fields['ArtSal'],Config::$localStrings,array());
 						if (Core::$resultOp->error > 0) {
 							$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 							ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id).'/tab/2';
@@ -189,7 +189,7 @@ switch(Core::$request->method) {
 						Sql::updateRawlyPost($App->params->fields['ArtSal'],$App->params->tables['ArtSal'],'id',$id_art);
 						if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['articolo'],$_lang['%ITEM% modificato'])).'!';
+						$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['articolo'],Config::$localStrings['%ITEM% modificato'])).'!';
 						$tabActive = 2;
 
 						ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id.'/tab/'.$tabActive);
@@ -203,7 +203,7 @@ switch(Core::$request->method) {
 				// form invoice */
 
 				// parsa i post in base ai campi
-				Form::parsePostByFields($App->params->fields['InvSal'],$_lang,array());
+				Form::parsePostByFields($App->params->fields['InvSal'],Config::$localStrings,array());
    			if (Core::$resultOp->error > 0) {
 					$_SESSION['message'] = '1|'.implode('<br>', Core::$resultOp->messages);
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id);
@@ -212,7 +212,7 @@ switch(Core::$request->method) {
 				// controllo date
 				DateFormat::checkDateFormatIniEndInterval($_POST['dateins'],$_POST['datesca'],'Y-m-d','>');
 				if (Core::$resultOp->error > 0) {
-					$_SESSION['message'] = '1|'.$_lang['Intervallo tra le due date errato!'];
+					$_SESSION['message'] = '1|'.Config::$localStrings['Intervallo tra le due date errato!'];
 					ToolsStrings::redirect(URL_SITE.Core::$request->action.'/modifyInvSal/'.$App->id);
 				}
 
@@ -220,7 +220,7 @@ switch(Core::$request->method) {
 				Sql::updateRawlyPost($App->params->fields['InvSal'],$App->params->tables['InvSal'],'id',$App->id);
 				if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
-				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',$_lang['voce'],$_lang['%ITEM% modificata'])).'!';
+				$_SESSION['message'] = '0|'.ucfirst(preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['%ITEM% modificata'])).'!';
 				$tabActive = 1;
 			}
 
@@ -345,8 +345,8 @@ switch(Core::$request->method) {
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $key=>$value) {
 				/* crea la colonna actions */
-				$pdf = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/invoicesExpPdf/'.$value->id.'" title="'.ucfirst($_lang['esporta in pdf']).' '.$_lang['la voce'].'" target="_blank"><i class="fas fa-print"></i></a>';
-				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyInvSal/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteInvSal/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="fas fa-trash-alt"></i></a>';
+				$pdf = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/invoicesExpPdf/'.$value->id.'" title="'.ucfirst(Config::$localStrings['esporta in pdf']).' '.Config::$localStrings['la voce'].'" target="_blank"><i class="fas fa-print"></i></a>';
+				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modifyInvSal/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteInvSal/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce'].'"><i class="fas fa-trash-alt"></i></a>';
 				/* calcola tassa aggiuntiva */
 				$invoiceTotalTax = 0;
 				if ($value->tax > 0) $invoiceTotalTax = ($value->total * $value->tax) / 100;
@@ -365,18 +365,18 @@ switch(Core::$request->method) {
 				$value->totalInvoiceLabel = '€ '.number_format($value->total_invoice,2,',','.');
 
 				$pagata = ' <a href="#" class="btn btn-info btn-sm"><i class="fas fa-money success" aria-hidden="true"></i></a>';
-				if ($value->pagata == 1) $pagata = ' <a href="'.URL_SITE.Core::$request->action.'/pagaInvSal/'.$value->id.'" title="'.ucfirst($_lang['segna come pagata']).'" class="btn btn-success btn-sm segnapagata"><i class="fas fa-money-bill-alt success" aria-hidden="true"></i></a>';
+				if ($value->pagata == 1) $pagata = ' <a href="'.URL_SITE.Core::$request->action.'/pagaInvSal/'.$value->id.'" title="'.ucfirst(Config::$localStrings['segna come pagata']).'" class="btn btn-success btn-sm segnapagata"><i class="fas fa-money-bill-alt success" aria-hidden="true"></i></a>';
 				if ($value->pagata == 0)
 				{
-					$pagata = ' <a href="'.URL_SITE.Core::$request->action.'/pagaInvSal/'.$value->id.'" title="'.ucfirst($_lang['segna come pagata']).'" class="btn btn-danger btn-sm segnapagata"><i class="fas fa-money-bill-alt success" aria-hidden="true"></i></a>';
+					$pagata = ' <a href="'.URL_SITE.Core::$request->action.'/pagaInvSal/'.$value->id.'" title="'.ucfirst(Config::$localStrings['segna come pagata']).'" class="btn btn-danger btn-sm segnapagata"><i class="fas fa-money-bill-alt success" aria-hidden="true"></i></a>';
 
 				}
 
 				$tablefields = array(
 					'id'=>$value->id,
 					'invoice_number' => $value->invoice_number,
-					'dateinslocal'=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',$_lang['data format'],$App->nowDate),
-					'datescalocal'=>DateFormat::convertDateFormats($value->datesca,'Y-m-d',$_lang['data format'],$App->nowDate),
+					'dateinslocal'=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
+					'datescalocal'=>DateFormat::convertDateFormats($value->datesca,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
 					'pagata'=>$pagata,
 					'customer'=>$value->customer_ragione_sociale,
 					'note'=>$value->note,
@@ -513,7 +513,7 @@ switch((string)$App->viewMethod) {
 		$App->item = new stdClass;
 		$App->item->dateins = $App->nowDate;
 		$App->item->datesca = $App->nowDate;
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista delle %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listInvSal.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listInvSal.js"></script>';
 	break;

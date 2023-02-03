@@ -280,7 +280,7 @@ switch(Core::$request->method) {
 				$type = 'Outp';
 				if ($value->type == 1) $type = 'Entr';
 				/* crea la colonna actions */
-				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modify'.$type.'/'.$value->id.'" title="'.ucfirst($_lang['modifica']).' '.$_lang['la voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst($_lang['cancella']).' '.$_lang['la voce'].'"><i class="fas fa-trash-alt"></i></a>';						
+				$actions = '<a class="btn btn-default btn-sm" href="'.URL_SITE.Core::$request->action.'/modify'.$type.'/'.$value->id.'" title="'.ucfirst(Config::$localStrings['modifica']).' '.Config::$localStrings['la voce'].'"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirmdelete" href="'.URL_SITE.Core::$request->action.'/deleteItem/'.$value->id.'" title="'.ucfirst(Config::$localStrings['cancella']).' '.Config::$localStrings['la voce'].'"><i class="fas fa-trash-alt"></i></a>';						
 									
 				$entry = $value->amount;
 				$output = $value->amount;
@@ -295,7 +295,7 @@ switch(Core::$request->method) {
 				}
 				
 				$tablefields = array (
-					'dateinslocal'			=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',$_lang['data format'],$App->nowDate),
+					'dateinslocal'			=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
 					'entry'					=> ($entry != '' ? '€ '.number_format($entry,2,',','.') : ''),
 					'output'					=> ($output != '' ? '€ '.number_format($output,2,',','.') : ''),
 					'description'			=> $value->description,
@@ -333,7 +333,7 @@ switch((string)$App->viewMethod) {
 	case 'list':
 		$App->item = new stdClass;		
 		$App->item->dateins = $App->nowDate;
-		$App->pageSubTitle = preg_replace('/%ITEMS%/',$_lang['voci'],$_lang['lista dei %ITEMS%']);
+		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->templateApp = 'listItems.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listItems.js"></script>';	
 	break;

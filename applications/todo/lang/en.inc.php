@@ -8,11 +8,11 @@
  * To Do language EN v.1.0.0. 16/07/2018
 */
 
-$_lang['pagetitle'] = "To do";
-$_lang['pagesubtitle'] = "To do page";
+Config::$localStrings['pagetitle'] = "To do";
+Config::$localStrings['pagesubtitle'] = "To do page";
 
-$_lang['voce']  = "to do";
-$_lang['voci']  = "to dos";
-$_lang['la voce']  = "the to do";
-$_lang['le voci']  = "the to dos";
+Config::$localStrings['voce']  = "to do";
+Config::$localStrings['voci']  = "to dos";
+Config::$localStrings['la voce']  = "the to do";
+Config::$localStrings['le voci']  = "the to dos";
 ?>

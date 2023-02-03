@@ -10,7 +10,7 @@
 
 //Core::setDebugMode(1);
 
-include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.Core::$request->action."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/config.inc.php");
 include_once(PATH.$App->pathApplications.Core::$request->action."/classes/class.module.php");
 
@@ -35,9 +35,9 @@ switch(substr(Core::$request->method,-4,4)) {
 		$App->css[] = '<link href="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/css/ajax-bootstrap-select.min.css" rel="stylesheet">';
 		
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/js/ajax-bootstrap-select.min.js"></script>';
-		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/js/locale/ajax-bootstrap-select.'.$_lang['charset'].'.min.js"></script>';
+		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/ajax-bootstrap-select/js/locale/ajax-bootstrap-select.'.Config::$localStrings['charset'].'.min.js"></script>';
 
-		$App->defaultJavascript = "messages['Le due password non corrispondono!'] = '".addslashes($_lang['Le due password non corrispondono!'])."';";
+		$App->defaultJavascript = "messages['Le due password non corrispondono!'] = '".addslashes(Config::$localStrings['Le due password non corrispondono!'])."';";
 		include_once(PATH.$App->pathApplications.Core::$request->action."/users.php");
 	break;
 }
