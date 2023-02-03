@@ -1,0 +1,1 @@
+<li class="{{LICLASS}}"><a href="{{URLSITE}}{{NAME}}"><i class="fa fa-users fa-fw"></i> {{LABEL}}</a></li>

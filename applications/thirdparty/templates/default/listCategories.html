@@ -1,0 +1,112 @@
+<!-- thirdparty/listCategories.html v.1.2.0. 13/08/2020 -->
+<div class="row">
+	<div class="col-md-12 new"><a href="{{ URLSITE }}{{ CoreRequest.action }}/newCate" title="{{ Lang['inserisci una nuova %ITEM%']|replace({'%ITEM%': Lang['categoria']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuova %ITEM%']|replace({'%ITEM%': Lang['categoria']})|capitalize }}</a></div>
+	<div class="col-md-7 help-small-list">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2"></div>
+</div>
+
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">		
+		<form role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/listCate" method="post" enctype="multipart/form-data">
+			<div class="form-group row">
+					<div class="col-md-1">
+						<select name="itemsforpage" id="itemsforpageID" class="custom-select custom-select-sm" onchange="this.form.submit();" >
+							<option value="5"{% if App.itemsForPage == 5 %} selected="selected"{% endif %}>5</option>
+							<option value="10"{% if App.itemsForPage == 10 %} selected="selected"{% endif %}>10</option>
+							<option value="25"{% if App.itemsForPage == 25 %} selected="selected"{% endif %}>25</option>
+							<option value="50"{% if App.itemsForPage == 50 %} selected="selected"{% endif %}>50</option>
+							<option value="100"{% if App.itemsForPage == 100 %} selected="selected"{% endif %}>100</option>
+						</select>
+					</div>
+					<label for="itemsforpageID" class="col-md-2 col-form-label form-control-sm">{{ Lang['voci per pagina']| capitalize }}</label>
+			
+					<label for="searchFromTableID" class="offset-md-6 col-md-1 col-form-label form-control-sm" style="text-align:right;">{{ Lang['cerca']|capitalize }}</label>
+					<div class="col-md-2">
+						<input type="search" name="searchFromTable" id="searchFromTableID" class="form-control form-control-sm"  value="{% if MySessionVars[App.sessionName]['srcTab'] is defined and  MySessionVars[App.sessionName]['srcTab'] != '' %}{{  MySessionVars[App.sessionName]['srcTab'] }}{% endif %}" onchange="this.form.submit();">	
+					</div>
+			</div>
+			
+			<div class="table-responsive">									
+				<table class="table table-striped table-bordered table-hover listData tree">
+					<thead>
+						<tr>
+							<th></th>
+							{% if App.userLoggedData.is_root == 1 %}
+								<th class="id">ID</th>						
+							{% endif %}
+							<th>{{ Lang['titolo']|capitalize }}</th>
+							<th>{{ Lang['voci']|capitalize }}</th>									
+							<th></th>						
+						</tr>
+					</thead>
+					<tbody>
+						{% if App.items is iterable and App.items|length > 0 %}
+							{% for key,value in App.items %}
+								<tr class="treegrid-{{ value.id }}{% if value.parent > 0 %} treegrid-parent-{{ value.parent }}{% endif %}">
+									<td class="tree-simbol"></td>								
+									{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}
+										<td class="idcol">{{ value.id }}-{{ value.parent }}</td>
+									{% endif %}								
+									<td class="page-title" style="white-space: nowrap;">{{ value.levelString }}{{ value.title }}</td>
+									<td>
+										<a class="btn btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/listItem/{{ value.id }}" title="{{ Lang['soggetti terzi associati']|capitalize }}"><i class="fas fa-users"></i></a>({{ value.items }})			 
+									</td>																							
+									<td class="actions">
+										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Cate/{{ value.id  }}" title="{{ value.active == 1 ? Lang['disattiva']|capitalize : Lang['attiva']|capitalize }} {{ Lang['categoria'] }}"><i class="fas fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"></i></a>			 
+										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyCate/{{ value.id }}" title="{{ Lang['modifica']|capitalize }}  {{ Lang['categoria'] }}"><i class="far fa-edit"></i></a>
+										<a class="btn btn-default btn-sm confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteCate/{{ value.id }}" title="{{ Lang['cancella']|capitalize }}  {{ Lang['categoria'] }}"><i class="far fa-trash-alt"></i></a>
+									</td>
+	     						</tr> 
+							{% endfor %}
+						{% else %}
+							<tr>
+								<td></td>
+								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
+								<td colspan="3">{{ Lang['nessuna voce trovata!']|capitalize }}</td>
+							</tr>
+						{% endif %}
+					</tbody>       
+				</table>				
+			</div>
+			<!-- /.table-responsive -->
+			
+			{% if App.pagination.itemsTotal > 0 %}
+			<div class="row">
+				<div class="col-md-6">
+					<div class="pagination-info">
+						{{ App.paginationTitle }}
+					</div>	
+				</div>
+				<div class="col-md-6">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination pagination-sm float-right">
+							<li class="page-item previous{% if App.pagination.page == 1 %} disabled{% endif %}">
+								<a class="page-link" title="{{ Lang['pagina']|capitalize }} {{ Lang['precedente'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pagCate/{{ App.pagination.itemPrevious }}">{{ Lang['precedente']|capitalize }}</a>
+							</li>
+							
+							{% if App.pagination.pagePrevious is iterable %}
+								{% for key,value in App.pagination.pagePrevious %}
+									<li class="page-item"><a class="page-link" title="{{ Lang['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ value }}">{{ value }}</a></li>
+								{% endfor %}
+							{% endif %}
+								
+							<li class="page-item active"><a class="page-link active" title="{{ Lang['pagina corrente']|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>
+								
+							{% if App.pagination.pageNext is iterable %}
+								{% for key,value in App.pagination.pageNext %}
+									<li class="page-item"><a class="page-link" title="{{ Lang['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ value }}">{{ value }}</a></li>
+								{% endfor %}
+							{% endif %}
+							
+							
+							<li class="page-item next{% if App.pagination.page >= App.pagination.totalpage %} disabled{% endif %}">
+								<a class="page-link" title="{{ Lang['pagina']|capitalize }} {{ Lang['prossima'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ App.pagination.itemNext }}">{{ Lang['prossima']|capitalize }}</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			{% endif %}
+		</form>
+	</div>
+</div>

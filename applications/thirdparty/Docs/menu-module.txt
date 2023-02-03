@@ -1,0 +1,7 @@
+{
+	"action":"thirdparty","name":"%NAME%","icon":"<i class=\"fas fa-users\"><\/i>","label":"%LABEL%","submenus":
+		[
+			{"action":"thirdparty","name":"listCate","icon":"<i class=\"fas fa-folder-open\"><\/i>","label":"Categorie"},
+			{"action":"thirdparty","name":"listItem","icon":"<i class=\"fas fa-users\"><\/i>","label":"Soggetti Terzi"}
+		]
+}

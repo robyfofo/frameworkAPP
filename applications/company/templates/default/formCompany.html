@@ -1,0 +1,280 @@
+<!-- app/company/formCompany.html v.1.3.0. 22/09/2020 -->
+<div class="row">
+	<div class="col-md-3 new"></div>
+	<div class="col-md-7 help-small-form">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2 help"></div>
+</div>
+
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="formTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" href="#anagrafica" id="anagrafica-tab" aria-controls="anagrafica" aria-selected="true" data-toggle="tab">{{ Lang['anagrafica']|capitalize }}</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#contacts" id="contacts-tab" aria-controls="contacts" aria-selected="true" data-toggle="tab">{{ Lang['contatti']|capitalize }}</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#fiscale" id="fiscale-tab" aria-controls="fiscale" aria-selected="true" data-toggle="tab">{{ Lang['fiscale']|capitalize }}</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#fatturazione" id="fatturazione-tab" aria-controls="fatturazione" aria-selected="true" data-toggle="tab">{{ Lang['fatturazione']|capitalize }}</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#banca" id="banca-tab" aria-controls="banca" aria-selected="true" data-toggle="tab">{{ Lang['banca']|capitalize }}</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" href="#options" id="options-tab" aria-controls="options" aria-selected="true" data-toggle="tab">{{ Lang['opzioni']|capitalize }}</a>
+			</li>
+
+		</ul>
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+			<!-- Tab panes -->
+			<div class="tab-content" id="formTabContent">	
+				<div class="tab-pane fade show active" id="anagrafica" role="tabpanel" aria-labelledby="anagrafica">				
+					<fieldset>
+						<div class="form-group row">
+							<label for="ragione_socialeID" class="col-md-2 control-label">{{ App.params.fields['item']['ragione_sociale']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input required type="text" name="ragione_sociale" class="form-control" id="ragione_socialeID" placeholder="{{ Lang['inserisci una ragione sociale']|capitalize }}" value="{{ App.item.ragione_sociale|e('html') }}">
+					    	</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="nameID" class="col-md-2 control-label">{{ App.params.fields['item']['name']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input required type="text" name="name" class="form-control" id="nameID" placeholder="{{ Lang['inserisci un nome']|capitalize }}" value="{{ App.item.name|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="surnameID" class="col-md-2 control-label">{{ App.params.fields['item']['surname']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="surname" class="form-control" id="surnameID" placeholder="{{ Lang['inserisci un cognome']|capitalize }}" value="{{ App.item.surname|e('html') }}">
+					    	</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="streetID" class="col-md-2 control-label">{{ App.params.fields['item']['street']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="street" class="form-control" id="streetID" placeholder="{{ Lang['inserisci un indirizzo']|capitalize }}" value="{{ App.item.street|e('html') }}">
+					    	</div>
+						</div>		
+
+						<hr>
+						<div class="form-group row">
+							<label for="location_comuni_idID" class="col-md-2 control-label">{{ App.params.fields['item']['location_comuni_id']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<div class="form-group">
+								<select id="location_comuni_idID" name="location_comuni_id" class="selectpicker with-ajax form-control" data-live-search="true" title="{{ Lang['seleziona un %ITEM%']|replace({'%ITEM%': Lang['comune']})|capitalize }}">
+									
+									{% if App.comune.selected.id > 0 %}
+									<option value="{{ App.comune.selected.id }}" data-subtext="" selected>
+										{{ App.comune.selected.nome }}
+									</option>
+									{% endif %}
+
+								</select></div>		
+					    	</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="cityID" class="col-md-2 control-label">{{ App.params.fields['item']['city']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="city" class="form-control" id="cityID" placeholder="{{ Lang['inserisci una città']|capitalize }}" value="{{ App.item.city|e('html') }}">
+					    	</div>
+						</div>	
+						<hr>
+
+						<div class="form-group row">
+							<label for="zip_codeID" class="col-md-2 control-label">{{ App.params.fields['item']['zip_code']['label']|upper }}</label>
+							<div class="col-md-2">
+								<input type="text" name="zip_code" class="form-control" id="zip_codeID" placeholder="{{ Lang['inserisci un cap']|capitalize }}" value="{{ App.item.zip_code|e('html') }}">
+					    	</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="location_province_idID" class="col-md-2 control-label">{{ App.params.fields['item']['location_province_id']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<select name="location_province_id" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona una %ITEM%']|replace({'%ITEM%': Lang['provincia']})|capitalize }}">
+									<option value="0"{% if 0 == App.item.location_province_id %} selected="selected"{% endif %}>{{ Lang['altra provincia']|capitalize }}</option>	
+									{% if App.province is iterable %}
+										{% for key,value in App.province %}	
+											<option value="{{ value.id }}"{% if value.id == App.item.location_province_id %} selected="selected"{% endif %}>{{ value.nome|e('html') }}</option>														
+										{% endfor %}
+									{% endif %}		
+								</select>		
+					    	</div>
+						</div>		
+
+						<div class="form-group row">
+							<label for="provinciaID" class="col-md-2 control-label">{{ App.params.fields['item']['provincia']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="provincia" class="form-control" id="provinciaID" placeholder="{{ Lang['inserisci una provincia']|capitalize }}" value="{{ App.item.provincia|e('html') }}">
+					    	</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="location_nations_idID" class="col-md-2 control-label">{{ App.params.fields['item']['location_nations_id']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<select name="location_nations_id" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona una %ITEM%']|replace({'%ITEM%': Lang['nazione']})|capitalize }}">
+									{% if App.nations is iterable %}
+										{% for key,value in App.nations %}	
+											{% set titleField = "title_#{Lang['user']}" %}
+											<option value="{{ value.id }}"{% if value.id == App.item.location_nations_id %} selected="selected"{% endif %}>{{ attribute(value, titleField)|e('html') }}</option>														
+										{% endfor %}
+									{% endif %}		
+								</select>		
+					    	</div>
+						</div>			
+						
+					</fieldset>					
+				</div>
+	<!-- sezione contacts --> 
+				<div class="tab-pane fade show" id="contacts" role="tabpanel" aria-labelledby="contacts">		
+					<fieldset>
+						<div class="form-group row">
+							<label for="emailID" class="col-md-2 control-label">{{ App.params.fields['item']['email']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="email" name="email" class="form-control" id="emailID" placeholder="{{ Lang['inserisci un indirizzo email']|capitalize }}"  value="{{ App.item.email|e('html') }}">
+					    	</div>
+					    	<div class="col-md-6" id="emailMessageID"></div>
+						</div>
+						<div class="form-group row">
+							<label for="telephoneID" class="col-md-2 control-label">{{ App.params.fields['item']['telephone']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="telephone" class="form-control" id="telephoneID" placeholder="{{ Lang['inserisci un numero di telefono']|capitalize }}"  value="{{ App.item.telephone|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="mobileID" class="col-md-2 control-label">{{ App.params.fields['item']['mobile']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="mobile" class="form-control" id="mobileID" placeholder="{{ Lang['inserisci un numero di cellulare']|capitalize }}"  value="{{ App.item.mobile|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="faxID" class="col-md-2 control-label">{{ App.params.fields['item']['fax']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="fax" class="form-control" id="faxID" placeholder="{{ Lang['inserisci un numero di fax']|capitalize }}"  value="{{ App.item.fax|e('html') }}">
+					    	</div>
+						</div>
+					</fieldset>				
+				</div>
+	<!-- sezione contacts -->
+	<!-- sezione fiscale --> 
+				<div class="tab-pane fade show" id="fiscale" role="tabpanel" aria-labelledby="fiscale">	
+					<fieldset>
+						<div class="form-group row">
+							<label for="partita_ivaID" class="col-md-2 control-label">{{ App.params.fields['item']['partita_iva']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="partita_iva" class="form-control" id="partita_ivaID" placeholder="{{ Lang['inserisci una partita IVA']|capitalize }}"  value="{{ App.item.partita_iva|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="codice_fiscaleID" class="col-md-2 control-label">{{ App.params.fields['item']['codice_fiscale']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="codice_fiscale" class="form-control" id="codice_fiscaleID" placeholder="{{ Lang['inserisci un codice fiscale']|capitalize }}"  value="{{ App.item.codice_fiscale|e('html') }}">
+					    	</div>
+						</div>
+					</fieldset>				
+				</div>
+	<!-- sezione fiscale -->
+	<!-- sezione fatture --> 
+				<div class="tab-pane fade show" id="fatturazione" role="tabpanel" aria-labelledby="fatturazione">		
+					<fieldset>
+						<div class="form-group row">
+							<label for="gestione_ivaID" class="col-md-2 control-label">{{ App.params.fields['item']['gestione_iva']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="gestione_iva" id="gestione_ivaID" class="form-check-input"{% if App.item.gestione_iva == 1 %} checked="checked"{% endif %} value="1">     					
+	   						</div>
+	   					</div>
+
+				  		<div class="form-group row">
+							<label for="ivaID" class="col-md-2 control-label">{{ App.params.fields['item']['iva']['label']|capitalize }} %</label>
+							<div class="col-md-3">
+								<input type="text" name="iva" class="form-control" id="ivaID" placeholder="{{ Lang['inserisci una iva']|capitalize }}"  value="{{ App.item.iva|e('html') }}">
+					    	</div>
+						</div>
+				  		<div class="form-group row">
+							<label for="text_noivaID" class="col-md-2 control-label">{{ App.params.fields['item']['text_noiva']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<textarea name="text_noiva" class="form-control" id="text_noivaID" rows="3">{{ App.item.text_noiva|e('html') }}</textarea>
+					    	</div>
+						</div>
+
+				  		<hr>
+				  		<div class="form-group row">
+							<label for="gestione_rivalsaID" class="col-md-2 control-label">{{ App.params.fields['item']['gestione_rivalsa']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="gestione_rivalsa" id="gestione_rivalsaID" class="form-check-input"{% if App.item.gestione_rivalsa == 1 %} checked="checked"{% endif %} value="1">     					
+	   						</div>
+	   					</div>
+										
+				  		<div class="form-group row">
+							<label for="text_rivalsaID" class="col-md-2 control-label">{{ App.params.fields['item']['text_rivalsa']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<textarea name="text_rivalsa" class="form-control" id="text_rivalsaID" rows="3">{{ App.item.text_rivalsa|e('html') }}</textarea>
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="rivalsaID" class="col-md-2 control-label">{{ App.params.fields['item']['rivalsa']['label']|capitalize }} %</label>
+							<div class="col-md-3">
+								<input type="text" name="rivalsa" class="form-control" id="rivalsaID" placeholder="{{ Lang['inserisci una rivalsa']|capitalize }}"  value="{{ App.item.rivalsa|e('html') }}">
+					    	</div>
+						</div>
+					</fieldset>				
+				</div>
+	<!-- sezione fatture -->
+	<!-- sezione banca --> 
+				<div class="tab-pane fade show" id="banca" role="tabpanel" aria-labelledby="banca">			
+					<fieldset>
+						<div class="form-group row">
+							<label for="bancaID" class="col-md-2 control-label">{{ App.params.fields['item']['banca']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input required type="text" name="banca" class="form-control" id="bancaID" placeholder="{{ Lang['inserisci una banca']|capitalize }}"  value="{{ App.item.banca|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="intestatarioID" class="col-md-2 control-label">{{ App.params.fields['item']['intestatario']['label']|capitalize }}</label>
+							<div class="col-md-3">
+								<input required type="text" name="intestatario" class="form-control" id="intestatarioID" placeholder="{{ Lang['inserisci un intestatario']|capitalize }}"  value="{{ App.item.intestatario|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="ibanID" class="col-md-2 control-label">{{ App.params.fields['item']['iban']['label']|upper }}</label>
+							<div class="col-md-3">
+								<input required type="text" name="iban" class="form-control" id="ibanID" placeholder="{{ Lang['inserisci un iban']|capitalize }}"  value="{{ App.item.iban|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="bic_swiftID" class="col-md-2 control-label">{{ App.params.fields['item']['bic_swift']['label']|upper }}</label>
+							<div class="col-md-3">
+								<input type="text" name="bic_swift" class="form-control" id="bic_swiftID" placeholder="{{ Lang['inserisci un bic swift']|capitalize }}"  value="{{ App.item.bic_swift|e('html') }}">
+					    	</div>
+						</div>
+					</fieldset>				
+				</div>
+	<!-- sezione banca -->
+	<!-- sezione opzioni --> 
+				<div class="tab-pane fade show" id="options" role="tabpanel" aria-labelledby="options">
+					<fieldset class="form-group">
+						
+					</fieldset>					
+				</div>
+	<!-- sezione opzioni -->		 
+			</div>
+			<!--/Tab panes -->			
+			<hr>
+			<div class="form-group row">
+				<div class="col-md-6 col-xs-12 row-submitapply">
+					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					{% if App.id > 0 %}
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+					{% endif %}
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

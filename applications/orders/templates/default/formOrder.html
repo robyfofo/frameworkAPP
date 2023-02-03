@@ -1,0 +1,361 @@
+<!-- invoices/formInvSel.html v.1.2.0. 21/12/2019 -->
+<style type="text/css"><!--
+#applicationForm .control-span {
+	padding: 7px 0px;
+	margin:0px;
+}
+
+#applicationForm .col-1-span {
+	line-height: 2.5;
+	padding-right:6px;
+	padding-left:6px;
+	flex: 0 0 2%;
+	max-width: 10.33333%;
+}
+
+@media (min-width: 768px) {
+	.col-1-span {
+   		max-width: 10.33333%;
+	}
+}
+
+@media (min-width: 768px) {
+	.col-1-span {
+   		max-width: 12.33333%;
+	}
+}
+--></style>
+<div class="row">
+	<div class="col-md-3 new"></div>
+	<div class="col-md-7 help-small-form">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2 help"></div>
+</div>
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="formTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link{% if Session[App.sessionName]['formTabActive'] == 1 %} active{% endif %}" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+			</li>
+			{% if App.id > 0 %}
+				<li class="nav-item">
+					<a class="nav-link{% if Session[App.sessionName]['formTabActive'] == 2 %} active{% endif %}" href="#articles" id="articles-tab" aria-controls="articles" aria-selected="true" data-toggle="tab">{{ Lang['articoli']|capitalize }}</a>
+				</li>
+			{% endif %}
+			<li class="nav-item">
+				<a class="nav-link" href="#anagrafica" id="anagrafica-tab" aria-controls="anagrafica" aria-selected="true" data-toggle="tab">{{ Lang['anagrafica']|capitalize }}</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#options" id="options-tab" aria-controls="options" aria-selected="true" data-toggle="tab">{{ Lang['opzioni']|capitalize }}</a>
+			</li>					
+		</ul>
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+			<!-- Tab panes -->
+			<div class="tab-content">	
+
+				<div class="tab-pane fade show{% if Session[App.sessionName]['formTabActive'] == 1 %} active{% endif %}" id="datibase" role="tabpanel" aria-labelledby="datibase">			
+					<fieldset>
+						<div class="form-group row">
+							<label for="dateinsID" class="col-md-2 control-label">{{ Lang['data']|capitalize }}</label>
+							<div class="col-sm-6 col-md-4  col-xl-2 input-group date" id="dateinsDPID">
+								<input required="required" type="text" name="dateins" class="form-control" placeholder="{{ Lang['inserisci una data']|capitalize }}" id="dateinsID" value="">
+								<span class="input-group-addon calendar-icon">
+									<i class="fa fa-calendar"></i>
+								</span>	    	
+					    	</div>
+						</div>
+						<hr>
+						
+						<div class="form-group row">
+							<label for="numberID" class="col-md-2 control-label">{{ Lang['numero']|capitalize }}</label>
+							<div class="col-sm-2 col-md-2  col-xl-1">
+								<input required="required" type="text" name="number" class="form-control" id="numberID" placeholder="{{ Lang['inserisci un numero']|capitalize }}" value="{{ App.item.number|e('html') }}">
+					    	</div>
+					    	<span class="control-span">-</span>
+					    	<div class="col-md-1 col-1-span">
+					    		<span class="control-span" id="number_yearID">{{ App.params.defaultNumberYear }}</span>
+					    	</div>
+					    	
+					    	<div class="col-md-5">
+					    		<span class="control-span" id="message_check_numberID">{{ App.item.id_customer|e('html') }}</span>
+					    		<input type="hidden" name="result_check_number" id="result_check_numberID" value="1">
+					    	</div>
+						</div>	
+						
+						<hr>					
+						<div class="form-group row">
+							<label for="noteID" class="col-md-2 control-label">{{ Lang['Note (visibili in fattura)']|capitalize }}</label>
+							<div class="col-md-7">
+								<textarea name="note" class="form-control" id="noteID" rows="3">{{ App.item.note|e('html') }}</textarea>
+					    	</div>
+						</div>	
+					</fieldset>					
+				</div>
+				
+<!-- sezione movimenti -->
+				{% if App.id > 0 %}
+				<div class="tab-pane fade show{% if Session[App.sessionName]['formTabActive'] == 2 %} active{% endif %}" id="articles" role="tabpanel" aria-labelledby="articles">
+				
+					{% if App.item_articles is iterable and App.item_articles|length > 0 %}			
+						
+								<div class="table-responsive">	
+									<table class="table table-striped table-bordered table-hover table-sm listData" width="100%" cellspacing="0" style="font-size:0.8rem;">
+										<thead>
+											<tr>
+												<th class="text-center">{{ Lang['contenuto']|capitalize }}</th>
+												<th class="text-center">{{ Lang['prezzo unitario']|capitalize }}</th>
+												<th class="text-center">{{ Lang['quantità']|capitalize }}</th>
+												<th class="text-center">{{ Lang['prezzo totale']|capitalize }}</th>	
+												<th class="text-center">{{ Lang['iva']|capitalize }}%</th>
+												<th class="text-center">{{ Lang['imponibile']|capitalize }}</th>
+												<th class="text-center">{{ Lang['totale']|capitalize }}</th>									
+												<th></th					
+											</tr>
+										</thead>
+										<tbody>				
+											{% if App.item_articles is iterable and App.item_articles|length > 0 %}
+												{% for key,value in App.item_articles %}
+													<tr>
+														<td>{{ value.content }}</td>
+														<td class="text-right">{{ value.price_unity_label }}</td>
+														<td class="text-center">{{ value.quantity }}</td>
+														<td class="text-right">{{ value.price_total_label }}</td>
+														<td class="text-center">{{ value.tax }}</td>								
+														<td class="text-right">{{ value.price_tax_label }}</td>								
+														<td class="text-right">{{ value.total_label }}</td>
+														<td class="actions">
+															<a class="btn btn-default btn-sm modifyArtInvSal" data-id="{{ value.id }}" href="javascript:void(0);" title="{{ Lang['modifica %ITEM%']|replace({'%ITEM%': Lang['articolo']})|capitalize }}"><i class="far fa-edit"></i></a>
+															<a class="btn btn-default btn-sm confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteArtOrd/{{ App.id }}/{{ value.id }}" title="{{ Lang['cancella %ITEM%']|replace({'%ITEM%': Lang['articolo']})|capitalize }}"><i class="fas fa-trash-alt"></i></a>
+														</td>					
+													</tr>	
+												{% endfor %}
+											{% endif %}
+										</tbody>
+										<tfoot>
+											<tr>
+												<td class="text-right"></td>
+												<td class="text-right">{{ Lang['totali']|capitalize }}</td>
+												<td class="text-center">{{ App.item.art_tot_quantity_label }}</td>
+												<td class="text-right">{{ App.item.art_tot_price_total_label }}</td>		
+												<td></td>						
+												<td class="text-right">{{ App.item.art_tot_price_tax_label }}</td>								
+												<td class="text-right">{{ App.item.art_tot_total_label }}</td>
+												<td></td>
+											</tr>
+											
+											<tr>
+												<td class="text-right pt-1 pb-1" colspan="6">{{ Lang['totale']|capitalize}}</td>								
+												<td class="text-right pt-1 pb-1"><big><b>{{ App.item.invoiceTotal_label }}</b></big></td>
+												<td></td>
+											</tr>																
+										</tfoot>
+									</table>
+							
+						</div>	
+					{% endif %}
+					
+					<div class="card shadow mb-4">
+							<div class="card-header pt-1 pb-1" id="articlePanelTitleID">
+								{{ Lang['aggiungi articolo']|capitalize }}
+							</div>
+							<div class="card-body p-1" id="articlePanelID" style="font-size:0.8rem;">
+
+								<div class="form-group row">
+									<div class="col-md-7">
+										<div class="form-group">
+											<select id="warehouse_products_idID" name="warehouse_products_id" class="selectpicker with-ajax form-control" data-live-search="true" title="{{ Lang['seleziona un %ITEM%']|replace({'%ITEM%': Lang['prodotto']})|capitalize }}">
+											</select>
+										</div>		
+									</div>
+								</div>
+								
+									<div class="form-group row">
+										<textarea required name="art_content" id="art_contentID" class="form-control form-content form-article"  rows="2">{{ Lang['inserisci testo articolo']|capitalize }}</textarea>										
+									</div>
+									
+									<div class="form-row">
+										<div class="col form-inline">
+											<label class="mr-2 ml-3" for="price_unityID">{{ Lang['prezzo']|capitalize }}</label>
+					    					<input type="text" class="form-control form-control-sm form-amount form-article" name="art_price_unity" id="art_price_unityID" value="0.00">
+					    				</div>
+					    				<div class="col form-inline">
+					    					<label class="mr-2" for="quantityID">{{ Lang['q.tà']|capitalize }}</label>
+					    					<input type="text" class="form-control form-control-sm form-tax form-article" name="art_quantity" id="art_quantityID" value="1">
+					    				</div>
+					    				<div class="col form-inline">
+					    					<label class="mr-2" for="price_totalID">{{ Lang['totale']|capitalize }}</label>
+											<input readonly="readonly" type="text" class="form-control form-control-sm form-amount form-article" name="art_price_total" id="art_price_totalID" value="0.00">
+										</div>	
+										<div class="col form-inline">
+											<label class="mr-2" for="taxID">{{ Lang['iva']|capitalize }}%</label>
+											<input type="text" class="form-control form-control-sm form-tax form-article" name="art_tax" id="art_taxID" value="0">
+										</div>
+										<div class="col form-inline">
+											<label class="mr-2" for="totalID">{{ Lang['totale']|capitalize }}</label>
+											<input readonly="readonly" type="text" class="form-control form-control-sm form-amount form-article" name="art_total" id="art_totalID" value="0.00">
+										</div>
+									</div>
+									
+									<div class="form-group row pt-2">
+										<div class="col-md-6 col-xs-12 text-center">	
+											<input type="hidden" name="id_article" id="id_articleID" value="0">
+											<input type="hidden" name="artFormMode" id="artFormModeID" value="ins">
+											<button type="submit" name="submitArtForm" id="submitArtFormID" value="submitArt" class="btn btn-info btn-sm">{{ Lang['aggiungi']|capitalize }} {{ Lang['articolo'] }}</button>
+										</div>
+										<div class="col-md-6 col-xs-12 text-center">	
+											<button type="button" name="resetArtForm" id="resetArtFormID" value="reset" class="pull-right btn btn-warning btn-sm">{{ Lang['resetta']|capitalize }} {{ Lang['articolo'] }}</button>
+										</div>
+									</div>
+							
+							</div>
+					</div>
+
+				</div>
+				{% endif %}		
+<!-- /sezione movimenti -->
+
+<!-- sezione anagrafica -->
+				<div class="tab-pane fade show" id="anagrafica" role="tabpanel" aria-labelledby="anagrafica">		
+					<fieldset>					
+						<div class="form-group row">
+							<label for="nameID" class="col-md-2 control-label">{{ Lang['cliente']|capitalize }}</label>
+							<div class="col-md-5">
+								<select name="thirdparty_id" id="thirdparty_idID" class="form-control">
+									<option value =""></option>
+									{% if App.thirdparty is iterable and App.thirdparty|length > 0 %}
+										{% for key,value in App.thirdparty %}
+											<option value="{{ value.id }}"{% if App.item.thirdparty_id == value.id %} selected="selected"{% endif %}>{{ value.ragione_sociale|e('html') }}</option>														
+										{% endfor %}
+									{% endif %}
+								</select>								    	
+							</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="thirdparty_ragione_socialeID" class="col-md-2 control-label">{{ Lang['ragione sociale']|capitalize }}</label>
+							<div class="col-md-7">
+								<input required="required" type="text" name="thirdparty_ragione_sociale" class="form-control" id="thirdparty_ragione_socialeID" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': Lang['ragione sociale']})|capitalize }}" value="{{ App.item.thirdparty_ragione_sociale|e('html') }}" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire una %ITEM%!']|replace({'%ITEM%': Lang['ragione sociale']}) }}')" oninput="setCustomValidity('')">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_nameID" class="col-md-2 control-label">{{ Lang['nome']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="thirdparty_name" class="form-control" id="thirdparty_nameID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['nome']})|capitalize }}" value="{{ App.item.thirdparty_name|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_surnameID" class="col-md-2 control-label">{{ Lang['cognome']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="thirdparty_surname" class="form-control" id="thirdparty_surnameID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['cognome']})|capitalize }}" value="{{ App.item.thirdparty_surname|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_streetID" class="col-md-2 control-label">{{ Lang['via']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="thirdparty_street" class="form-control" id="thirdparty_streetID" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': Lang['via']})|capitalize }}" value="{{ App.item.thirdparty_street|e('html') }}">
+					    	</div>
+						</div>		
+						<div class="form-group row">
+							<label for="thirdparty_comuneID" class="col-md-2 control-label">{{ Lang['comune']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="thirdparty_comune" class="form-control" id="thirdparty_comuneID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['comune']})|capitalize }}" value="{{ App.item.thirdparty_comune|e('html') }}">
+					    	</div>
+						</div>	
+						<div class="form-group row">
+							<label for="thirdparty_zip_codeID" class="col-md-2 control-label">{{ Lang['cap']|capitalize }}</label>
+							<div class="col-md-2">
+								<input type="text" name="thirdparty_zip_code" class="form-control" id="thirdparty_zip_codeID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['cap']})|capitalize }}" value="{{ App.item.thirdparty_zip_code|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_provinciaID" class="col-md-2 control-label">{{ Lang['provincia']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="thirdparty_provincia" class="form-control" id="thirdparty_provinciaID" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': Lang['provincia']})|capitalize }}" value="{{ App.item.thirdparty_provincia|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_nationID" class="col-md-2">{{ Lang['nazione']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="text" name="thirdparty_nation" class="form-control" id="thirdparty_nationID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['stato']})|capitalize }}" value="{{ App.item.thirdparty_nation|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_mailID" class="col-md-2 control-label">{{ Lang['email']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="email" name="thirdparty_email" class="form-control" id="thirdparty_emailID" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': Lang['indirizzo email']})|capitalize }}"  value="{{ App.item.thirdparty_email|e('html') }}">
+					    	</div>
+					    	<div class="col-md-6" id="emailMessageID"></div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_telephoneID" class="col-md-2 control-label">{{ Lang['telefono']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="thirdparty_telephone" class="form-control" id="thirdparty_telephoneID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['numero di telefono']})|capitalize }}"  value="{{ App.item.thirdparty_telephone|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_faxID" class="col-md-2 control-label">{{ Lang['fax']|capitalize }}</label>
+							<div class="col-md-3">
+								<input type="text" name="thirdparty_fax" class="form-control" id="thirdparty_faxID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['numero di fax']})|capitalize }}"  value="{{ App.item.thirdparty_fax|e('html') }}">
+					    	</div>
+						</div>
+				
+						<div class="form-group row">
+							<label for="thirdparty_partita_ivaID" class="col-md-2 control-label">{{ Lang['partita IVA']|capitalize }}</label>
+							<div class="col-md-5">
+								<input required="required" type="thirdparty_partita_iva" name="thirdparty_partita_iva" class="form-control" id="thirdparty_partita_ivaID" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': Lang['partita IVA']})|capitalize }}"  value="{{ App.item.thirdparty_partita_iva|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_codice_fiscaleID" class="col-md-2 control-label">{{ Lang['codice fiscale']|capitalize }}</label>
+							<div class="col-md-5">
+								<input required="required" type="text" name="thirdparty_codice_fiscale" class="form-control" id="thirdparty_codice_fiscaleID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['codice fiscale']})|capitalize }}"  value="{{ App.item.thirdparty_codice_fiscale|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_pecID" class="col-md-2 control-label">PEC</label>
+							<div class="col-md-5">
+								<input required="required" type="text" name="thirdparty_pec" class="form-control" id="thirdparty_pecID" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': 'PEC'})|capitalize }}"  value="{{ App.item.thirdparty_pec|e('html') }}">
+					    	</div>
+						</div>
+						<div class="form-group row">
+							<label for="thirdparty_sidID" class="col-md-2 control-label">SID</label>
+							<div class="col-md-5">
+								<input required="required" type="text" name="thirdparty_sid" class="form-control" id="thirdparty_sidID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': 'SID'})|capitalize }}"  value="{{ App.item.thirdparty_sid|e('html') }}">
+					    	</div>
+						</div>
+					</fieldset>				
+				</div>
+<!-- /sezione anagrafica -->
+
+<!-- sezione opzioni --> 
+				<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options">
+					<fieldset>
+						<div class="form-group row">
+							<label for="activeID" class="col-md-2 control-label">{{ App.params.fields['orders']['active']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="active" id="activeID" class="form-check-input"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">     					
+	   						</div>	
+				  		</div>
+					</fieldset>					
+				</div>
+<!-- /sezione opzioni -->		 
+			</div>
+			<!--/Tab panes -->			
+			<hr>
+			<div class="form-group row">
+				<div class="col-md-6 col-xs-12 row-submitapply">	
+					<input type="hidden" name="article_edited" id="article_editedID" value="0">				
+					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					{% if App.id > 0 %}
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+					{% endif %}
+				</div>
+				<div class="col-md-6 col-xs-12 row-back">				
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listInvSal" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+				</div>
+			</div>	
+		</form>
+	</div>
+</div>

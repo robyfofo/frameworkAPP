@@ -1,0 +1,1 @@
+{"name":"%NAME%","icon":"<i class=\"fas fa-shopping-basket\" ><\/i>","label":"%LABEL%"}

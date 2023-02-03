@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteBase /frameworkAPP130/
+
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag log_errors on
+
+# Don't compress images
+SetEnvIfNoCase Request_URI \
+\.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+#Split the friendly URL and compose the real URL
+RewriteRule ^(ajax|scripts|classes|css|images|include|js|templates|tmp|application) - [L]
+
+#engine
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php?request=$1 [QSA,L]

@@ -1,0 +1,14 @@
+ALTER TABLE `app130_company` ADD `location_province_id` INT(10) NOT NULL DEFAULT '0' AFTER `bic_swift`, ADD `location_nations_id` INT(10) NOT NULL DEFAULT '0' AFTER `location_province_id`, ADD INDEX (`location_province_id`), ADD INDEX (`location_nations_id`);
+ALTER TABLE `app130_company` ADD `location_comuni_id` INT(10) NOT NULL DEFAULT '0' , ADD INDEX (`location_comuni_id`) ;
+ALTER TABLE `app130_company` CHANGE `state` `nation` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL;
+ALTER TABLE `app130_company` CHANGE `province` `provincia` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL;
+
+ALTER TABLE `app130_users` ADD `location_comuni_id` INT(10) NOT NULL DEFAULT '0' AFTER `id_level`, ADD `location_province_id` INT(10) NOT NULL DEFAULT '0' AFTER `location_comuni_id`, ADD `location_nations_id` INT(10) NOT NULL DEFAULT '0' AFTER `location_province_id`, ADD INDEX (`location_comuni_id`), ADD INDEX (`location_province_id`), ADD INDEX (`location_nations_id`);
+ALTER TABLE `app130_users` CHANGE `state` `nation` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL;
+ALTER TABLE `app130_users` CHANGE `province` `provincia` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL; 
+ALTER TABLE `app130_users` CHANGE `city` `city` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL;
+
+ALTER TABLE `app130_thirdparty` ADD `location_comuni_id` INT(10) NOT NULL DEFAULT '0' AFTER `stampa_unita`, ADD `location_province_id` INT(10) NOT NULL DEFAULT '0' AFTER `location_comuni_id`, ADD `location_nations_id` INT(10) NOT NULL DEFAULT '0' AFTER `location_province_id`, ADD INDEX (`location_comuni_id`), ADD INDEX (`location_province_id`), ADD INDEX (`location_nations_id`);
+ALTER TABLE `app130_thirdparty` CHANGE `province` `provincia` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `app130_thirdparty` CHANGE `state` `nation` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `app130_thirdparty` CHANGE `city` `city` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;

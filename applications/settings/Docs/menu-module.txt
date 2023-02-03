@@ -1,0 +1,7 @@
+{
+	"name":"%NAME%","icon":"<i class=\"fa fa-gears fa-fw\"><\/i>","label":"%LABEL%","submenus":
+		[
+			{"action":"%NAME%","name":"listComp","icon":"<i class=\"fa fa-folder-open fa-fw\"><\/i>","label":"Azienda"},
+			{"action":"%NAME%","name":"listIvaa","icon":"<i class=\"fa fa-users fa-fw\"><\/i>","label":"Iva"}
+		]
+}

@@ -1,0 +1,7 @@
+{
+	"action":"invoices","name":"%NAME%","icon":"<i class=\"fas fa-euro-sign\"><\/i>","label":"%LABEL%","submenus":
+		[
+			{"action":"invoices","name":"listInvSal","icon":"<i class=\"fas fa-euro-sign\"><\/i>","label":"Fatture Vendite"},
+			{"action":"invoices","name":"listInvPur","icon":"<i class=\"fas fa-euro-sign\"><\/i>","label":"Fatture Acquisti"}
+		]
+}

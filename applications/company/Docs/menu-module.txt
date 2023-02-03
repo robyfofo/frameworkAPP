@@ -1,0 +1,1 @@
+{"action":"appsettings","name":"%NAME%","icon":"<i class=\"fas fa-cog\" ><\/i>","label":"%LABEL%"}

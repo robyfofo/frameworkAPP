@@ -1,0 +1,306 @@
+<!-- timecard/formItem.tpl.php v.1.2.0. 16/07/2020 -->
+<style type="text/css">
+<!--
+#accordion h5 {
+	font-size:1rem;
+
+}
+-->
+</style>
+<div class="row">
+	<div class="col-md-3 new">
+ 	</div>
+	<div class="col-md-7 help-small-form">
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
+	</div>
+	<div class="col-md-2 help">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-6 col-md-12 con-sm-12 col-xs-12" style="padding-bottom:30px;">
+	
+		<div class="card shadow">
+			<div class="card-body">
+				<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/modappData"  enctype="multipart/form-data" method="post">	
+					
+					<div class="form-group row">
+						<label for="appdataID" class="col-sm-6 col-md-4  col-xl-2 control-label">{{ Lang['data']|capitalize }}</label>
+						<div class="col-sm-6 col-md-6  col-xl-5 input-group date" id="appdataDPID">
+							<input required="required" type="text" name="appdata" class="form-control" placeholder="{{ Lang['inserisci una data']|capitalize }}" id="appdataID" value="">
+							<span class="input-group-addon calendar-icon">
+								<i class="fa fa-calendar"></i>
+							</span>	    	
+				    	</div>
+				    	<div class="col-sm-6 col-md-6  col-xl-2">
+							<button type="submit" class="btn btn-sm btn-primary">{{ Lang['invia']|capitalize }}</button>
+						</div>
+					</div>
+										
+				</form>
+			</div>
+		</div>
+		
+		<div class="card shadow mt-1">
+			<div class="card-body">
+				<form id="applicationForm1" class="form-horizontal form-daydata" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/modappProj"  enctype="multipart/form-data" method="post">						
+					<div class="form-group row">
+						<div class="col-md-8">		
+							<select name="id_project" id="id_projectID" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona un progetto']|capitalize }}">
+								<option value="0"{% if MySessionVars[App.sessionName]['id_project'] == 0 %} selected="selected"{% endif %}>{{ Lang['tutti']|capitalize }}</option>
+								{% if App.allprogetti is iterable %}
+									{% for value in App.allprogetti %}		
+										<option value="{{ value.id }}"{% if value.id == MySessionVars[App.sessionName]['id_project'] %} selected="selected" {% endif %}>{{ value.title }}</option>														
+									{% endfor %}
+								{% endif %}		
+							</select>										
+						</div>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-sm btn-primary">{{ Lang['invia']|capitalize }}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+		
+<div class="card card-default">
+	<div class="card-body timecards" id="accordion">
+		<div class="card-body">
+		
+			{% if App.dates_month is iterable %}
+				{% for key,day in App.dates_month %}
+
+					
+					<h5 class="card-title text-muted maintimecards">
+						<div class="row">
+							<div class="col-md-9">
+								<a class="changedata" href="{{ URLSITE }}{{ CoreRequest.action }}/setappData/{{ day['value'] }}" title="{{ Lang['vai a questa data']|capitalize }}"><span class="input-group-addon calendar-icon"><i class="fa fa-calendar"></i></span></a>
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
+									{{ day['label'] }}&nbsp;-&nbsp;{{ day['nameday']|capitalize }}{% if day['value'] == MySessionVars['app']['data-timecard'] %}&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>{% endif %}
+								</a>
+							</div>	
+							<div class="col-md-3">
+								{% if App.timecards_total[day['value']] != '00:00:00'  %}					
+									<span class="float-right">
+										{% if App.timecards_total[day['value']] != '00:00'  %}<strong>{% endif %}
+											{{ App.timecards_total[day['value']]|slice(0, 5) }}
+										{% if App.timecards_total[day['value']] != '00:00'  %}</strong>{% endif %}
+									</span>
+								{% endif %}
+							</div>
+						</div>
+ 					</h5>
+					
+					<div id="collapse{{ loop.index }}" class="panel-collapse collapse{% if day['value'] == MySessionVars['app']['data-timecard'] %} in{% else %} out{% endif %}">
+						<div class="panel-body{% if day['value'] == MySessionVars['app']['data-timecard'] %} current{% endif %}">
+						{% if App.timecards[day['value']]['timecards'] is iterable and App.timecards[day['value']]['timecards']|length > 0  %}
+							<table class="table table-striped table-bordered table-hover table-sm subtimecards tooltip-proj">
+								<tbody>
+									{% for day in App.timecards[day['value']]['timecards'] %}
+										<tr>																						
+											<td data-toggle="tooltip" data-placement="top" title="{{ day.project }}">{{ day.project }}</td>
+											<td data-toggle="tooltip" data-placement="top" title="{{ day.content }}">{{ day.content }}</td>
+											{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}	
+												<td style="width:55px;">IOw: {{ day.id_owner }}</td>
+											{% endif %}
+											<td class="hours">{{ day.starttime|slice(0, 5) }}-{{ day.endtime|slice(0, 5) }}</td>
+											<td class="tothours text-right">
+												<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyTime/{{ day.id }}" title="{{ Lang['modifica']|capitalize }}">{{ day.worktime|slice(0, 5) }}</a>
+											</td>
+										</tr>
+									{% endfor %}										
+									<tr class="">
+										{% set colspan = "3" %}	
+										{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}{% set colspan = "4" %}{% endif %}												
+										<td colspan="{{ colspan }}">&nbsp;</td>
+										<td class="hours text-right success">{{ App.timecards_total[day['value']]|slice(0, 5) }}</td>
+									</tr>
+								</tbody>
+							</table>
+						{% endif %}
+ 						</div>
+					</div>				
+				{% endfor %}		
+			{% endif %}
+		
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-md-9 ore-totali text-right">
+						{{ Lang['tempo totale']|capitalize }}:
+					</div>
+					<div class="col-md-3 text-right">						
+						<span class="value">{{ App.timecards_total_time|slice(0, 5) }}</span>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="card-body">
+				<div class="row">
+					<a target="_blank" class="btn btn-sm btn-info" href="javascript:void(0);" id="esporta_timecardID" title="{{ Lang['esporta le timecard in formato pdf']|capitalize }}">{{ Lang['esporta timecard']|capitalize }}</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+		
+			
+	</div>
+	
+	<div class="col-lg-6 col-md-12 con-sm-12 col-xs-12" style="padding-bottom:30px;">
+	
+		<div class="card shadow mt-1">
+			<div class="card-body">
+				<form id="applicationForm2" method="post" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+					
+					<div class="form-group row">
+						<label for="dataID" class="col-md-3 control-label">{{ Lang['data']|capitalize }}</label>
+						<div class="col-md-4 col-xs-4 input-group date" id="dataDPID">
+							<input required="required" type="text" name="data" id="dataID" class="form-control" placeholder="{{ Lang['inserisci una data']|capitalize }}" value="">
+							<span class="input-group-addon calendar-icon">
+								<i class="fa fa-calendar"></i>
+							</span>	    	
+				    	</div>
+					</div>					
+					
+					<div class="form-group row">
+					
+							<label for="progettoID" class="col-md-3 control-label">{{ Lang['progetto']|capitalize }}</label>
+							<div class="col-md-8">
+								<select name="progetto" id="progettoID" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona un progetto']|capitalize }}">
+									{% if App.progetti is iterable %}
+										{% for value in App.progetti %}
+											<option value="{{ value.id }}"{% if App.idProjectForSelect == value.id %} selected="selected" {% endif %}>{{ value.title }}</option>														
+										{% endfor %}
+									{% endif %}
+								</select>										
+					    	</div>
+						</div>			
+						   
+        			<div class="form-group row">
+							<label for="startTimeID" class="col-md-3 control-label">{{ Lang['inizio']|capitalize }}</label>
+							<div class="col-md-4 col-xs-4 input-group input-group-date date">
+								<input type="text" name="startTime" id="startTimeID" class="form-control" placeholder="{{ Lang['inserisci ora inizio']|capitalize }}" value="">	
+								<span class="input-group-addon calendar-icon"><i class="fas fa-clock"></i></span>
+					    	</div>
+					</div>	
+                                     
+					<div class="form-group row">
+							<label for="endTimeID" class="col-md-3 control-label">{{ Lang['fine']|capitalize }}</label>
+							<div class="col-md-4 col-xs-4 input-group input-group-date date">
+								<input type="text" name="endTime" id="endTimeID" class="form-control" placeholder="{{ Lang['inserisci ora fine']|capitalize }}" value="">	
+								<span class="input-group-addon calendar-icon"><i class="fas fa-clock"></i></span>
+					    	</div>
+					</div>	
+						
+					<div class="form-group row">
+							<label for="contentID" class="col-md-3 control-label">{{ Lang['contenuto']|capitalize }}</label>
+							<div class="col-md-8">
+								<textarea name="content" class="form-control" id="contentID" rows="5">{{ App.item.content }}</textarea>
+							</div>
+						</div>	
+					<div class="form-group row">
+						{% if (App.methodForm == 'updateTime' and App.item.id is defined and App.item.id > 0) %}
+							<div class="col-md-6 text-center">
+								<input type="hidden" name="id" value="{{ App.item.id }}">					
+								<button type="submit" name="submitForm" value="submit" class="btn btn-sm btn-primary">{{ Lang['modifica']|capitalize }}</button>
+							</div>
+							<div class="col-md-6 text-right">
+								<button class="btn btn-sm btn-danger timedelconfirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteTime/{{ App.item.id }}" title="{{ Lang['cancella']|capitalize }}">{{ Lang['cancella']|capitalize }}</a>
+							</div>
+						{% else %}
+						<div class="col-md-12 text-center">
+							<button type="submit" name="submitForm" value="submit" class="btn btn-sm btn-primary">{{ Lang['invia']|capitalize }}</button>
+						</div>
+						{% endif %}					
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="card shadow mt-1">
+			<div class="card-header">
+				<strong>{{ Lang['inserisci una timecard predefinita']|capitalize }}</strong>
+				<a class="btn btn-sm btn-info float-right" href="{{ URLSITE }}{{ CoreRequest.action }}/listPite" title="{{ Lang['gestisci le timecard predefinite']|capitalize }}">{{ Lang['gestisci']|capitalize }}</a>
+			</div>
+			<div class="card-body">
+
+				<form id="applicationForm4" method="post" class="form-horizontal form-daydata" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm1 }}"  enctype="multipart/form-data" method="post">
+						
+
+					<div class="form-group row">
+						<label for="data1ID" class="col-md-3 control-label">{{ Lang['data']|capitalize }}</label>
+						<div class="col-md-4 col-xs-4 input-group date" id="data1DPID">
+							<input required="required" type="text" name="data1" id="data1ID" class="form-control" placeholder="{{ Lang['inserisci una data']|capitalize }}" value="">
+							<span class="input-group-addon calendar-icon">
+								<i class="fa fa-calendar"></i>
+							</span>	    	
+				    	</div>
+					</div>					
+						
+						
+						<div class="form-group row">
+							<label for="project1ID" class="col-md-3 control-label">{{ Lang['progetto']|capitalize }}</label>
+							<div class="col-md-8">
+								<select name="project1" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona un progetto']|capitalize }}">
+									{% if App.progetti is iterable %}
+										{% for value in App.progetti %}	
+											<option value="{{ value.id }}"{% if App.idProjectForSelect == value.id %} selected="selected" {% endif %}>{{ value.title }}</option>														
+										{% endfor %}
+									{% endif %}		
+								</select>
+					    	</div>
+						</div>
+						
+						
+						 <div class="form-group row">
+							<label for="starttime1ID" class="col-md-3 control-label">{{ Lang['inizio']|capitalize }}</label>
+							<div class="col-md-4 col-xs-4 input-group date" id="starttime1DPID">
+								<input required="required" type="text" name="starttime1" id="starttime1ID" class="form-control" placeholder="{{ Lang['inserisci ora inizio']|capitalize }}" value="">
+								<span class="input-group-addon calendar-icon">
+									<i class="fa fa-clock"></i>
+								</span>	    	
+					    	</div>
+						</div>		
+						
+						
+				  		<div class="form-group row">
+				  			<label for="activeID" class="col-md-4 control-label">{{ Lang['usa questo inizio']|capitalize }}</label>
+							<div class="col-md-6">
+								<input type="checkbox" name="usedata" id="usedataID" class="form-check-input" value="1">     					
+	   						</div>
+		 				</div>
+		 				
+		 				
+						<div class="form-group row">
+							<label for="timecardID" class="col-md-3 control-label">{{ Lang['timecard']|capitalize }}</label>
+							<div class="col-md-8">
+								<select name="timecard" id="timecardID" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona una timecard']|capitalize }}">
+									{% if App.allpreftimecard is iterable %}
+										{% for value in App.allpreftimecard %}	
+											<option value="{{ value.id }}">{{ value.title }} ({{ value.worktime }} {{ Lang['hours'] }})</option>														
+										{% endfor %}
+									{% endif %}		
+								</select>										
+					    	</div>
+						</div>
+					<div class="form-group text-center">
+						<button type="submit" name="submitForm" value="submit" class="btn btn-sm btn-primary">{{ Lang['invia']|capitalize }}</button>			
+					</div>
+				</form>
+				
+			</div>
+		</div>
+
+
+		<div class="card shadow mt-5">
+			<div class="card-body text-center">
+				<a class="btn btn-sm btn-info" href="{{ URLSITE }}{{ CoreRequest.action }}/listAite" title="{{ Lang['archivio timecard']|capitalize }}">{{ Lang['archivio timecard']|capitalize }}</a>
+			</div>
+		</div>
+
+	</div>
+</div>

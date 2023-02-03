@@ -1,0 +1,8 @@
+{
+	"action":"bilanciofamiliare","name":"%NAME%","icon":"<i class=\"fa fa-euro-sign\"><\/i>","label":"%LABEL%","submenus":
+		[
+			{"action":"bilanciofamiliare","name":"listItem","icon":"<i class=\"fas fa-euro-sign\"><\/i>","label":"Movimenti"},
+			{"action":"bilanciofamiliare","name":"lisEntr","icon":"<i class=\"fas fa-euro-sign\"><\/i>","label":"Entrate"},
+			{"action":"bilanciofamiliare","name":"listOutp","icon":"<i class=\"fas fa-euro-sign\"><\/i>","label":"Uscite"}
+		]
+}

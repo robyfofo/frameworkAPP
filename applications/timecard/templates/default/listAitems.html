@@ -1,0 +1,94 @@
+<!-- timecard/listAite.tpl.php v.1.2.0. 21/12/2019 -->
+<div class="row">
+	<div class="col-md-3 new">
+	</div>
+	<div class="col-md-7 help-small-list">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2"></div>
+</div>
+
+<div class="row">
+	<div class="col">
+	</div>
+</div>
+
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+
+
+
+
+				<div class="form-row">
+
+					<div class="col">
+
+						<select name="id_project" id="id_projectID" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona un progetto']|capitalize }}">
+							<option value="0"{% if Session[App.sessionName]['id_project'] == 0 %} selected="selected"{% endif %}>{{ Lang['progetti']|capitalize }}</option>
+
+							{% if App.allprogetti is iterable %}
+								{% for value in App.allprogetti %}
+									<option value="{{ value.id }}"{% if value.id == Session[App.sessionName]['id_project'] %} selected="selected" {% endif %}>{{ value.title }}</option>
+								{% endfor %}
+							{% endif %}
+						</select>
+					</div>
+
+					<div class="col">
+						<select name="intervaldata" id="intervaldataID" class="selectpicker form-control" data-live-search="true" title="filtra per data">
+							<option value=""{% if Session[App.sessionName]['intervaldata'] == '' %} selected="selected"{% endif %}>{{ Lang['nessuna data']|title }}</option>
+
+							<option value="cm"{% if Session[App.sessionName]['intervaldata'] == 'cm' %} selected="selected"{% endif %}>{{ Lang['mese corrente']|title }}</option>
+							<option value="pm"{% if Session[App.sessionName]['intervaldata'] == 'pm' %} selected="selected"{% endif %}>{{ Lang['mese precedente']|title }}</option>
+							<option value="id"{% if Session[App.sessionName]['intervaldata'] == 'id' %} selected="selected"{% endif %}>{{ Lang['intervallo di date']|capitalize }}</option>
+
+						</select>
+					</div>
+
+					<div class="col" id="colDataiaìiniID">
+						<div class="input-group date" id="divdatainiID">
+							<input type="text" name="dataini" id="datainiID" class="form-control dates" placeholder="{{ Lang['inserisci una data']|capitalize }}" value="">
+							<span class="input-group-addon calendar-icon">
+								<i class="fa fa-calendar"></i>
+							</span>
+				    	</div>
+					</div>
+
+					<div class="col" id="colDataendID">
+						<div class="input-group date" id="divdataendID">
+							<input type="text" name="dataend" id="dataendID" class="form-control dates" placeholder="{{ Lang['inserisci una data']|capitalize }}" value="">
+							<span class="input-group-addon calendar-icon">
+								<i class="fa fa-calendar"></i>
+							</span>
+				    	</div>
+					</div>
+
+				</div>
+				<hr>
+
+
+		<div class="table-responsive">
+			<table id="listDataID" class="table table-striped table-bordered table-hover listData" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>{{ Lang['utente']|capitalize }}</th>
+						<th>{{ Lang['progetto']|capitalize }}</th>
+						<th>{{ Lang['contenuto']|capitalize }}</th>
+						<th>{{ Lang['data']|capitalize }}</th>
+						<th>{{ Lang['ora inizio']|capitalize }}</th>
+						<th>{{ Lang['ora fine']|capitalize }}</th>
+						<th>{{ Lang['ore lavoro']|capitalize }}</th>
+						<th class="text-right">
+							<a class="btn btn-sm btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/exportXlsAite" title="{{ Lang['esporta in xls']|capitalize }}"><i class="far fa-file-excel" aria-hidden="true"></i></a>
+
+							<a class="btn btn-sm btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/timecardaSpdf" title="{{ Lang['esporta in pdf']|capitalize }}"><i class="far fa-file-pdf" aria-hidden="true"></i></a>
+
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

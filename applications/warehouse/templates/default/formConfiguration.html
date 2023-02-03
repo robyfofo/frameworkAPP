@@ -1,0 +1,72 @@
+<!-- admin/news/formConfiguration.html v.4.5.1. 15/06/2020 -->
+<div class="row">
+	<div class="col-md-3 new"></div>
+	<div class="col-md-7 help-small-form">{% if App.params.help_small is defined and App.params.help_small != '' %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2 help"></div>
+</div>
+
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+		<ul class="nav nav-tabs" id="formTab" role="tablist">			
+			<li class="nav-item">
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+			</li>
+  		</ul>
+  		
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITEADMIN }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+
+			<div class="tab-content" id="formTabContent">
+				
+				<div class="tab-pane fade show active" id="datibase" role="tabpanel" aria-labelledby="datibase">
+					<fieldset>
+					
+						<div class="form-group row">
+							<label class="col-md-2 control-label">{{ Lang['immagine']|capitalize }} Top</label>
+							<div class="custom-file col-md-7">
+    							<input type="file"  name="filename" id="filenameID" class="custom-file-input"{% if App.item.filenameRequired == true %} required{% endif %}>
+    							<label class="custom-file-label" for="filenameID">{{ Lang['indica un file da caricare']|capitalize }}</label>    							
+  							</div>
+  						</div>
+  						
+  						<div class="form-group row">
+							<label class="col-md-2 control-label">{{ Lang['anteprima']|capitalize }} {{ Lang['immagine']|capitalize }} Top</label>
+							<div class="col-md-7">
+								{% if App.item.filename is defined and App.item.filename != '' %}
+								<a class="" href="{{ App.params.uploadDirs['conf'] }}{{ App.item.filename }}" data-lightbox="image-1" data-title="{{ value.org_filename }}" title="{{ App.item.org_filename }}">
+									<img  class="img-thumbnail img-miniature"  src="{{ App.params.uploadDirs['conf'] }}{{ App.item.filename }}" alt="{{ App.item.org_filename }}">
+								</a>							
+								{% else %}
+								<img class="img-thumbnail img-miniature"  src="{{ UPLOADDIR }}default/image.png" alt="{{ Lang['immagine di default']|capitalize }}">											
+								{% endif %}
+							</div>			
+						</div>
+						
+						{% if App.item.filename is defined and App.item.filename != '' %}
+						<div class="form-group row">
+							<label for="deleteFileID" class="col-md-2 control-label">{{ Lang['cancella file']|capitalize }}</label>						
+							<div class="col-md-5">							
+								<input type="checkbox" name="deleteFile" id="deleteFileID" value="1">						
+							</div>					
+						</div>
+						{% endif %}
+												
+					</fieldset>
+				</div>
+
+			</div>
+<!--/Tab panes -->			
+			<hr>
+			<div class="form-group row">
+				<div class="col-md-10 col-xs-12 text-center actionbutton mt-2">	
+					<input type="hidden" name="id" id="idID" value="1">				
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					<button type="submit" name="applyForm" value="apply" class="btn btn-primary submittheform ml-5">{{ Lang['applica']|capitalize }}</button>
+				</div>
+				<div class="col-md-2 col-xs-12 text-right backlistbutton mt-2">			
+					<a href="{{ URLSITEADMIN }}{{ CoreRequest.action }}/list" title="{{ Lang['torna alla %ITEM%']|replace({'%ITEM%': Lang['lista']})|capitalize }}" class="btn btn-success">{{ Lang['indietro']|capitalize }}</a>
+				</div>
+			</div>	
+			
+		</form>
+	</div>
+</div>

@@ -1,0 +1,102 @@
+<!-- warehouse/formProductAttributes.html v.1.3.0. 14/09/2020 -->
+<div class="row">
+	<div class="col-md-3 new"></div>
+	<div class="col-md-7 help-small-form">{% if App.params.help_small is defined and App.params.help_small != '' %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2 help"></div>
+</div>
+
+<div class="row well well-sm mt-2">	
+	<div class="col-md-4"> 
+		{% if App.ownerData.filename != '' %}
+		<a class="" href="{{ App.params.uploadDirs['prod'] }}{{ App.ownerData.filename }}" data-lightbox="image-1" data-title="{{ App.ownerData.org_filename }}" title="{{ App.ownerData.org_filename }}">
+			<img class="img-miniature" src="{{ App.params.uploadDirs['prod'] }}{{ App.ownerData.filename }}" alt="{{ App.ownerData.org_filename }}">
+		</a>
+		{% else %}
+		<img class="img-miniature" src="{{ UPLOADDIR }}default/image.png" alt="{{ Lang['immagine di default']|capitalize }}">										
+		{% endif %}
+	</div>
+	<div class="col-md-8"> 
+		<big>{{ App.ownerData.title }}</big>
+	</div>
+</div>
+
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="formTab" role="tablist">
+		
+			<li class="nav-item">
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+			</li>
+			
+  		</ul>
+
+		<form id="applicationForm" method="post" class="form-horizontal" role="form" action="{{ URLSITEADMIN }}{{ CoreRequest.action }}/{{ App.methodForm }}" enctype="multipart/form-data">
+						
+			<div class="tab-content">
+			
+				<div class="tab-pane active" id="datibase" role="tabpanel" aria-labelledby="datibase">
+					<fieldset>				
+						<div class="form-group row">
+							<label for="products_attribute_types_idID" class="col-md-2 control-label">{{ Lang['tipo attributo']|capitalize }}</label>
+							<div class="col-md-7">							
+								<select name="products_attribute_types_id" id="products_attribute_types_idID" class="custom-select">								
+									{% if App.attrs is iterable and App.attrs|length > 0 %}
+										{% for key,value in App.attrs %}		
+											<option value="{{ value.id }}"{% if App.attribute_types_id == value.id %} selected="selected"{% endif %}>{{ value.title }}</option>														
+										{% endfor %}
+									{% endif %}	
+								</select>												
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="valueID" class="col-md-2 control-label">{{ Lang['valore']|capitalize }}</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" name="value" id="valueID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({ '%ITEM%': Lang['valore'] })|capitalize }}" value="{{ App.item.value }}">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="codeID" class="col-md-2 control-label">{{ App.params.fields['proa']['code']['label']|capitalize }}</label>
+							<div class="col-md-4">
+								<input type="text" class="form-control" name="code" id="codeID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({ '%ITEM%': App.params.fields['proa']['code']['label'] })|capitalize }}" value="{{ App.item.code }}">
+							</div>
+						</div>	
+						<hr>
+						<div class="form-group row">
+							<label for="quantityID" class="col-md-2 control-label">{{ App.params.fields['proa']['quantity']['label']|capitalize }}</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" name="quantity" id="quantityID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({ '%ITEM%': App.params.fields['proa']['quantity']['label'] })|capitalize }}" value="{{ App.item.quantity }}">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="activeID" class="col-md-2 control-label">{{ App.params.fields['proa']['active']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="active" id="activeID" class="form-check-input"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">     					
+	   						</div>
+	   					</div>
+						
+					</fieldset>
+				</div>
+
+			</div>
+<!--/Tab panes -->			
+			<hr>
+			<div class="form-group row">
+				<div class="col-md-6 col-xs-12 row-submitapply">
+					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
+					<input type="hidden" name="products_id" id="idID" value="{{ App.products_id }}">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					{% if App.id > 0 %}
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+					{% endif %}				
+				</div>
+				<div class="col-md-6 col-xs-12 row-back">
+					<a href="{{ URLSITEADMIN }}{{ CoreRequest.action }}/listProa" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

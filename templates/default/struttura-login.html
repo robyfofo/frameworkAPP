@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{ Lang['user'] }}">
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>{{ App.metaTitlePage|e('html_attr') }}</title>
+		<meta name="description" content="{{ App.metaDescriptionPage|e('html_attr') }}">
+		<meta name="keyword" content="{{ App.metaKeywordsPage|e('html_attr') }}">
+		<meta name="author" content="Roberto Mantovani">
+		<link rel="icon" href="{{ URLSITE }}templates/{{ App.templateUser }}/favicon.ico">
+	
+		<!-- Custom fonts for this template-->
+	  	<link href="{{ URLSITE }}templates/{{ App.templateUser }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	  	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	
+		<!-- Custom styles for this template-->
+		<link href="{{ URLSITE }}templates/{{ App.templateUser }}/css/sb-admin-2.min.css" rel="stylesheet">
+	
+		<!-- CSS for Page -->
+		{% if App.css is iterable %}							
+			{% for key,value in App.css %}
+				{{ value|raw }}
+			{% endfor %}
+		{% endif %}
+		
+		<!-- default vars useful for javascript -->
+		<script language="javascript">
+			siteUrl = '{{ URLSITE }}';
+			sitePath = '{{ PATHSITE }}';			
+			siteTemplateUrl = '{{ URLSITE }}templates/{{ App.templateUser }}/';
+			siteTemplatePath = '{{ PATHSITE }}templates/{{ App.templateUser }}/';			
+			siteDocumentPath = '{{ PATHDOCUMENT }}';		
+			var cur_lang = "{{ Lang['user'] }}";
+			var messages = new Array();
+			messages['Sei sicuro?'] = '{{ Lang['Sei sicuro?']|e('js') }}';	
+			{% if (App.defaultJavascript is defined) and (App.defaultJavascript != '') %}
+				{{ App.defaultJavascript|raw }}  	
+			{% endif %}
+		</script>
+	</head>
+
+	<body class="bg-gradient-primary">
+		<div class="container">
+
+    		<!-- Outer Row -->
+    		<div class="row justify-content-center">
+				<div class="col-xl-10 col-lg-12 col-md-9">
+					<div class="card o-hidden border-0 shadow-lg my-5">
+						<div class="card-body p-0">
+            			<!-- Nested Row within Card Body -->
+            			<div class="row">
+								<div class="col-lg-12">
+                				<div class="p-5">
+                  				<div class="text-center">
+                    					<h1 class="h4 text-gray-900 mb-4">{{ Lang['amministrazione']|capitalize }} {{ GlobalSettings['site name'] }} <small>{{ GlobalSettings['code version'] }}</h1>
+                  				</div>
+                 	
+										{% if (App.systemMessages is defined) and (App.systemMessages != '') %}
+											{{ App.systemMessages|raw }}
+										{% endif %}
+										
+										
+										{{ include(App.templateApp) }}
+
+										                 
+                 
+                				</div>
+              				</div>
+            			</div>
+          			</div>
+        			</div>
+				</div>
+			</div>
+		</div>
+
+  		<!-- Bootstrap core JavaScript-->
+  		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/vendor/jquery/jquery.min.js"></script>
+  		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  		<!-- Core plugin JavaScript-->
+  		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  		<!-- Custom scripts for all pages-->
+  		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/js/sb-admin-2.min.js"></script>
+  		
+  		{% if App.jscript is iterable %}							
+			{% for key,value in App.jscript %}
+				{{ value|raw }}
+			{% endfor %}
+		{% endif %}
+		
+		{% if App.jscriptLast is iterable %}							
+			{% for key,value in App.jscriptLast %}
+				{{ value|raw }}
+			{% endfor %}
+		{% endif %}
+
+		<!-- Default Custom Theme JavaScript -->
+		<script src="{{ URLSITE }}templates/{{ App.templateUser }}/js/default.js"></script>
+		
+	</body>
+
+</html>
+

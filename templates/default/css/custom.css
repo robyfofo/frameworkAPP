@@ -1,0 +1,143 @@
+/* Custom Styles */
+
+.module-titles {
+
+}
+
+.divider-top-module-list {
+
+}
+.nav > li > a {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+}
+
+.nav-tabs {
+	border-bottom:1px solid #ddd
+}
+.nav-tabs>li {
+	float:left;
+	margin-bottom:-1px
+}
+.nav-tabs>li>a {
+ margin-right:2px;
+ line-height:1.42857143;
+ border:1px solid transparent;
+ border-radius:4px 4px 0 0
+}
+.nav-tabs>li>a:hover {
+ border-color:#eee #eee #ddd
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+ color:#555;
+ cursor:default;
+ background-color:#fff;
+ border:1px solid #ddd;
+ border-bottom-color:transparent
+}
+.nav-tabs.nav-justified {
+ width:100%;
+ border-bottom:0
+}
+.nav-tabs.nav-justified>li {
+ float:none
+}
+.nav-tabs.nav-justified>li>a {
+ margin-bottom:5px;
+ text-align:center
+}
+.nav-tabs.nav-justified>.dropdown .dropdown-menu {
+ top:auto;
+ left:auto
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	background-color: #ddd;
+}
+@media (min-width:768px) {
+ .nav-tabs.nav-justified>li {
+  display:table-cell;
+  width:1%
+ }
+ .nav-tabs.nav-justified>li>a {
+  margin-bottom:0
+ }
+}
+.nav-tabs.nav-justified>li>a {
+ margin-right:0;
+ border-radius:4px
+}
+.nav-tabs.nav-justified>.active>a,
+.nav-tabs.nav-justified>.active>a:focus,
+.nav-tabs.nav-justified>.active>a:hover {
+ border:1px solid #ddd
+}
+
+.tab-pane {
+    padding-top: 20px;
+}
+
+table.listData .img-fluid {
+	width:80px;height:80px;
+}
+
+table.listData .segnapagata {
+	padding: 0.1rem 0.3rem;
+}
+
+table.listData td.idcol {
+	max-width: 30px;
+}
+
+table.listData td.actions {
+	max-width: 80px;
+	text-align: right;
+}
+
+table.listData td.actions .btn {
+ 	padding: .2rem 0.3rem;
+}
+
+
+.img-miniature {
+	width:80px !important;
+	height:80px !important;
+}
+
+.listDataHome .img-miniature {
+	width:50px !important;
+	height:50px !important;
+}
+
+.calendar-icon {
+	padding:5px;
+}
+
+
+.row-submitapply {
+	text-align: center !important;
+}
+
+.btn-apply {
+	margin-left:70px;
+}
+
+.row-back {
+	text-align: right;
+}
+
+@media (max-width:768px) {
+	 .row-back {
+	   text-align: center;
+	   padding-top: 10px;
+	 }
+
+	 .btn-apply {
+	 	margin-left: 10px;
+	 }
+ }
+
+div.mce-edit-area { padding-left : 15px !important; padding-right : 15px !important; }

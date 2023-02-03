@@ -1,0 +1,32 @@
+<!-- todo/listItem.tpl.php v.1.2.0. 21/12/2019 -->
+
+<div class="row">
+	<div class="col-md-3 new">
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ Lang['inserisci un nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}</a>
+	</div>
+	<div class="col-md-7 help-small-list">
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
+	</div>
+	<div class="col-md-2">
+	</div>
+</div>
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="listDataID" class="table table-sm table-striped table-bordered table-hover listData" width="100%" cellspacing="0" style="font-size:0.95rem;">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>{{ Lang['progetto']|capitalize }}</th>
+						<th>{{ Lang['titolo']|capitalize }}</th>
+						<th>{{ Lang['status']|capitalize }}</th>
+						<th></th>			
+					</tr>
+				</thead>
+				<tbody>				
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

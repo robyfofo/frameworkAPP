@@ -1,0 +1,22 @@
+{"action":"warehouse","name":"%NAME%","icon":"<i class=\"fas fa-warehouse\"><\/i>","label":"%LABEL%","submenus":
+
+	[
+		{"name":"listCate","action":"warehouse","icon":"<i class=\"fas fa-folder\"><\/i>","label":"Categorie"},
+		{"name":"listScat","action":"warehouse","icon":"<i class=\"fas fa-folder\"><\/i>","label":"Subcategorie"},
+		{"name":"listProd","action":"warehouse","icon":"<i class=\"fas fa-tags\"><\/i>","label":"Prodotti"},
+		{"name":"listSpro","action":"warehouse","icon":"<i class=\"fas fa-tags\"><\/i>","label":"Subprodotti"},
+		{"name":"listTags","action":"warehouse","icon":"<i class=\"fas fa-tags\"><\/i>","label":"Tags"}
+
+	]
+
+}
+
+{"action":"warehouse","name":"%NAME%","icon":"<i class=\"fas fa-warehouse\"><\/i>","label":"%LABEL%","submenus":
+
+	[
+		{"name":"listCate","action":"warehouse","icon":"<i class=\"fas fa-folder\"><\/i>","label":"Categorie"},
+		{"name":"listProd","action":"warehouse","icon":"<i class=\"fas fa-tags\"><\/i>","label":"Prodotti"}
+
+	]
+
+}

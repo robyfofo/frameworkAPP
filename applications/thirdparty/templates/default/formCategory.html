@@ -1,0 +1,76 @@
+<!-- thirdparty/formCategory.html v.1.2.0. 13/08/2020 -->
+<div class="row">
+	<div class="col-md-12 pb-2 module-titles">
+	{{ App.pageTitle }} <small>V. {{ App.params.codeVersion}}</small> - {{ App.pageSubTitle }}
+	</div>
+</div>
+<hr class="divider-top-module-list">
+<div class="row">
+	<div class="col-md-3 new"></div>
+	<div class="col-md-7 help-small-form">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
+	<div class="col-md-2 help"></div>
+</div>
+<div class="row mt-2">
+	<div class="col-md-12">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="formTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+			</li>
+		</ul>
+		<!--/Nav tabs -->	
+		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="datibase" role="tabpanel" aria-labelledby="datibase">	
+					<fieldset>
+						<div class="form-group row">
+							<label for="title_{{ lang }}ID" class="col-md-2 control-label">{{ Lang['titolo']|capitalize }} {{ lang }}</label>
+							<div class="col-md-7">
+								<input required="required" type="text" class="form-control" name="title" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title|e('html') }}" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire una %ITEM%!']|replace({'%ITEM%': Lang['titolo']}) }}')" oninput="setCustomValidity('')">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label for="parentID" class="col-md-2 control-label">{{ Lang['genitore']|capitalize }}</label>
+							<div class="col-md-7">							
+								<select name="parent" id="parentID" class="custom-select">
+									<option value="0"></option>
+									{% if App.categories is iterable %}
+										{% for key,value in App.categories %}
+											<option value="{{ value.id }}"{% if App.item.parent == value.id %} selected="selected"{% endif %}>{{ value.levelString }}{{ value.title|e('html') }}</option>														
+										{% endfor %}
+									{% endif %}
+								</select>									
+					    	</div>
+						</div>
+						<hr>
+				  		<div class="form-group row">
+							<label for="activeID" class="col-md-2 control-label">{{ App.params.fields['item']['active']['label']|capitalize }}</label>
+							<div class="col-md-7">
+								<input type="checkbox" name="active" id="activeID" class="form-check-input"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">     					
+	   					</div>	
+    					</div>
+    				</fieldset>
+				</div>
+<!--/sezione opzioni -->
+			</div>
+			<!--/Tab panes -->			
+			<hr>			
+			<div class="form-group row">
+				<div class="col-md-6 col-xs-12 row-submitapply">
+			    	<input type="hidden" name="bk_parent" value="{{ App.item.parent }}">		      
+			      <input type="hidden" name="id" id="idID" value="{{ App.id }}">
+					<input type="hidden" name="method" value="{{ App.methodForm }}">
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					{% if App.id > 0 %}
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+					{% endif %}
+				</div>
+				<div class="col-md-6 col-xs-12 row-back">	
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listScat" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

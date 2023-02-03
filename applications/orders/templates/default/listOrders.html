@@ -1,0 +1,74 @@
+<!-- app/orders/listOrders.html v.1.3.0. 29/09/2020 -->
+<div class="row">
+	<div class="col-md-3 new">
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newOrders" title="{{ Lang['inserisci un nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}</a>
+	</div>
+	<div class="col-md-7 help-small-list">
+		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
+	</div>
+	<div class="col-md-2">
+	</div>
+</div>
+
+<div class="card shadow mt-3 mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="listDataID" class="table table-sm table-striped table-bordered table-hover listData" width="100%" cellspacing="0" style="font-size:0.8rem;">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>{{ Lang['numero']|capitalize }}</th>
+						<th>{{ Lang['data']|capitalize }}</th>
+						<th>{{ Lang['note']|capitalize }}</th>
+						<th>{{ Lang['imponibile']|capitalize }}</th>
+						<th>{{ Lang['imposte']|capitalize }}</th>
+						<th>{{ Lang['totale']|capitalize }}</th>
+						<th></th>
+						<th></th>
+						<th></th>					
+					</tr>
+				</thead>
+				<tbody>				
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Default bootstrap modal example -->
+<div class="modal fade modal-show-item" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+  				<h5 class="modal-title" id="exampleModalLabel">{{ Lang['dati azienda']|capitalize }}</h5>
+  				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">{{ Lang['chiudi']|capitalize }}</button>
+			</div>
+		</div>
+	</div>
+ </div>
+
+ <!-- Default bootstrap modal example -->
+<div class="modal fade modal-show-item" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+  				<h5 class="modal-title" id="exampleModalLabel">{{ Lang['dati ordinante']|capitalize }}</h5>
+  				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">{{ Lang['chiudi']|capitalize }}</button>
+			</div>
+		</div>
+	</div>
+ </div>
