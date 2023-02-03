@@ -14,7 +14,7 @@ class Module {
 		$this->messages = array();
 		}
 	
-	public function getAvatarData($id,$_lang) {
+	public function getAvatarData($id) {
 		$this->error = 0;
 		$avatar = '';
 		$avatar_info = '';		
@@ -33,13 +33,13 @@ class Module {
             $max_size = 40000;
             $result = @is_uploaded_file($_FILES['avatar']['tmp_name']);
             if (!$result) {
-               $this->message = $_lang['Impossibile eseguire upload! Se è presente è stato mantenuto il file precedente!'];
+               $this->message = Config::$localStrings['Impossibile eseguire upload! Se è presente è stato mantenuto il file precedente!'];
                $this->error = 0;
                $this->errorType = 2;
                } else {
                   $size = $_FILES['avatar']['size'];
                   if ($size > $max_size) {
-                     $this->message = $_lang['Il file indicato è troppo grande! Dimensioni massime %DIMENSIONS% Kilobyte. Se il file precedente è presente è stato mantenuto il file precedente!'];
+                     $this->message = Config::$localStrings['Il file indicato è troppo grande! Dimensioni massime %DIMENSIONS% Kilobyte. Se il file precedente è presente è stato mantenuto il file precedente!'];
 							$this->message = preg_replace('/%DIMENSIONS%/',($max_size / 1000),$this->message);       				
            				$this->error = 0;
            				$this->errorType = 2;
@@ -53,7 +53,7 @@ class Module {
                  			}                  
                   }
              }	else {
-             	$this->message = $_lang['Impossibile eseguire upload: problemi accesso immagine! Se è presente è stato mantenuto il file precedente!'];
+             	$this->message = Config::$localStrings['Impossibile eseguire upload: problemi accesso immagine! Se è presente è stato mantenuto il file precedente!'];
                $this->error = 1;
              	}	            
          }

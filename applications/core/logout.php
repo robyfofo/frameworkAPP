@@ -16,7 +16,8 @@ $my_session->my_session_destroy();
 $my_session->my_session_gc();
 /* cancello il cookie */
 setcookie (SESSIONS_COOKIE_NAME, "", time()-1);
-setcookie (DATA_SESSIONS_COOKIE_NAME, "", time()-1);
+setcookie (Config::$globalSettings['cookiestecniciadminlastlogin'], "", time()-1);
+
 
 session_destroy();
 ToolsStrings::redirect(URL_SITE);

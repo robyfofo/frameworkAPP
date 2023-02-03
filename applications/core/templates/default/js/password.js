@@ -1,4 +1,4 @@
-/* app/core/password.js v.1.3.0. 24/09/2020 */
+/* admin/core/password.js v.7.00. 04/02/2022 */
 $(document).ready(function() {
 	
 	/* controllo password */	
@@ -12,14 +12,22 @@ $(document).ready(function() {
 	
 });
 
-$('.submittheform').click(function () {
-	$('input:invalid').each(function () {
-		// Find the tab-pane that this element is inside, and get the id
-		var $closest = $(this).closest('.tab-pane');
-		var id = $closest.attr('id');
-		// Find the link that corresponds to the pane and have it show
-		$('.nav a[href="#' + id + '"]').tab('show');
-		// Only want to do it once
-		return false;
-	});
-})
+setvalidatefields();
+
+$('.submittheform').click(function (e) { 
+    var elements = document.getElementsByClassName('input-no-validate');
+    while(elements.length > 0){
+        elements[0].classList.remove('input-no-validate');
+    }
+    validation = true;
+    controlloTabHTML5();
+    validateFieldByID(validatefields);
+    if (validation == false) {
+        return false;
+    }
+});
+
+function setvalidatefields() {
+	let x = 0;
+	validatefields[x] = ['datibase','maxchar','passwordID','100'];
+}

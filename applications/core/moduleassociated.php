@@ -16,23 +16,23 @@ echo '<br>returnmethod: '.$_SESSION['associatedReturnmethod'];
 echo '<br>ownerId: '.$_SESSION['associatedOwnerId'];
 echo '<br>type: '.$_SESSION['associatedType'];
 */
-if (!isset($_SESSION['associatedModule']) || (isset($_SESSION['associatedModule']) && $_SESSION['associatedModule'] == '')) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/404'); die(); }
+if (!isset($_SESSION['associatedModule']) || (isset($_SESSION['associatedModule']) && $_SESSION['associatedModule'] == '')) { ToolsStrings::redirect(URL_SITE.'error/404'); die(); }
 
 include_once(PATH.$App->pathApplicationsCore."class.module.php");
 $Module = new Module(DB_TABLE_PREFIX."module_associated");
 
 // carica lingua e configurazione modulo
-include_once(PATH.$App->pathApplications.$_SESSION['associatedModule']."/lang/".$_lang['user'].".inc.php");
+include_once(PATH.$App->pathApplications.$_SESSION['associatedModule']."/lang/".Config::$localStrings['user'].".inc.php");
 include_once(PATH.$App->pathApplications.$_SESSION['associatedModule']."/config.inc.php");
 
 $App->associatedTypefile = '';
 if ($_SESSION['associatedType'] == 1) {
-	$App->associatedTypefile = $_lang['immagine'];
-	$App->associatedTypefiles = $_lang['immagini'];
+	$App->associatedTypefile = Config::$localStrings['immagine'];
+	$App->associatedTypefiles = Config::$localStrings['immagini'];
 }
 if ($_SESSION['associatedType'] == 2) {
-	$App->associatedTypefile = $_lang['file'];
-	$App->associatedTypefiles = $_lang['files'];
+	$App->associatedTypefile = Config::$localStrings['file'];
+	$App->associatedTypefiles = Config::$localStrings['files'];
 }
 
 
@@ -46,14 +46,14 @@ $App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 $App->coreModule = true;
 $App->sessionName = 'config';
-//if (!isset($App->ownerData->id) || (isset($App->ownerData->id) && $App->ownerData->id == 0)) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/404'); die(); }
+//if (!isset($App->ownerData->id) || (isset($App->ownerData->id) && $App->ownerData->id == 0)) { ToolsStrings::redirect(URL_SITE.'error/404'); die(); }
 
 if ($_SESSION['associatedOwnerId'] > 0) {
 	Sql::initQuery($App->params->tables['item'],array('*'),array($_SESSION['associatedOwnerId']),'active = 1 AND id = ?');
 	Sql::setOptions(array('fieldTokeyObj'=>'id'));
 	$App->ownerData = Sql::getRecord();
-	if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE_ADMIN.'/404'); die; }
-	$field = 'title_'.$_lang['user'];	
+	if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'/404'); die; }
+	$field = 'title_'.Config::$localStrings['user'];	
 	$App->ownerData->title = $App->ownerData->$field;
 }
 
@@ -64,7 +64,7 @@ switch(Core::$request->method) {
 		$App->viewMethod = 'form';
 	break;
 	default;	
-		echo '<br>creo lista';	
+		//echo '<br>creo lista';	
 		$App->items = new stdClass;
 		$App->itemsForPage = (isset($_MY_SESSION_VARS[$App->sessionName]['ifp']) ? $_MY_SESSION_VARS[$App->sessionName]['ifp'] : 5);
 		$App->page = (isset($_MY_SESSION_VARS[$App->sessionName]['page']) ? $_MY_SESSION_VARS[$App->sessionName]['page'] : 1);
@@ -100,7 +100,7 @@ switch(Core::$request->method) {
 		$arr = array();
 		if (is_array($obj) && count($obj) > 0) {
 			foreach ($obj AS $value) {	
-				$field = 'title_'.$_lang['user'];	
+				$field = 'title_'.Config::$localStrings['user'];	
 				$value->title = $value->$field;
 				$arr[] = $value;
 				}
@@ -108,12 +108,12 @@ switch(Core::$request->method) {
 		$App->items = $arr;
 		
 		$App->pagination = Utilities::getPagination($App->page,Sql::getTotalsItems(),$App->itemsForPage);
-		$App->paginationTitle = $_lang['Mostra da %START%  a %END% di %ITEM% elementi'];
+		$App->paginationTitle = Config::$localStrings['Mostra da %START%  a %END% di %ITEM% elementi'];
 		$App->paginationTitle = preg_replace('/%START%/',$App->pagination->firstPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%END%/',$App->pagination->lastPartItem,$App->paginationTitle);
 		$App->paginationTitle = preg_replace('/%ITEM%/',$App->pagination->itemsTotal,$App->paginationTitle);
 
-		$App->pageSubTitle .= $App->pageSubTitle = preg_replace('/%ITEM%/',$App->associatedTypefiles,$_lang['lista delle %ITEM%']);;
+		$App->pageSubTitle .= $App->pageSubTitle = preg_replace('/%ITEM%/',$App->associatedTypefiles,Config::$localStrings['lista delle %ITEM%']);;
 		$App->viewMethod = 'list';
 	break;		
 }

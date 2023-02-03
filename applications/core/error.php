@@ -19,49 +19,49 @@ $App->codeVersion = ' 1.3.0.';
 switch(Core::$request->method) {
 
 	case '404':
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Error 404!'];
-		$App->error_content = $_lang['testo errore 404'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Error 404!'];
+		$App->error_content = Config::$localStrings['testo errore 404'];
 	break;
 
 	case 'access':
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Access Error!'];
-		$App->error_content = $_lang['testo errore accesso'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Access Error!'];
+		$App->error_content = Config::$localStrings['testo errore accesso'];
 	break;
 
 	case 'mail':
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Mail Error!'];
-		$App->error_content = $_lang['testo errore mail'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Mail Error!'];
+		$App->error_content = Config::$localStrings['testo errore mail'];
 	break;
 
 	case 'db':
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Database Error!'];
-		$App->error_content = $_lang['testo errore database'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Database Error!'];
+		$App->error_content = Config::$localStrings['testo errore database'];
 		$App->error_contentAlt = (Core::$request->param != '' ? Core::$request->param : '');
 	break;
 
 	case 'module':
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Module Error!'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Module Error!'];
 		$module = (Core::$request->param != '' ? Core::$request->param : '');
-		$App->error_content = preg_replace('/%MODULE%/',$module,$_lang['Errore nel modulo %MODULE%!']);
+		$App->error_content = preg_replace('/%MODULE%/',$module,Config::$localStrings['Errore nel modulo %MODULE%!']);
 		$App->error_contentAlt = (Core::$request->params[0] != '' ? Core::$request->params[0] : '');
 	break;
 
 	case 'nopm':
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Permissions Error!'];
-		$App->error_content = $_lang['testo errore permessi'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Permissions Error!'];
+		$App->error_content = Config::$localStrings['testo errore permessi'];
 		$App->error_contentAlt = (Core::$request->param != '' ? Core::$request->param : '');
 	break;
 
 	default:
-		$App->error_title = $_lang['Errore!'];
-		$App->error_subtitle = $_lang['Internal Server Error!'];
-		$App->error_content = $_lang['testo errore generico'];
+		$App->error_title = Config::$localStrings['Errore!'];
+		$App->error_subtitle = Config::$localStrings['Internal Server Error!'];
+		$App->error_content = Config::$localStrings['testo errore generico'];
 	break;
 
 }

@@ -1,75 +1,79 @@
 <?php
 /**
- * Framework App PHP-Mysql
+ * Framework siti html-PHP-Mysql
  * PHP Version 7
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * core/password.php v.1.2.0. 13/08/2020
+ * admin/core/password.php v.7.0.0. 04/02/2022
 */
 
-//Sql::setDebugMode(1);
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
+$changepasswordLog = new Logger('changepassword');
+$changepasswordLog->pushHandler(new StreamHandler(PATH_SITE.'logs/changepassword.log', Logger::DEBUG));
 
 /* variabili ambiente */
-$App->codeVersion = ' 1.2.0.';
-$App->pageTitle = ucfirst($_lang['password']);
-$App->pageSubTitle = preg_replace('/%ITEM%/', $_lang['password'], $_lang['modifica la %ITEM%']);
-//$App->breadcrumb[] = '<li class="active"><i class="icon-user"></i> '.preg_replace('/%ITEM%/', $_lang['password'], $_lang['modifica %ITEM%']).'</li>';
+$App->codeVersion = ' 7.0.0.';
+$App->pageTitle = ucfirst(Config::$localStrings['password']);
+$App->pageSubTitle = preg_replace('/%ITEM%/', Config::$localStrings['password'], Config::$localStrings['modifica la %ITEM%']);
+$App->breadcrumb = '<li class="active"><i class="icon-user"></i> '.preg_replace('/%ITEM%/', Config::$localStrings['password'], Config::$localStrings['modifica %ITEM%']).'</li>';
 $App->templateApp = Core::$request->action.'.html';
-$App->id = intval(Core::$request->param);
 if (isset($_POST['id'])) $App->id = intval($_POST['id']);
 $App->coreModule = true;
 
+$App->params = new stdClass();
+$App->fieldsName = 'users';
+
+$App->id = (isset($App->userLoggedData->id) && $App->userLoggedData->id > 0 ? $App->userLoggedData->id : 0);
+
 switch(Core::$request->method) {
 	case 'update':
-		if ($_POST) {			
-			$password = (isset($_POST['password']) && $_POST['password'] != "") ? SanitizeStrings::stripMagic($_POST['password']) : '';
-			$passwordCK = (isset($_POST['passwordCK']) && $_POST['passwordCK'] != "") ? SanitizeStrings::stripMagic($_POST['passwordCK']) : '';
-			if ($password != '') {
-				if ($password === $passwordCK) {
-					$password = password_hash($password, PASSWORD_DEFAULT);
-				} else {
-					Core::$resultOp->error = 1;
-					Core::$resultOp->message = $_lang['Le due password non corrispondono!'];
-				}				
+		if (!$_POST) { ToolsStrings::redirect(URL_SITE.'error/404'); 	}
+		if ($App->id == 0) { ToolsStrings::redirect(URL_SITE.'error/404'); }
+
+		Permissions::checkCsrftoken();
+
+		// prende i dati dell'utente
+		Sql::initQuery(Config::$DatabaseTables['users']['name'],array('username','password'),array($App->id),"id = ?");	
+		$user = Sql::getRecord();
+
+		$password = (isset($_POST['password']) && $_POST['password'] != "") ? filter_var( $_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS ) : '';
+		$passwordCK = (isset($_POST['passwordCK']) && $_POST['passwordCK'] != "") ? filter_var( $_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS ) : '';
+		
+		if ($password != '') {
+			if ($password === $passwordCK) {
+				$password = password_hash($password, PASSWORD_DEFAULT);
 			} else {
-				Core::$resultOp->error = 1;
-				Core::$resultOp->message = $_lang['Devi inserire la password!'];			
-			}
-				
-			if (Core::$resultOp->error == 0) {	
-				/* (tabella,campi(array),valori campi(array),where clause, limit, order, option , pagination(default false)) */
-				Sql::initQuery(DB_TABLE_PREFIX.'users',array('password'),array($password,$App->id),"id = ?");	
-
-				// commentare nella demo phprojekt.altervista
-
-				Sql::updateRecord();
-
-
-				if(Core::$resultOp->error == 0) {
-					Core::$resultOp->message = $_lang['Password modificata correttamente! Sarà effettiva al prossimo login.'];
-				}	
-			$App->id	 = $_POST['id'];					         	
-			}			
+				$_SESSION['message'] = '1|'.Core::$localStrings['Le due password non corrispondono!'];
+				ToolsStrings::redirect(URL_SITE.Core::$request->action);
+			}				
 		} else {
-			Core::$resultOp->error = 1;
-			Core::$resultOp->message = $_lang['Devi inserire tutti i campi richiesti!'];
+			$_SESSION['message'] = '1|'.Core::$localStrings['Devi inserire la password!'];
+			ToolsStrings::redirect(URL_SITE.Core::$request->action);		
 		}
+
+		Sql::initQuery(Config::$DatabaseTables['users']['name'],array('password'),array($password,$App->id),"id = ?");	
+		Sql::updateRecord();
+		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
+
+		$changepasswordLog->info('Utente '.$user->username.' ha cambiato la password');
+
+		$_SESSION['message'] = '0|'.Core::$localStrings['Password modificata correttamente! Sarà effettiva al prossimo login.'];
+		ToolsStrings::redirect(URL_SITE.Core::$request->action);
+	break;
 	
 	default:
-		if ($App->id > 0) {	
-			/* recupera i dati memorizzati */
-			$App->item = new stdClass;	
-			/* (tabella,campi(array),valori campi(array),where clause, limit, order, option , pagination(default false)) */
-			Sql::initQuery(Sql::getTablePrefix().'users',array('username','password'),array($App->id),"id = ?");	
-			$App->item = Sql::getRecord();
-			$App->defaultJavascript = "messages['Le due password non corrispondono!'] = '".addslashes($_lang['Le due password non corrispondono!'])."'";
-			} else {
-				ToolsStrings::redirect(URL_SITE_ADMIN."home");
-				die();						
-			}
+		if ($App->id == 0) { ToolsStrings::redirect(URL_SITE.'error/404'); }
+		// recupera i dati memorizzati
+		$App->item = new stdClass;	
+		Sql::initQuery(Config::$DatabaseTables['users']['name'],array('username','password'),array($App->id),"id = ?");	
+		$App->item = Sql::getRecord();
+		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
+		$App->defaultJavascript = "messages['Le due password non corrispondono!'] = '".addslashes(Config::$localStrings['Le due password non corrispondono!'])."'";		
 	break;	
-	}
-	
+}
+
 $App->jscript[] = '<script src="'.URL_SITE.$App->pathApplicationsCore.'/templates/'.$App->templateUser.'/js/password.js" type="text/javascript"></script>';
 ?>

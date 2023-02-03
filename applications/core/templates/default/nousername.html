@@ -1,32 +1,41 @@
-<!-- app/core/nousername.html v.1.2.0. 30/11/2019 -->
+<!-- wscms/core/nousername.html v.3.5.5. 15/05/2019 -->
 <div class="row">
-	<div class="col-md-12">	
-	
-		<div class="card">
-			<div class="card-body">
-		    	<h5 class="card-title">{{ Lang['titolo sezione richiesta username'] }}</h5>
-		    	<h6 class="card-subtitle mb-2 text-muted">{{ Lang['testo intro sezione richiesta username'] }}</h6>
-		    	<div class="row">
-					<div class="col-md-6 offset-md-3">
-						<form class="form-signin mt-3" role="form" action="{{ URLSITE }}nousername" method="post">
-						
-							<fieldset>
-								<div class="form-group">
-									<input required pattern="[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" class="form-control" placeholder="{{ Lang['indirizzo email']|capitalize }}" name="email" type="text" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire una %ITEM%!']|replace({'%ITEM%':Lang['indirizzo email valido']}) }}')" oninput="setCustomValidity('')" autofocus>
-								</div>
-								<!-- Change this to a button or input when using this as a form -->
-								<input type="hidden" name="method" value="check" />
-								<input type="submit" name="submit" value="{{ Lang['invia']|capitalize }} {{ Lang['email'] }}" class="btn btn-lg btn-success btn-block">
-							</fieldset>
-						</form>
-					</div>
-				</div>
+	<div class="col-md-8 offset-md-2">
+		<div class="login-panel panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ LocalStrings['titolo sezione richiesta username'] }}</h3>
 			</div>
-		  	<div class="card-footer text-muted">
-		    {{ App.returnlink }}
+			<div class="panel-body">
+				<form class="form-signin" role="form" action="{{ URLSITE }}nousername" method="post">
+					<fieldset>
+						<div class="form-group">
+							<input required pattern="[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" class="form-control" 
+							placeholder="{{ LocalStrings['indirizzo email']|capitalize }}" 
+							name="email" 
+							type="text" 
+							{% set label =  LocalStrings['Devi inserire una %ITEM%!']|replace({ '%ITEM%' : LocalStrings['indirizzo email valido'] }) %}
+							oninvalid="this.setCustomValidity('{{ label }}')" 
+							oninput="setCustomValidity('')" 
+							autofocus
+							>
+						</div>
+						<!-- Change this to a button or input when using this as a form -->
+
+						<input type="hidden" name="csrftoken" value="{{ Session['csrftoken'] }}">
+
+						<input type="hidden" name="method" value="check" />
+						<input type="submit" name="submit" value="{{ LocalStrings['invia']|capitalize }} {{ LocalStrings['email'] }}" class="btn btn-lg btn-success btn-block">
+					</fieldset>
+				</form>
+			</div>
+			<div class="panel-footer">
+					<p>{{ LocalStrings['testo intro sezione richiesta username'] }}</p> 
 			</div>
 		</div>	
-
-
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p>{{ App.returnlink }}</p>
+			</div>			
+		</div>
 	</div>
 </div>
