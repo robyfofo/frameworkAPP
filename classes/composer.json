@@ -1,17 +1,50 @@
 {
-    "name": "roberto/classes",
+    "name": "robertomantovani/frameworkapp",
     "authors": [
         {
-            "name": "robyfofo",
-            "email": "robymant@tiscali.it"
+            "name": "Roberto Mantovani",
+            "email": "me@robertomantovani.vr.it"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.3.0"
+        }
+      },
+    "minimum-stability": "stable",
     "require": {
         "rospdf/pdf-php": "^0.12.48",
         "twig/twig": "^3.0",
         "soundasleep/html2text": "^0.5.0",
         "swiftmailer/swiftmailer": "^6.1",
         "phpoffice/phpspreadsheet": "^1.6",
-        "dompdf/dompdf": "^0.8.6"
+        "dompdf/dompdf": "^0.8.6",
+        "symfony/google-mailer": "^5.4"
+    },
+    "autoload": {
+        "classmap": [
+            "class.Config.php",
+            "class.Core.php",
+            "class.Sessions.php",
+            "class.Permissions.php",
+            "class.ToolsStrings.php",
+            "class.SanitizeStrings.php",
+            "class.ToolsUpload.php",
+            "class.Sql.php",
+            "class.Utilities.php",
+            "class.DateFormat.php",
+            "class.Subcategories.php",
+            "class.Products.php",
+            "class.Form.php",
+            "class.Mails.php",
+            "class.ToolsStrings.php"
+
+        ]
+      },
+    "repositories": {
+        "htmlawed": {
+            "type": "composer",
+            "url": "https://www.bioinformatics.org/phplabware/downloads/"
+        }
     }
 }
