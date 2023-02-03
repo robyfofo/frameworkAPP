@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f51cdf1d2706af5e0c5580137e4d65fe90c9f894',
+        'reference' => '3c0fafe7cf82bf69f04f9ed946eb5d777c306628',
         'name' => 'robertomantovani/frameworkapp',
         'dev' => true,
     ),
@@ -80,6 +80,15 @@
             'install_path' => __DIR__ . '/../markbaker/matrix',
             'aliases' => array(),
             'reference' => '728434227fe21be27ff6d86621a1b13107a2562c',
+            'dev_requirement' => false,
+        ),
+        'monolog/monolog' => array(
+            'pretty_version' => '2.8.0',
+            'version' => '2.8.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../monolog/monolog',
+            'aliases' => array(),
+            'reference' => '720488632c590286b88b80e62aa3d3d551ad4a50',
             'dev_requirement' => false,
         ),
         'myclabs/php-enum' => array(
@@ -178,6 +187,12 @@
             'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
             'dev_requirement' => false,
         ),
+        'psr/log-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+            ),
+        ),
         'psr/simple-cache' => array(
             'pretty_version' => '1.0.1',
             'version' => '1.0.1.0',
@@ -193,7 +208,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f51cdf1d2706af5e0c5580137e4d65fe90c9f894',
+            'reference' => '3c0fafe7cf82bf69f04f9ed946eb5d777c306628',
             'dev_requirement' => false,
         ),
         'rospdf/pdf-php' => array(
@@ -221,15 +236,6 @@
             'install_path' => __DIR__ . '/../soundasleep/html2text',
             'aliases' => array(),
             'reference' => 'cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad',
-            'dev_requirement' => false,
-        ),
-        'swiftmailer/swiftmailer' => array(
-            'pretty_version' => 'v6.3.0',
-            'version' => '6.3.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../swiftmailer/swiftmailer',
-            'aliases' => array(),
-            'reference' => '8a5d5072dca8f48460fce2f4131fcc495eec654c',
             'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
@@ -299,15 +305,6 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
             'reference' => '5bbc823adecdae860bb64756d639ecfec17b050a',
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-iconv' => array(
-            'pretty_version' => 'v1.27.0',
-            'version' => '1.27.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-iconv',
-            'aliases' => array(),
-            'reference' => '927013f3aac555983a5059aada98e1907d842695',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-intl-idn' => array(

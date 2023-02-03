@@ -48,8 +48,9 @@ if ( $_SERVER['HTTP_HOST'] == '127.0.0.1' || $_SERVER['HTTP_HOST'] == 'localhost
 		'tableprefix'=>'fap131_'
 	);
 
-	$globalSettings['cookiestecnici'] = 'locframeworkapp';
-	$globalSettings['cookiestecnicilastlogin'] = 'locframeworkapplastlogin';
+	$globalSettings['cookiestecniciadmin'] = 'locframeworkapp';
+	$globalSettings['cookiestecniciadminlastlogin'] = 'locframeworkapplastlogin';
+
 	$globalSettings['use gmail for send email'] = 0;
 	$globalSettings['gmail username'] = '';
 	$globalSettings['gmail password'] = '';

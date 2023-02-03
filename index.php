@@ -10,6 +10,10 @@
 session_start();
 if (!isset($_SESSION['csrftoken'])) $_SESSION['csrftoken'] = bin2hex(openssl_random_pseudo_bytes(64));
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 define('PATH','');
 define('MAXPATH', str_replace("includes","",dirname(__FILE__)).'');
 if(!ini_get('date.timezone')) date_default_timezone_set('GMT');
