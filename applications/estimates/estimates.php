@@ -71,8 +71,8 @@ switch(Core::$request->method) {
 	case 'newItem':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/nopm'); }
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->item->rivalsa = $App->company->rivalsa;
 		$App->item->tax = 0;
 		$App->item->active = 1;
@@ -85,7 +85,7 @@ switch(Core::$request->method) {
 	case 'modifyItem':
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
 		Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
 		if (!isset($App->item->id) || (isset($App->item->id) && $App->item->id < 1)) { ToolsStrings::redirect(URL_SITE.'error/404'); }
@@ -427,8 +427,8 @@ switch((string)$App->viewMethod) {
 
 	case 'list':
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->templateApp = 'listEstimates.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listEstimates.js"></script>';

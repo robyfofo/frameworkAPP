@@ -69,7 +69,7 @@ switch(Core::$request->method) {
 
 	case 'modappData':
 		if (isset($_POST['appdata'])) {
-			$data = DateFormat::convertDatepickerToIso($_POST['appdata'],Config::$localStrings['datepicker data format'],'Y-m-d',$App->nowDate);
+			$data = DateFormat::convertDatepickerToIso($_POST['appdata'],Config::$localStrings['datepicker data format'],'Y-m-d',Config::$nowDate);
 			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$data);			
 			}	
 		$App->viewMethod = 'list';
@@ -77,7 +77,7 @@ switch(Core::$request->method) {
 
 	case 'setappData':
 		if (isset(Core::$request->param)) {
-			$data = (DateFormat::checkDateFormat(Core::$request->param,'Y-m-d') == true ? Core::$request->param : $App->nowDate);
+			$data = (DateFormat::checkDateFormat(Core::$request->param,'Y-m-d') == true ? Core::$request->param : Config::$nowDate);
 			$_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$data);
 			}	
 		$App->viewMethod = 'list';

@@ -112,7 +112,7 @@ switch(Core::$request->method) {
 								$headpdf[0]['titolo'] = $App->company->ragione_sociale;
 								$headpdf[1]['titolo'] = $App->company->street.' - '.$App->company->zip_code.' - '.$App->company->city.' ('.$App->company->province.')';
 								$headpdf[2]['titolo'] = Config::$localStrings['P. IVA'].' '.$App->company->partita_iva.' - '.Config::$localStrings['C. Fiscale'].' '.$App->company->codice_fiscale;
-								$headpdf[3]['titolo'] = '<strong>'.strtoupper(Config::$localStrings['fattura']).'</strong> '.Config::$localStrings['nr.'].' <b>'.$App->invoice->number_complete.'</b> '.Config::$localStrings['del'].' <b>'.DateFormat::convertDateFormats($App->invoice->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).'</b>';	
+								$headpdf[3]['titolo'] = '<strong>'.strtoupper(Config::$localStrings['fattura']).'</strong> '.Config::$localStrings['nr.'].' <b>'.$App->invoice->number_complete.'</b> '.Config::$localStrings['del'].' <b>'.DateFormat::convertDateFormats($App->invoice->dateins,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate).'</b>';	
 	
 								
 															
@@ -177,7 +177,7 @@ switch(Core::$request->method) {
 								$colspdf = array('titolo'=>mb_strtoupper(Config::$localStrings['modalità pagamento'],'UTF-8'),'testo'=>strtoupper(Config::$localStrings['scadenze'])); 
 								$datapdf = array();
 								$datapdf[1]['titolo'] = '<b>'.ucwords(Config::$localStrings['bonifico bancario']).'</b>';
-								$datapdf[1]['testo'] = '<b>'.DateFormat::convertDateFormats($App->invoice->datesca,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).'</b>';
+								$datapdf[1]['testo'] = '<b>'.DateFormat::convertDateFormats($App->invoice->datesca,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate).'</b>';
 								$datapdf[2]['titolo'] = 'IBAN: <b>'.$App->company->iban.'</b>';
 								$datapdf[2]['testo'] = '';
 								$datapdf[3]['titolo'] = $App->company->intestatario;

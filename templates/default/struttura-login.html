@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ Lang['user'] }}">
+<html lang="{{ LocalStrings['user'] }}">
 	<head>
 
 		<meta charset="utf-8">
@@ -32,9 +32,9 @@
 			siteTemplateUrl = '{{ URLSITE }}templates/{{ App.templateUser }}/';
 			siteTemplatePath = '{{ PATHSITE }}templates/{{ App.templateUser }}/';			
 			siteDocumentPath = '{{ PATHDOCUMENT }}';		
-			var cur_lang = "{{ Lang['user'] }}";
+			var cur_lang = "{{ LocalStrings['user'] }}";
 			var messages = new Array();
-			messages['Sei sicuro?'] = '{{ Lang['Sei sicuro?']|e('js') }}';	
+			messages['Sei sicuro?'] = '{{ LocalStrings['Sei sicuro?']|e('js') }}';	
 			{% if (App.defaultJavascript is defined) and (App.defaultJavascript != '') %}
 				{{ App.defaultJavascript|raw }}  	
 			{% endif %}
@@ -54,7 +54,7 @@
 								<div class="col-lg-12">
                 				<div class="p-5">
                   				<div class="text-center">
-                    					<h1 class="h4 text-gray-900 mb-4">{{ Lang['amministrazione']|capitalize }} {{ GlobalSettings['site name'] }} <small>{{ GlobalSettings['code version'] }}</h1>
+                    					<h1 class="h4 text-gray-900 mb-4">{{ LocalStrings['amministrazione']|capitalize }} {{ GlobalSettings['site name'] }} <small>{{ GlobalSettings['code version'] }}</h1>
                   				</div>
                  	
 										{% if (App.systemMessages is defined) and (App.systemMessages != '') %}

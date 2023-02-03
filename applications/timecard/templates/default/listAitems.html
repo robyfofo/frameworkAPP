@@ -21,8 +21,8 @@
 
 					<div class="col">
 
-						<select name="id_project" id="id_projectID" class="selectpicker form-control" data-live-search="true" title="{{ Lang['seleziona un progetto']|capitalize }}">
-							<option value="0"{% if Session[App.sessionName]['id_project'] == 0 %} selected="selected"{% endif %}>{{ Lang['progetti']|capitalize }}</option>
+						<select name="id_project" id="id_projectID" class="selectpicker form-control" data-live-search="true" title="{{ LocalStrings['seleziona un progetto']|capitalize }}">
+							<option value="0"{% if Session[App.sessionName]['id_project'] == 0 %} selected="selected"{% endif %}>{{ LocalStrings['progetti']|capitalize }}</option>
 
 							{% if App.allprogetti is iterable %}
 								{% for value in App.allprogetti %}
@@ -34,18 +34,18 @@
 
 					<div class="col">
 						<select name="intervaldata" id="intervaldataID" class="selectpicker form-control" data-live-search="true" title="filtra per data">
-							<option value=""{% if Session[App.sessionName]['intervaldata'] == '' %} selected="selected"{% endif %}>{{ Lang['nessuna data']|title }}</option>
+							<option value=""{% if Session[App.sessionName]['intervaldata'] == '' %} selected="selected"{% endif %}>{{ LocalStrings['nessuna data']|title }}</option>
 
-							<option value="cm"{% if Session[App.sessionName]['intervaldata'] == 'cm' %} selected="selected"{% endif %}>{{ Lang['mese corrente']|title }}</option>
-							<option value="pm"{% if Session[App.sessionName]['intervaldata'] == 'pm' %} selected="selected"{% endif %}>{{ Lang['mese precedente']|title }}</option>
-							<option value="id"{% if Session[App.sessionName]['intervaldata'] == 'id' %} selected="selected"{% endif %}>{{ Lang['intervallo di date']|capitalize }}</option>
+							<option value="cm"{% if Session[App.sessionName]['intervaldata'] == 'cm' %} selected="selected"{% endif %}>{{ LocalStrings['mese corrente']|title }}</option>
+							<option value="pm"{% if Session[App.sessionName]['intervaldata'] == 'pm' %} selected="selected"{% endif %}>{{ LocalStrings['mese precedente']|title }}</option>
+							<option value="id"{% if Session[App.sessionName]['intervaldata'] == 'id' %} selected="selected"{% endif %}>{{ LocalStrings['intervallo di date']|capitalize }}</option>
 
 						</select>
 					</div>
 
 					<div class="col" id="colDataiaìiniID">
 						<div class="input-group date" id="divdatainiID">
-							<input type="text" name="dataini" id="datainiID" class="form-control dates" placeholder="{{ Lang['inserisci una data']|capitalize }}" value="">
+							<input type="text" name="dataini" id="datainiID" class="form-control dates" placeholder="{{ LocalStrings['inserisci una data']|capitalize }}" value="">
 							<span class="input-group-addon calendar-icon">
 								<i class="fa fa-calendar"></i>
 							</span>
@@ -54,7 +54,7 @@
 
 					<div class="col" id="colDataendID">
 						<div class="input-group date" id="divdataendID">
-							<input type="text" name="dataend" id="dataendID" class="form-control dates" placeholder="{{ Lang['inserisci una data']|capitalize }}" value="">
+							<input type="text" name="dataend" id="dataendID" class="form-control dates" placeholder="{{ LocalStrings['inserisci una data']|capitalize }}" value="">
 							<span class="input-group-addon calendar-icon">
 								<i class="fa fa-calendar"></i>
 							</span>
@@ -70,17 +70,17 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>{{ Lang['utente']|capitalize }}</th>
-						<th>{{ Lang['progetto']|capitalize }}</th>
-						<th>{{ Lang['contenuto']|capitalize }}</th>
-						<th>{{ Lang['data']|capitalize }}</th>
-						<th>{{ Lang['ora inizio']|capitalize }}</th>
-						<th>{{ Lang['ora fine']|capitalize }}</th>
-						<th>{{ Lang['ore lavoro']|capitalize }}</th>
+						<th>{{ LocalStrings['utente']|capitalize }}</th>
+						<th>{{ LocalStrings['progetto']|capitalize }}</th>
+						<th>{{ LocalStrings['contenuto']|capitalize }}</th>
+						<th>{{ LocalStrings['data']|capitalize }}</th>
+						<th>{{ LocalStrings['ora inizio']|capitalize }}</th>
+						<th>{{ LocalStrings['ora fine']|capitalize }}</th>
+						<th>{{ LocalStrings['ore lavoro']|capitalize }}</th>
 						<th class="text-right">
-							<a class="btn btn-sm btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/exportXlsAite" title="{{ Lang['esporta in xls']|capitalize }}"><i class="far fa-file-excel" aria-hidden="true"></i></a>
+							<a class="btn btn-sm btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/exportXlsAite" title="{{ LocalStrings['esporta in xls']|capitalize }}"><i class="far fa-file-excel" aria-hidden="true"></i></a>
 
-							<a class="btn btn-sm btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/timecardaSpdf" title="{{ Lang['esporta in pdf']|capitalize }}"><i class="far fa-file-pdf" aria-hidden="true"></i></a>
+							<a class="btn btn-sm btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/timecardaSpdf" title="{{ LocalStrings['esporta in pdf']|capitalize }}"><i class="far fa-file-pdf" aria-hidden="true"></i></a>
 
 						</th>
 					</tr>

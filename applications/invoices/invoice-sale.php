@@ -375,8 +375,8 @@ switch(Core::$request->method) {
 				$tablefields = array(
 					'id'=>$value->id,
 					'invoice_number' => $value->invoice_number,
-					'dateinslocal'=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
-					'datescalocal'=>DateFormat::convertDateFormats($value->datesca,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
+					'dateinslocal'=>DateFormat::dateFormating($value->dateins,'Y-m-d',Config::$localStrings['data format']),
+					'datescalocal'=>DateFormat::dateFormating($value->datesca,'Y-m-d',Config::$localStrings['data format']),
 					'pagata'=>$pagata,
 					'customer'=>$value->customer_ragione_sociale,
 					'note'=>$value->note,
@@ -410,8 +410,8 @@ switch(Core::$request->method) {
 switch((string)$App->viewMethod) {
 	case 'formNew':
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->item->rivalsa = $App->company->rivalsa;
 		$App->item->tax = 0;
 		$App->item->active = 1;
@@ -441,7 +441,7 @@ switch((string)$App->viewMethod) {
 	case 'formMod':
 		if ($App->id > 0) {
 			$App->item = new stdClass;
-			$App->item->dateins = $App->nowDate;
+			$App->item->dateins = Config::$nowDate;
 			Sql::initQuery($App->params->tables['InvSal'],array('*'),array($App->id),'id = ?');
 			$App->item = Sql::getRecord();
 			if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['InvSal']);
@@ -511,8 +511,8 @@ switch((string)$App->viewMethod) {
 
 	case 'list':
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listInvSal.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listInvSal.js"></script>';

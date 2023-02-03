@@ -32,7 +32,7 @@ switch (Core::$request->method) {
 
 	case 'newNation':
 		$App->item = new stdClass;
-		$App->item->created = $App->nowDateTime;
+		$App->item->created = Config::$nowDateTime;
 		$App->item->active = 1;
 		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['nazione'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertNation';

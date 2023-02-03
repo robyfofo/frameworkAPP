@@ -34,11 +34,11 @@ $App->params->fields['items']  = array(
 	'id'=>array('label'=>'ID','required'=>false,'type'=>'int|8','autoinc'=>true,'nodb'=>true,'primary'=>true),
 	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
 	'type'=>array('label'=>Config::$localStrings['tipo'],'searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'0','validate'=>'int'),
-	'dateins'=>array('label'=>Config::$localStrings['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
+	'dateins'=>array('label'=>Config::$localStrings['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>Config::$nowDate,'validate'=>'datepicker'),
 	'amount'=>array('label'=>Config::$localStrings['importo'],'searchTable'=>true,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
 	'description'=>array('label'=>Config::$localStrings['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'text'),
 	'notax'=>array('label'=>Config::$localStrings['tassa'],'searchTable'=>false,'required'=>false,'type'=>'int|1','defValue'=>'1','validate'=>'int'),	
-	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datatimeiso'),
 	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>1,'validate'=>'int')
 	);
 	

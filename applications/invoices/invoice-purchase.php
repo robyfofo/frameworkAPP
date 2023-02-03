@@ -369,8 +369,8 @@ switch(Core::$request->method) {
 switch((string)$App->viewMethod) {
 	case 'formNew':
 		$App->item = new stdClass;	
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;		
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;		
 		$App->item->active = 1;
 		if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['InvPur']);
 		$App->templateApp = 'formInvPur.html';
@@ -383,7 +383,7 @@ switch((string)$App->viewMethod) {
 		if ($App->id > 0) {
 			
 			$App->item = new stdClass;
-			$App->item->dateins = $App->nowDate;
+			$App->item->dateins = Config::$nowDate;
 			Sql::initQuery($App->params->tables['InvPur'],array('*'),array($App->id),'id = ?');
 			$App->item = Sql::getRecord();
 			if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['InvPur']);
@@ -451,8 +451,8 @@ switch((string)$App->viewMethod) {
 
 	case 'list':
 		$App->item = new stdClass;		
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci-p'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listInvPur.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listInvPur.js"></script>';	

@@ -57,7 +57,7 @@ switch(Core::$request->method) {
 	
 	case 'newEntr':
 		$App->item = new stdClass;		
-		$App->item->dateins = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
 		$App->item->active = 1;
 		
 		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce-e'],Config::$localStrings['inserisci %ITEM%']);
@@ -216,10 +216,10 @@ switch(Core::$request->method) {
 		if (isset($objTot2->totale)) $totentry_anno_precedente = $objTot2->totale;
 		
 		// trova il totale di ultimo anno solare	
-		$date = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+		$date = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 		$date->modify('-12 month');
 		$dini = $date->format('Y-m-d');
-		$fieldsValue3 = array_merge($fieldsValue3,array($dini,$App->nowDate));									
+		$fieldsValue3 = array_merge($fieldsValue3,array($dini,Config::$nowDate));									
 		Sql::initQuery($table,array('SUM(amount) AS totale'),$fieldsValue3,$where3.$and3.'dateins BETWEEN ? AND ?','','',array());
 		$objTot3 = Sql::getRecord();
 		$totentry_ultimo_anno = 0;
@@ -241,7 +241,7 @@ switch(Core::$request->method) {
 				}
 				
 				$tablefields = array(
-					'dateinslocal'			=> DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
+					'dateinslocal'			=> DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate),
 					'entry'					=> ($entry != '' ? '€ '.number_format($entry,2,',','.') : ''),
 					'description'			=> $value->description,
 					'actions'				=> $actions
@@ -281,7 +281,7 @@ switch((string)$App->viewMethod) {
 	break;
 	case 'list':
 		$App->item = new stdClass;		
-		$App->item->dateins = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci-e'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listEntries.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listEntries.js"></script>';	

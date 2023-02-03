@@ -1,17 +1,17 @@
 <!-- projects/script.js.php v.1.0.0. 28/02/2018 -->
 <script language="javascript">
 var lang = new Array();
-lang['search'] = '{{ Lang['cerca']|capitalize}}';
-lang['lengthMenu'] = '{{ Lang['Mostra _MENU_ voci per pagina'] }}';
-lang['zeroRecords'] = '{{ Lang['nessuna voce trovata!']|capitalize }}';
-lang['datatableInfo'] = '{{ Lang['Mostra pagina _PAGE_ di _PAGES_']}}';
-lang['infoEmpty'] = '{{ Lang['nessuna voce trovata!']|capitalize }}';
-lang['infoFiltered'] = '({{ Lang['fitrati da _MAX_ voci totali']}})';
-lang['loadingRecords'] = '{{ Lang['caricamento']|capitalize }}...';
-lang['processing'] = '{{ Lang['processo dati']|capitalize }}...';
-lang['paginate'] = new Array();
-lang['paginate']['first'] = '{{ Lang['primo']|capitalize }}';
-lang['paginate']['last'] = '{{ Lang['ultimo']|capitalize }}';
-lang['paginate']['next'] = '{{ Lang['prossimo']|capitalize }}';
-lang['paginate']['previous'] = '{{ Lang['precedente']|capitalize }}';
+LocalStrings['search'] = '{{ LocalStrings['cerca']|capitalize}}';
+LocalStrings['lengthMenu'] = '{{ LocalStrings['Mostra _MENU_ voci per pagina'] }}';
+LocalStrings['zeroRecords'] = '{{ LocalStrings['nessuna voce trovata!']|capitalize }}';
+LocalStrings['datatableInfo'] = '{{ LocalStrings['Mostra pagina _PAGE_ di _PAGES_']}}';
+LocalStrings['infoEmpty'] = '{{ LocalStrings['nessuna voce trovata!']|capitalize }}';
+LocalStrings['infoFiltered'] = '({{ LocalStrings['fitrati da _MAX_ voci totali']}})';
+LocalStrings['loadingRecords'] = '{{ LocalStrings['caricamento']|capitalize }}...';
+LocalStrings['processing'] = '{{ LocalStrings['processo dati']|capitalize }}...';
+LocalStrings['paginate'] = new Array();
+LocalStrings['paginate']['first'] = '{{ LocalStrings['primo']|capitalize }}';
+LocalStrings['paginate']['last'] = '{{ LocalStrings['ultimo']|capitalize }}';
+LocalStrings['paginate']['next'] = '{{ LocalStrings['prossimo']|capitalize }}';
+LocalStrings['paginate']['previous'] = '{{ LocalStrings['precedente']|capitalize }}';
 </script>

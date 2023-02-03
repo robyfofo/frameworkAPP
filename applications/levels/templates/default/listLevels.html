@@ -1,7 +1,7 @@
 <!-- levels/list.tpl.php v.1.3.0. 25/08/2020 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ Lang['inserisci un nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}</a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ LocalStrings['inserisci un nuovo %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ LocalStrings['nuovo %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}</a>
 	</div>
 	<div class="col-md-7 help-small-list">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
 	<div class="col-md-2"></div>
@@ -21,9 +21,9 @@
 						<option value="100"{% if App.itemsForPage == 100 %} selected="selected"{% endif %}>100</option>
 					</select>
 				</div>
-				<label for="itemsforpageID" class="col-md-2 col-form-label form-control-sm">{{ Lang['voci per pagina']| capitalize }}</label>
+				<label for="itemsforpageID" class="col-md-2 col-form-label form-control-sm">{{ LocalStrings['voci per pagina']| capitalize }}</label>
 		
-				<label for="searchFromTableID" class="offset-md-6 col-md-1 col-form-label form-control-sm" style="text-align:right;">{{ Lang['cerca']|capitalize }}</label>
+				<label for="searchFromTableID" class="offset-md-6 col-md-1 col-form-label form-control-sm" style="text-align:right;">{{ LocalStrings['cerca']|capitalize }}</label>
 				<div class="col-md-2">
 					<input type="search" name="searchFromTable" id="searchFromTableID" class="form-control form-control-sm"  value="{% if MySessionVars[App.sessionName]['srcTab'] is defined and  MySessionVars[App.sessionName]['srcTab'] != '' %}{{  MySessionVars[App.sessionName]['srcTab'] }}{% endif %}" onchange="this.form.submit();">	
 				</div>
@@ -36,8 +36,8 @@
 							{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}
 								<th>ID</th>								
 							{% endif %}
-							<th>{{ Lang['titolo']|capitalize }}</th>
-							<th>{{ Lang['moduli attivi']|capitalize }}</th>												
+							<th>{{ LocalStrings['titolo']|capitalize }}</th>
+							<th>{{ LocalStrings['moduli attivi']|capitalize }}</th>												
 							<th></th>
 						</tr>
 					</thead>
@@ -51,14 +51,14 @@
 									<td>{{ value.title }}</td>									
 									<td>{{ value.modules }}</td>																								
 									<td class="actions">											
-										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? Lang['disattiva']|capitalize : Lang['attiva']|capitalize }} {{ Lang['la voce'] }}"><i class="fas fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"></i></a><a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ Lang['modifica']|capitalize }} {{ Lang['la voce'] }}"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ Lang['cancella']|capitalize }} {{ Lang['la voce'] }}"><i class="far fa-trash-alt"></i></a>
+										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Item/{{ value.id  }}" title="{{ value.active == 1 ? LocalStrings['disattiva']|capitalize : LocalStrings['attiva']|capitalize }} {{ LocalStrings['la voce'] }}"><i class="fas fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"></i></a><a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyItem/{{ value.id }}" title="{{ LocalStrings['modifica']|capitalize }} {{ LocalStrings['la voce'] }}"><i class="far fa-edit"></i></a><a class="btn btn-default btn-sm confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteItem/{{ value.id }}" title="{{ LocalStrings['cancella']|capitalize }} {{ LocalStrings['la voce'] }}"><i class="far fa-trash-alt"></i></a>
 									</td>							
 								</tr>	
 							{% endfor %}
 						{% else %}
 							<tr>
 								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
-								<td colspan="3">{{ Lang['nessuna voce trovata!']|capitalize }}</td>
+								<td colspan="3">{{ LocalStrings['nessuna voce trovata!']|capitalize }}</td>
 							</tr>
 						{% endif %}
 					</tbody>
@@ -77,26 +77,26 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination pagination-sm float-right">
 							<li class="page-item previous{% if App.pagination.page == 1 %} disabled{% endif %}">
-								<a class="page-link" title="{{ Lang['pagina']|capitalize }} {{ Lang['precedente'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemPrevious }}">{{ Lang['precedente']|capitalize }}</a>
+								<a class="page-link" title="{{ LocalStrings['pagina']|capitalize }} {{ LocalStrings['precedente'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemPrevious }}">{{ LocalStrings['precedente']|capitalize }}</a>
 							</li>
 							
 							{% if App.pagination.pagePrevious is iterable %}
 								{% for key,value in App.pagination.pagePrevious %}
-									<li class="page-item"><a class="page-link" title="{{ Lang['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
+									<li class="page-item"><a class="page-link" title="{{ LocalStrings['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
 								{% endfor %}
 							{% endif %}
 								
-							<li class="page-item active"><a class="page-link active" title="{{ Lang['pagina corrente']|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>
+							<li class="page-item active"><a class="page-link active" title="{{ LocalStrings['pagina corrente']|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>
 								
 							{% if App.pagination.pageNext is iterable %}
 								{% for key,value in App.pagination.pageNext %}
-									<li class="page-item"><a class="page-link" title="{{ Lang['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
+									<li class="page-item"><a class="page-link" title="{{ LocalStrings['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ value }}">{{ value }}</a></li>
 								{% endfor %}
 							{% endif %}
 							
 							
 							<li class="page-item next{% if App.pagination.page >= App.pagination.totalpage %} disabled{% endif %}">
-								<a class="page-link" title="{{ Lang['pagina']|capitalize }} {{ Lang['prossima'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemNext }}">{{ Lang['prossima']|capitalize }}</a>
+								<a class="page-link" title="{{ LocalStrings['pagina']|capitalize }} {{ LocalStrings['prossima'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageItem/{{ App.pagination.itemNext }}">{{ LocalStrings['prossima']|capitalize }}</a>
 							</li>
 						</ul>
 					</nav>

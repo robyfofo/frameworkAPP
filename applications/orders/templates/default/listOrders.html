@@ -1,7 +1,7 @@
 <!-- app/orders/listOrders.html v.1.3.0. 29/09/2020 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newOrders" title="{{ Lang['inserisci un nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}</a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newOrders" title="{{ LocalStrings['inserisci un nuovo %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ LocalStrings['nuovo %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}</a>
 	</div>
 	<div class="col-md-7 help-small-list">
 		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}
@@ -17,12 +17,12 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>{{ Lang['numero']|capitalize }}</th>
-						<th>{{ Lang['data']|capitalize }}</th>
-						<th>{{ Lang['note']|capitalize }}</th>
-						<th>{{ Lang['imponibile']|capitalize }}</th>
-						<th>{{ Lang['imposte']|capitalize }}</th>
-						<th>{{ Lang['totale']|capitalize }}</th>
+						<th>{{ LocalStrings['numero']|capitalize }}</th>
+						<th>{{ LocalStrings['data']|capitalize }}</th>
+						<th>{{ LocalStrings['note']|capitalize }}</th>
+						<th>{{ LocalStrings['imponibile']|capitalize }}</th>
+						<th>{{ LocalStrings['imposte']|capitalize }}</th>
+						<th>{{ LocalStrings['totale']|capitalize }}</th>
 						<th></th>
 						<th></th>
 						<th></th>					
@@ -40,7 +40,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-  				<h5 class="modal-title" id="exampleModalLabel">{{ Lang['dati azienda']|capitalize }}</h5>
+  				<h5 class="modal-title" id="exampleModalLabel">{{ LocalStrings['dati azienda']|capitalize }}</h5>
   				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -48,7 +48,7 @@
 			<div class="modal-body">
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">{{ Lang['chiudi']|capitalize }}</button>
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">{{ LocalStrings['chiudi']|capitalize }}</button>
 			</div>
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-  				<h5 class="modal-title" id="exampleModalLabel">{{ Lang['dati ordinante']|capitalize }}</h5>
+  				<h5 class="modal-title" id="exampleModalLabel">{{ LocalStrings['dati ordinante']|capitalize }}</h5>
   				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -67,7 +67,7 @@
 			<div class="modal-body">
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">{{ Lang['chiudi']|capitalize }}</button>
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">{{ LocalStrings['chiudi']|capitalize }}</button>
 			</div>
 		</div>
 	</div>

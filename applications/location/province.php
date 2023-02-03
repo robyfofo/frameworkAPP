@@ -31,7 +31,7 @@ switch (Core::$request->method) {
 
 	case 'newProvin':
 		$App->item = new stdClass;
-		$App->item->created = $App->nowDateTime;
+		$App->item->created = Config::$nowDateTime;
 		$App->item->active = 1;
 		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['provincia'],Config::$localStrings['inserisci %ITEM%']);
 		$App->methodForm = 'insertProvin';

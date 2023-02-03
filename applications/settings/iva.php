@@ -243,8 +243,8 @@ switch(Core::$request->method) {
 switch((string)$App->viewMethod) {
 	case 'formNew':
 		$App->item = new stdClass;	
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->item->rivalsa = $App->company->rivalsa;
 		$App->item->tax = 0;			
 		$App->item->active = 1;
@@ -258,7 +258,7 @@ switch((string)$App->viewMethod) {
 	case 'formMod':
 		if ($App->id > 0) {
 			$App->item = new stdClass;
-			$App->item->dateins = $App->nowDate;
+			$App->item->dateins = Config::$nowDate;
 			Sql::initQuery($App->params->tables['item'],array('*'),array($App->id),'id = ?');
 			$App->item = Sql::getRecord();
 			if (Core::$resultOp->error == 1) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['item']);
@@ -315,8 +315,8 @@ switch((string)$App->viewMethod) {
 
 	case 'list':
 		$App->item = new stdClass;		
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['percentuali iva'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->templateApp = 'listIvaa.tpl.php';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listIvaa.js"></script>';	

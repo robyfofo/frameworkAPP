@@ -43,8 +43,8 @@ switch(Core::$request->method) {
 				Form::parsePostByFields($App->params->fields['pite'],Config::$localStrings,array());
 				if (Core::$resultOp->error == 0) {						
 					/* controlla l'intervallo */
-					$datatimeisoini = $App->nowDate .' '.$_POST['starttime'];
-					$datatimeisoend = $App->nowDate .' '.$_POST['endtime'];				
+					$datatimeisoini = Config::$nowDate .' '.$_POST['starttime'];
+					$datatimeisoend = Config::$nowDate .' '.$_POST['endtime'];				
 					DateFormat::checkDateTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
 					if (Core::$resultOp->error == 0) {
 						$dteStart = new DateTime($datatimeisoini);
@@ -78,8 +78,8 @@ switch(Core::$request->method) {
 			Form::parsePostByFields($App->params->fields['pite'],Config::$localStrings,array());
 			if (Core::$resultOp->error == 0) {
 				/* controlla l'intervallo */
-				$datatimeisoini = $App->nowDate .' '.$_POST['starttime'];
-				$datatimeisoend = $App->nowDate .' '.$_POST['endtime'];				
+				$datatimeisoini = Config::$nowDate .' '.$_POST['starttime'];
+				$datatimeisoend = Config::$nowDate .' '.$_POST['endtime'];				
 				DateFormat::checkDateTimeIsoIniEndInterval($datatimeisoini,$datatimeisoend,'>');
 				if (Core::$resultOp->error == 0) {						
 					$dteStart = new DateTime($datatimeisoini);
@@ -239,7 +239,7 @@ switch((string)$App->viewMethod) {
 		$App->item = new stdClass;
 		$App->item->active = 1;
 		$App->item->id_contact = 0;
-		$App->item->created = $App->nowDateTime;
+		$App->item->created = Config::$nowDateTime;
 		if (Core::$resultOp->error > 0) Utilities::setItemDataObjWithPost($App->item,$App->params->fields['pite']);
 		$App->templateApp = 'formPitem.html';
 		$App->methodForm = 'insertPite';

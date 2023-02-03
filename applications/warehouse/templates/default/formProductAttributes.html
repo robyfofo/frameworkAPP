@@ -12,7 +12,7 @@
 			<img class="img-miniature" src="{{ App.params.uploadDirs['prod'] }}{{ App.ownerData.filename }}" alt="{{ App.ownerData.org_filename }}">
 		</a>
 		{% else %}
-		<img class="img-miniature" src="{{ UPLOADDIR }}default/image.png" alt="{{ Lang['immagine di default']|capitalize }}">										
+		<img class="img-miniature" src="{{ UPLOADDIR }}default/image.png" alt="{{ LocalStrings['immagine di default']|capitalize }}">										
 		{% endif %}
 	</div>
 	<div class="col-md-8"> 
@@ -26,7 +26,7 @@
 		<ul class="nav nav-tabs" id="formTab" role="tablist">
 		
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>
 			
   		</ul>
@@ -38,7 +38,7 @@
 				<div class="tab-pane active" id="datibase" role="tabpanel" aria-labelledby="datibase">
 					<fieldset>				
 						<div class="form-group row">
-							<label for="products_attribute_types_idID" class="col-md-2 control-label">{{ Lang['tipo attributo']|capitalize }}</label>
+							<label for="products_attribute_types_idID" class="col-md-2 control-label">{{ LocalStrings['tipo attributo']|capitalize }}</label>
 							<div class="col-md-7">							
 								<select name="products_attribute_types_id" id="products_attribute_types_idID" class="custom-select">								
 									{% if App.attrs is iterable and App.attrs|length > 0 %}
@@ -50,23 +50,23 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="valueID" class="col-md-2 control-label">{{ Lang['valore']|capitalize }}</label>
+							<label for="valueID" class="col-md-2 control-label">{{ LocalStrings['valore']|capitalize }}</label>
 							<div class="col-md-2">
-								<input type="text" class="form-control" name="value" id="valueID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({ '%ITEM%': Lang['valore'] })|capitalize }}" value="{{ App.item.value }}">
+								<input type="text" class="form-control" name="value" id="valueID" placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({ '%ITEM%': LocalStrings['valore'] })|capitalize }}" value="{{ App.item.value }}">
 							</div>
 						</div>
 						<hr>
 						<div class="form-group row">
 							<label for="codeID" class="col-md-2 control-label">{{ App.params.fields['proa']['code']['label']|capitalize }}</label>
 							<div class="col-md-4">
-								<input type="text" class="form-control" name="code" id="codeID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({ '%ITEM%': App.params.fields['proa']['code']['label'] })|capitalize }}" value="{{ App.item.code }}">
+								<input type="text" class="form-control" name="code" id="codeID" placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({ '%ITEM%': App.params.fields['proa']['code']['label'] })|capitalize }}" value="{{ App.item.code }}">
 							</div>
 						</div>	
 						<hr>
 						<div class="form-group row">
 							<label for="quantityID" class="col-md-2 control-label">{{ App.params.fields['proa']['quantity']['label']|capitalize }}</label>
 							<div class="col-md-2">
-								<input type="text" class="form-control" name="quantity" id="quantityID" placeholder="{{ Lang['inserisci un %ITEM%']|replace({ '%ITEM%': App.params.fields['proa']['quantity']['label'] })|capitalize }}" value="{{ App.item.quantity }}">
+								<input type="text" class="form-control" name="quantity" id="quantityID" placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({ '%ITEM%': App.params.fields['proa']['quantity']['label'] })|capitalize }}" value="{{ App.item.quantity }}">
 							</div>
 						</div>
 						<hr>
@@ -88,13 +88,13 @@
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="products_id" id="idID" value="{{ App.products_id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ LocalStrings['invia']|capitalize }}</button>
 					{% if App.id > 0 %}
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ LocalStrings['applica']|capitalize }}</button>
 					{% endif %}				
 				</div>
 				<div class="col-md-6 col-xs-12 row-back">
-					<a href="{{ URLSITEADMIN }}{{ CoreRequest.action }}/listProa" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITEADMIN }}{{ CoreRequest.action }}/listProa" title="{{ LocalStrings['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

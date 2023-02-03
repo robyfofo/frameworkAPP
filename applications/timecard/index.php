@@ -65,8 +65,8 @@ switch(substr(Core::$request->method,-4,4)) {
 		//$App->defaultJavascript = "defaultTimeIni = '".$App->timeIniTimecard."';";
 		//$App->defaultJavascript .= "defaultTimeEnd = '".$App->timeEndTimecard."';";
 
-		if (!isset($_SESSION[$App->sessionName]['dataini'])) $_SESSION[$App->sessionName]['dataini'] = $App->nowDate;
-		if (!isset($_SESSION[$App->sessionName]['dataend'])) $_SESSION[$App->sessionName]['dataend'] = $App->nowDate;
+		if (!isset($_SESSION[$App->sessionName]['dataini'])) $_SESSION[$App->sessionName]['dataini'] = Config::$nowDate;
+		if (!isset($_SESSION[$App->sessionName]['dataend'])) $_SESSION[$App->sessionName]['dataend'] = Config::$nowDate;
 
 		$App->defaultJavascript = "let defaultDataini = '".$_SESSION[$App->sessionName]['dataini']."';";
 		$App->defaultJavascript .= "let defaultDataend = '".$_SESSION[$App->sessionName]['dataend']."';";
@@ -98,7 +98,7 @@ switch(substr(Core::$request->method,-4,4)) {
 		$App->jscript[] = '<script src="'.URL_SITE.'templates/'.$App->templateUser.'/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/formItem.js"></script>';
 		if (!isset($_MY_SESSION_VARS[$App->sessionName]['page'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleVars($_MY_SESSION_VARS,$App->sessionName,array('page'=>1,'ifp'=>'10'));
-		if (!isset($_MY_SESSION_VARS[$App->sessionName]['data-timecard'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',$App->nowDate);
+		if (!isset($_MY_SESSION_VARS[$App->sessionName]['data-timecard'])) $_MY_SESSION_VARS = $my_session->addSessionsModuleSingleVar($_MY_SESSION_VARS,$App->sessionName,'data-timecard',Config::$nowDate);
 		$Module = new Module($App->sessionName,$App->params->tables['item']);
 		include_once(PATH.$App->pathApplications.Core::$request->action."/items.php");
 		$App->defaultJavascript = "messages['Devi selezionare un progetto'] = '".preg_replace('/%ITEM%/',Config::$localStrings['progetto'],Config::$localStrings['Devi selezionare un %ITEM%!'])."';";

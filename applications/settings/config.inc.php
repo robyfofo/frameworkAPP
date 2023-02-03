@@ -35,7 +35,7 @@ $App->params->fields['ivaa']  = array(
 	'id_user'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
 	'note'=>array('label'=>Config::$localStrings['note'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255','defValue'=>''),
 	'amount'=>array('label'=>'IVA','searchTable'=>false,'required'=>true,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
-	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datatimeiso'),
 	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','defValue'=>0,'validate'=>'int')
 	);
 ?>

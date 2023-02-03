@@ -38,13 +38,13 @@ $App->params->fields['item']  = array(
 	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>$App->userLoggedData->id),
 	'thirdparty_id'=>array('label'=>Config::$localStrings['cliente'],'searchTable'=>false,'required'=>true,'type'=>'int','defValue'=>'0','validate'=>'int'),
 	'customer'=>array('label'=>Config::$localStrings['cliente'],'searchTable'=>false,'required'=>false,'type'=>'text','defValue'=>''),
-	'dateins'=>array('label'=>Config::$localStrings['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
-	'datesca'=>array('label'=>Config::$localStrings['data scadenza'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>$App->nowDate,'validate'=>'datepicker'),
+	'dateins'=>array('label'=>Config::$localStrings['data'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>Config::$nowDate,'validate'=>'datepicker'),
+	'datesca'=>array('label'=>Config::$localStrings['data scadenza'],'searchTable'=>true,'required'=>true,'type'=>'date','defValue'=>Config::$nowDate,'validate'=>'datepicker'),
 	'note'=>array('label'=>Config::$localStrings['note'],'searchTable'=>true,'required'=>false,'type'=>'varchar','defValue'=>''),
 	'content'			=> array('label'=>Config::$localStrings['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'longtext','defValue'=>''),
 	'tax'				=> array('label'=>'IVA','searchTable'=>false,'required'=>false,'type'=>'int|2','defValue'=>'0','validate'=>'int'),
 	'rivalsa'=>array('label'=>'Rivalsa','searchTable'=>false,'required'=>false,'type'=>'int|2','defValue'=>'0','validate'=>'int'),
-	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datetimeiso'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datetimeiso'),
 	'active'=>array('label'=>ucfirst(Config::$localStrings['attiva']),'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int')
 	);
 
@@ -61,7 +61,7 @@ $App->params->fields['arts']  = array(
 	'price_total'=>array('label'=>Config::$localStrings['prezzo totale'],'searchTable'=>true,'required'=>true,'type'=>'float','defValue'=>'0.00','validate'=>'float'),
 	'quantity'=>array('label'=>Config::$localStrings['quantità'],'searchTable'=>true,'required'=>true,'type'=>'int','defValue'=>'1','validate'=>'int'),
 	'tax'=>array('label'=>Config::$localStrings['tassa'],'searchTable'=>true,'required'=>false,'type'=>'varchar','defValue'=>'0'),
-	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datetimeiso'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datetimeiso'),
 	'active'=>array('label'=>ucfirst(Config::$localStrings['attiva']),'required'=>false,'type'=>'int','defValue'=>'0','validate'=>'int')
 	);
 /* THIRDPARTY */

@@ -1,7 +1,7 @@
 <!-- timecard/listPite.tpl.php v.1.2.0. 21/12/2019 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newPite" title="{{ Lang['inserisci una nuova %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuova %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}</a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newPite" title="{{ LocalStrings['inserisci una nuova %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ LocalStrings['nuova %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}</a>
 	</div>
 	<div class="col-md-7 help-small-list">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
 	<div class="col-md-2"></div>
@@ -13,11 +13,11 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>{{ Lang['titolo']|capitalize }}</th>
-						<th>{{ Lang['contenuto']|capitalize }}</th>
-						<th>{{ Lang['ora inizio']|capitalize }}</th>
-						<th>{{ Lang['ora fine']|capitalize }}</th>
-						<th>{{ Lang['ore lavoro']|capitalize }}</th>
+						<th>{{ LocalStrings['titolo']|capitalize }}</th>
+						<th>{{ LocalStrings['contenuto']|capitalize }}</th>
+						<th>{{ LocalStrings['ora inizio']|capitalize }}</th>
+						<th>{{ LocalStrings['ora fine']|capitalize }}</th>
+						<th>{{ LocalStrings['ore lavoro']|capitalize }}</th>
 						<th></th>			
 					</tr>
 				</thead>

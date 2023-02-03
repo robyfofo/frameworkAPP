@@ -14,7 +14,7 @@ $App->impostaIrpef = 15;
 
 // get data for charts
 $invoices_bilancio_fiscale_12 = array();
-$date = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+$date = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 $date->modify('-12 month');
 for ($x=1;$x<=12;$x++) {
 	$date->modify('+1 month');
@@ -62,7 +62,7 @@ $App->invoices_bilancio_fiscale_12 = implode(',',$invoices_bilancio_fiscale_12);
 
 // fiscale anno attuale e precedente
 
-$date = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+$date = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 $App->annocorrente = $date->format('Y');
 $date->modify('-1 year');
 $App->annoprecedente = $date->format('Y');

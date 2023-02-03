@@ -133,7 +133,7 @@ class Utilities extends Core {
 		}	
 
 	public static function decreaseFieldOrdering($id,$lang,$opt) {
-		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$lang['voce'].' '.$lang['spostata'],'table'=>'');	
+		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$LocalStrings['voce'].' '.$LocalStrings['spostata'],'table'=>'');	
 		$opt = array_merge($optDef,$opt); 
 		$orderingFieldRif = $opt['orderingFieldRif'];
 		$parentField = $opt['parentField'];
@@ -197,38 +197,38 @@ class Utilities extends Core {
 								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
 								Sql::updateRecord();
 								if (self::$resultOp->type == 0) {
-									self::$resultOp->message =  ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$lang['giu'].'!' : $opt['label'].' '.$lang['su'].'!');
+									self::$resultOp->message =  ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$LocalStrings['giu'].'!' : $opt['label'].' '.$LocalStrings['su'].'!');
 									self::$resultOp->message = ucfirst(self::$resultOp->message);								
 									} else {
 										self::$resultOp->type = 1;
-										self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+										self::$resultOp->message = $LocalStrings['Non è possibile diminuire ordinamento!'];
 										}			
 	      				} else {
 								self::$resultOp->type = 1;
-								self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+								self::$resultOp->message = $LocalStrings['Non è possibile diminuire ordinamento!'];
 								}
 	      			} else {
 							self::$resultOp->type = 1;
-							self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+							self::$resultOp->message = $LocalStrings['Non è possibile diminuire ordinamento!'];
 							}
 				
 					} else {
 						self::$resultOp->type = 1;
-						self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+						self::$resultOp->message = $LocalStrings['Non è possibile diminuire ordinamento!'];
 						}		 
 				} else {
 					self::$resultOp->type = 1;
-					self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+					self::$resultOp->message = $LocalStrings['Non è possibile diminuire ordinamento!'];
 					}
 			} else {
 				self::$resultOp->type = 1;
-				self::$resultOp->message = $lang['Non è possibile diminuire ordinamento!'];
+				self::$resultOp->message = $LocalStrings['Non è possibile diminuire ordinamento!'];
 				}
 		self::$resultOp->error = 0;			
 		}
 
 	public static function increaseFieldOrdering($id,$lang,$opt) {
-		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$lang['voce'].' '.$lang['spostata'],'table'=>'');	
+		$optDef = array('addclauseparent'=>'','addclauseparentvalues'=>array(),'idFieldRif'=>'id','parent'=>0,'parentField'=>'parent','orderingFieldRif'=>'ordering','orderingType'=>'DESC','label'=>$LocalStrings['voce'].' '.$LocalStrings['spostata'],'table'=>'');	
 		$opt = array_merge($optDef,$opt);
 		$orderingFieldRif = $opt['orderingFieldRif'];
 		$parentField = $opt['parentField'];
@@ -293,32 +293,32 @@ class Utilities extends Core {
 								Sql::initQuery($opt['table'],array($opt['orderingFieldRif']),$fieldsValues,$where);
 								Sql::updateRecord();
 								if (self::$resultOp->type == 0) {  
-									self::$resultOp->message = ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$lang['su'].'!' : $opt['label'].' '.$lang['giu'].'!');
+									self::$resultOp->message = ($opt['orderingType'] == 'DESC' ? $opt['label'].' '.$LocalStrings['su'].'!' : $opt['label'].' '.$LocalStrings['giu'].'!');
 									self::$resultOp->message = ucfirst(self::$resultOp->message);
 									} else {
 										self::$resultOp->type == 1;
-										self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+										self::$resultOp->message = $LocalStrings['Non è possibile aumentare ordinamento!'];
 										}											
 	      				} else {
 								self::$resultOp->type = 1;
-								self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+								self::$resultOp->message = $LocalStrings['Non è possibile aumentare ordinamento!'];
 								}
 	      			} else {
 							self::$resultOp->type = 1;
-							self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+							self::$resultOp->message = $LocalStrings['Non è possibile aumentare ordinamento!'];
 							}
 				
 					} else {
 						self::$resultOp->type = 1;
-						self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+						self::$resultOp->message = $LocalStrings['Non è possibile aumentare ordinamento!'];
 						}		 
 				} else {
 					self::$resultOp->type = 1;
-					self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+					self::$resultOp->message = $LocalStrings['Non è possibile aumentare ordinamento!'];
 					}	
 			} else {
 				self::$resultOp->type = 1;
-				self::$resultOp->message = $lang['Non è possibile aumentare ordinamento!'];
+				self::$resultOp->message = $LocalStrings['Non è possibile aumentare ordinamento!'];
 				}
 		self::$resultOp->error = 0;
 		}

@@ -18,19 +18,19 @@ $(document).ready(function() {
 			{"data":"actions","targets":4,"orderable":false,"className":"text-right"}
   			],
 		language: {
-			sSearch: lang['search'],
-         lengthMenu: lang['lengthMenu'],
-         zeroRecords: lang['zeroRecords'],
-         info: lang['datatableInfo'],
-         infoEmpty: lang['infoEmpty'],
-         infoFiltered: lang['infoFiltered'],
-         loadingRecords: lang['loadingRecords'],
-    		processing:     lang['processing'],
+			sSearch: LocalStrings['search'],
+         lengthMenu: LocalStrings['lengthMenu'],
+         zeroRecords: LocalStrings['zeroRecords'],
+         info: LocalStrings['datatableInfo'],
+         infoEmpty: LocalStrings['infoEmpty'],
+         infoFiltered: LocalStrings['infoFiltered'],
+         loadingRecords: LocalStrings['loadingRecords'],
+    		processing:     LocalStrings['processing'],
          paginate: {
-        		first:      lang['paginate']['first'],
-        		last:       lang['paginate']['last'],
-        		next:       lang['paginate']['next'],
-        		previous:   lang['paginate']['previous']
+        		first:      LocalStrings['paginate']['first'],
+        		last:       LocalStrings['paginate']['last'],
+        		next:       LocalStrings['paginate']['next'],
+        		previous:   LocalStrings['paginate']['previous']
     			}
       	},
       ajax: {

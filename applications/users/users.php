@@ -67,7 +67,7 @@ switch(Core::$request->method) {
 
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		$App->item = new stdClass;
-		$App->item->created = $App->nowDateTime;
+		$App->item->created = Config::$nowDateTime;
 		$App->item->active = 1;
 		$App->item->id_level = 0;
 		$App->templatesAvaiable = $Module->getUserTemplatesArray();
@@ -80,7 +80,7 @@ switch(Core::$request->method) {
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/nopm'); }
 		if ($_POST) {
 			$_POST['is_root'] = 0;
-			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
+			if (!isset($_POST['created'])) $_POST['created'] = Config::$nowDateTime;
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
 
 			if (isset($_POST['location_comuni_id']) && intval($_POST['location_comuni_id']) > 0) {
@@ -217,7 +217,7 @@ switch(Core::$request->method) {
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE_ADMIN.'error/nopm'); }
 		if ($_POST) {
 			$_POST['is_root'] = 0;
-			if (!isset($_POST['created'])) $_POST['created'] = $App->nowDateTime;
+			if (!isset($_POST['created'])) $_POST['created'] = Config::$nowDateTime;
 			if (!isset($_POST['active'])) $_POST['active'] = 0;
 
 			if (isset($_POST['location_comuni_id']) && intval($_POST['location_comuni_id']) > 0) {

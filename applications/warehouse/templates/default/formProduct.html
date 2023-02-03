@@ -11,15 +11,15 @@
 		<ul class="nav nav-tabs" id="formTab" role="tablist">
 
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="#image" id="image-tab" data-toggle="tab" role="tab" aria-controls="image" aria-selected="false">{{ Lang['immagine']|capitalize }}</a>
+				<a class="nav-link" href="#image" id="image-tab" data-toggle="tab" role="tab" aria-controls="image" aria-selected="false">{{ LocalStrings['immagine']|capitalize }}</a>
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="#options" id="options-tab" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false">{{ Lang['opzioni']|capitalize }}</a>
+				<a class="nav-link" href="#options" id="options-tab" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false">{{ LocalStrings['opzioni']|capitalize }}</a>
 			</li>
 
   		</ul>
@@ -31,7 +31,7 @@
 			<div class="tab-pane active" id="datibase" role="tabpanel" aria-labelledby="datibase">
 				<fieldset>
 					<div class="form-group row">
-						<label for="categories_idID" class="col-md-2 control-label">{{ Lang['categoria']|capitalize }}</label>
+						<label for="categories_idID" class="col-md-2 control-label">{{ LocalStrings['categoria']|capitalize }}</label>
 						<div class="col-md-7">
 							<select name="categories_id" id="categories_idID" class="custom-select">
 									{% if App.categories is iterable and App.categories|length > 0 %}
@@ -47,7 +47,7 @@
 						<div class="form-group row">
 							<label for="titleID" class="col-md-2 control-label">{{ App.params.fields['prod']['title']['label']|capitalize }}</label>
 							<div class="col-md-7">
-								<input type="text" name="title" id="titleID" value="{{ App.item.title }}" class="form-control"  placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['titolo']})|capitalize }}"{% if App.params.fields['prod']['title']['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un %ITEM%!']|replace({'%ITEM%':Lang['titolo']}) }}')" oninput="setCustomValidity('')"{% endif %}>
+								<input type="text" name="title" id="titleID" value="{{ App.item.title }}" class="form-control"  placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({'%ITEM%': LocalStrings['titolo']})|capitalize }}"{% if App.params.fields['prod']['title']['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire un %ITEM%!']|replace({'%ITEM%':LocalStrings['titolo']}) }}')" oninput="setCustomValidity('')"{% endif %}>
 							</div>
 						</div>
 						<hr>
@@ -63,17 +63,17 @@
 						<div class="form-group row">
 							<label for="price_unityID" class="col-md-2 control-label">{{ App.params.fields['prod']['price_unity']['label']|capitalize }}</label>
 							<div class="col-md-1">
-								<input type="text" name="price_unity" class="form-control" id="price_unityID" value="{{ App.item.price_unity }}"{% if App.params.fields['prod']['price_unity']['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un %ITEM%!']|replace({ '%ITEM%' : App.params.fields['prod']['price_unity']['label'] }) }}')" oninput="setCustomValidity('')"{% endif %}>
+								<input type="text" name="price_unity" class="form-control" id="price_unityID" value="{{ App.item.price_unity }}"{% if App.params.fields['prod']['price_unity']['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire un %ITEM%!']|replace({ '%ITEM%' : App.params.fields['prod']['price_unity']['label'] }) }}')" oninput="setCustomValidity('')"{% endif %}>
 							</div>
 							<label for="taxID" class="col-md-2 control-label text-right">{{ App.params.fields['prod']['tax']['label']|capitalize }} %</label>
 							<div class="col-md-1">
 								<input type="text" name="tax" class="form-control" id="taxID" value="{{ App.item.tax }}">
 							</div>
-							<label for="price_taxID" class="col-md-2 control-label text-right">{{ Lang['imponibile']|capitalize }}</label>
+							<label for="price_taxID" class="col-md-2 control-label text-right">{{ LocalStrings['imponibile']|capitalize }}</label>
 							<div class="col-md-1">
 								<span id="price_taxID"></span>
 							</div>
-							<label for="price_totalID" class="col-md-2 control-label text-right">{{ Lang['prezzo totale']|capitalize }}</label>
+							<label for="price_totalID" class="col-md-2 control-label text-right">{{ LocalStrings['prezzo totale']|capitalize }}</label>
 							<div class="col-md-1">
 								<span id="price_totalID"></span>
 							</div>
@@ -86,29 +86,29 @@
 				<div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
 					<fieldset>
 						<div class="form-group row">
-							<label for="filenameID" class="col-md-2 control-label">{{ Lang['immagine']|capitalize }}</label>
+							<label for="filenameID" class="col-md-2 control-label">{{ LocalStrings['immagine']|capitalize }}</label>
 							<div class="col-md-4">
 								<div class="custom-file">
   									<input{% if App.item.filenameRequired == true %} required{% endif %} type="file" name="filename" class="custom-file-input" id="filenameID">
-  									<label class="custom-file-label" for="customFile">{{ Lang['indica un file da caricare']|capitalize }}</label>
+  									<label class="custom-file-label" for="customFile">{{ LocalStrings['indica un file da caricare']|capitalize }}</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-md-2 control-label">{{ Lang['anteprima']|capitalize }}</label>
+							<label class="col-md-2 control-label">{{ LocalStrings['anteprima']|capitalize }}</label>
 							<div class="col-md-7">
 								{% if App.item.filename is defined and App.item.filename != '' %}
 								<a class="" href="{{ App.params.uploadDirs['prod'] }}{{ App.item.filename }}" data-lightbox="image-1" data-title="{{ value.org_filename }}" title="{{ App.item.org_filename }}">
 									<img  class="img-miniature"  src="{{ App.params.uploadDirs['prod'] }}{{ App.item.filename }}" alt="{{ App.item.org_filename }}">
 								</a>
 								{% else %}
-									<img  class="img-miniature"  src="{{ UPLOADDIR }}default/image.png" alt="{{ Lang['immagine di default']|capitalize }}">
+									<img  class="img-miniature"  src="{{ UPLOADDIR }}default/image.png" alt="{{ LocalStrings['immagine di default']|capitalize }}">
 								{% endif %}
 							</div>
 						</div>
 						{% if App.item.filename is defined and App.item.filename != '' %}
 						<div class="form-group row">
-							<label for="deleteFileID" class="col-md-2 control-label">{{ Lang['cancella immagine']|capitalize }}</label>
+							<label for="deleteFileID" class="col-md-2 control-label">{{ LocalStrings['cancella immagine']|capitalize }}</label>
 							<div class="col-md-5">
 								<input type="checkbox" name="deleteFile" id="deleteFileID" value="1">
 							</div>
@@ -138,13 +138,13 @@
 					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ LocalStrings['invia']|capitalize }}</button>
 					{% if App.id > 0 %}
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ LocalStrings['applica']|capitalize }}</button>
 					{% endif %}
 				</div>
 				<div class="col-md-6 col-xs-12 row-back">
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listProd" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listProd" title="{{ LocalStrings['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

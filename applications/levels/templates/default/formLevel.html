@@ -10,13 +10,13 @@
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" id="formTab" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" data-toggle="tab" role="tab" aria-controls="datibase" aria-selected="true">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" data-toggle="tab" role="tab" aria-controls="datibase" aria-selected="true">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#modules" id="modules-tab" data-toggle="tab" role="tab" aria-controls="modules" aria-selected="false">{{ Lang['moduli disponibili']|capitalize }}</a>
+				<a class="nav-link" href="#modules" id="modules-tab" data-toggle="tab" role="tab" aria-controls="modules" aria-selected="false">{{ LocalStrings['moduli disponibili']|capitalize }}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#options" id="options-tab" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false">{{ Lang['opzioni']|capitalize }}</a>
+				<a class="nav-link" href="#options" id="options-tab" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false">{{ LocalStrings['opzioni']|capitalize }}</a>
 			</li>
 		</ul>
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
@@ -26,9 +26,9 @@
 				<div class="tab-pane fade show active" id="datibase" role="tabpanel" aria-labelledby="datibase-tab">
 					<fieldset>
 						<div class="form-group row">
-							<label for="title_itID" class="col-md-2 control-label">{{ Lang['titolo']|capitalize }}</label>
+							<label for="title_itID" class="col-md-2 control-label">{{ LocalStrings['titolo']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required="required" type="text" class="form-control" name="title" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title|e('html') }}" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un %ITEM%!']|replace({'%ITEM%': Lang['titolo']}) }}')" oninput="setCustomValidity('')">
+								<input required="required" type="text" class="form-control" name="title" placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({'%ITEM%': LocalStrings['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title|e('html') }}" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire un %ITEM%!']|replace({'%ITEM%': LocalStrings['titolo']}) }}')" oninput="setCustomValidity('')">
 					    	</div>
 						</div>
 					</fieldset>
@@ -37,9 +37,9 @@
 	<!-- sezione moduli -->
 				<div class="tab-pane fade" id="modules" role="tabpanel" aria-labelledby="modules-tab">
 					<div class="form-group row">
-						<label class="col-md-3 control-label">{{ Lang['moduli attivi']|capitalize }}</label>
+						<label class="col-md-3 control-label">{{ LocalStrings['moduli attivi']|capitalize }}</label>
 						<div class="col-md-4">
-							{{ Lang['accessi']|capitalize }}
+							{{ LocalStrings['accessi']|capitalize }}
 						</div>
 					</div>
 
@@ -59,14 +59,14 @@
 
 	<div class="form-check-inline">
   		<label class="form-check-label{% if App.level_modules[module.name].read_access == 1 %} text-success{% endif %}">
-  			{{ Lang['lettura']|capitalize }}
+  			{{ LocalStrings['lettura']|capitalize }}
     		<input type="checkbox" class="form-check-input" name="modules_read[{{ module.id }}]" id="" value="1" {% if App.level_modules[module.name].read_access is defined and App.level_modules[module.name].read_access == 1 %} checked="checked"{% endif %}>
   		</label>
 	</div>
 
 	<div class="form-check-inline">
   		<label class="form-check-label{% if App.level_modules[module.name].write_access == 1 %} text-success{% endif %}">
-    		{{ Lang['scrittura']|capitalize }}
+    		{{ LocalStrings['scrittura']|capitalize }}
     		<input type="checkbox" class="form-check-input" name="modules_write[{{ module.id }}]" id="" value="1" {% if App.level_modules[module.name].write_access is defined and App.level_modules[module.name].write_access == 1 %} checked="checked"{% endif %}>
   		</label>
 	</div>
@@ -88,7 +88,7 @@
 				<div class="tab-pane fade show" id="options" role="tabpanel" aria-labelledby="options">
 					<fieldset>
 						<div class="form-group row">
-							<label for="activeID" class="col-md-2 control-label">{{ Lang['attiva']|capitalize }}</label>
+							<label for="activeID" class="col-md-2 control-label">{{ LocalStrings['attiva']|capitalize }}</label>
 							<div class="col-md-7">
 								<input type="checkbox" name="active" id="activeID"{% if App.item.active == 1 %} checked="checked"{% endif %} value="1">
 				    		</div>
@@ -105,13 +105,13 @@
 					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ LocalStrings['invia']|capitalize }}</button>
 					{% if App.id > 0 %}
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ LocalStrings['applica']|capitalize }}</button>
 					{% endif %}
 				</div>
 				<div class="col-md-6 col-xs-12 row-back">
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ LocalStrings['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

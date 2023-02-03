@@ -213,10 +213,10 @@ switch(Core::$request->method) {
 			// date
 			$html  .= '<div class="content">
 				<div class="data">
-					<strong>'.strtoupper(Config::$localStrings['voce']).'</strong> '.Config::$localStrings['del'].' <strong>'.DateFormat::convertDateFormats($App->item->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).'</strong>
+					<strong>'.strtoupper(Config::$localStrings['voce']).'</strong> '.Config::$localStrings['del'].' <strong>'.DateFormat::convertDateFormats($App->item->dateins,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate).'</strong>
 				</div>
 				<div class="scadenza">
-					<strong>'.strtoupper(Config::$localStrings['scadenza']).'</strong>: '.DateFormat::convertDateFormats($App->item->datesca,'Y-m-d',Config::$localStrings['data format'],$App->nowDate).
+					<strong>'.strtoupper(Config::$localStrings['scadenza']).'</strong>: '.DateFormat::convertDateFormats($App->item->datesca,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate).
 				'</div>
 				</div>';
 

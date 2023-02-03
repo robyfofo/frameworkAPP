@@ -1,6 +1,6 @@
 <!-- thirdparty/listCategories.html v.1.2.0. 13/08/2020 -->
 <div class="row">
-	<div class="col-md-12 new"><a href="{{ URLSITE }}{{ CoreRequest.action }}/newCate" title="{{ Lang['inserisci una nuova %ITEM%']|replace({'%ITEM%': Lang['categoria']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuova %ITEM%']|replace({'%ITEM%': Lang['categoria']})|capitalize }}</a></div>
+	<div class="col-md-12 new"><a href="{{ URLSITE }}{{ CoreRequest.action }}/newCate" title="{{ LocalStrings['inserisci una nuova %ITEM%']|replace({'%ITEM%': LocalStrings['categoria']})|capitalize }}" class="btn btn-sm btn-primary">{{ LocalStrings['nuova %ITEM%']|replace({'%ITEM%': LocalStrings['categoria']})|capitalize }}</a></div>
 	<div class="col-md-7 help-small-list">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
 	<div class="col-md-2"></div>
 </div>
@@ -18,9 +18,9 @@
 							<option value="100"{% if App.itemsForPage == 100 %} selected="selected"{% endif %}>100</option>
 						</select>
 					</div>
-					<label for="itemsforpageID" class="col-md-2 col-form-label form-control-sm">{{ Lang['voci per pagina']| capitalize }}</label>
+					<label for="itemsforpageID" class="col-md-2 col-form-label form-control-sm">{{ LocalStrings['voci per pagina']| capitalize }}</label>
 			
-					<label for="searchFromTableID" class="offset-md-6 col-md-1 col-form-label form-control-sm" style="text-align:right;">{{ Lang['cerca']|capitalize }}</label>
+					<label for="searchFromTableID" class="offset-md-6 col-md-1 col-form-label form-control-sm" style="text-align:right;">{{ LocalStrings['cerca']|capitalize }}</label>
 					<div class="col-md-2">
 						<input type="search" name="searchFromTable" id="searchFromTableID" class="form-control form-control-sm"  value="{% if MySessionVars[App.sessionName]['srcTab'] is defined and  MySessionVars[App.sessionName]['srcTab'] != '' %}{{  MySessionVars[App.sessionName]['srcTab'] }}{% endif %}" onchange="this.form.submit();">	
 					</div>
@@ -34,8 +34,8 @@
 							{% if App.userLoggedData.is_root == 1 %}
 								<th class="id">ID</th>						
 							{% endif %}
-							<th>{{ Lang['titolo']|capitalize }}</th>
-							<th>{{ Lang['voci']|capitalize }}</th>									
+							<th>{{ LocalStrings['titolo']|capitalize }}</th>
+							<th>{{ LocalStrings['voci']|capitalize }}</th>									
 							<th></th>						
 						</tr>
 					</thead>
@@ -49,12 +49,12 @@
 									{% endif %}								
 									<td class="page-title" style="white-space: nowrap;">{{ value.levelString }}{{ value.title }}</td>
 									<td>
-										<a class="btn btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/listItem/{{ value.id }}" title="{{ Lang['soggetti terzi associati']|capitalize }}"><i class="fas fa-users"></i></a>({{ value.items }})			 
+										<a class="btn btn-default" href="{{ URLSITE }}{{ CoreRequest.action }}/listItem/{{ value.id }}" title="{{ LocalStrings['soggetti terzi associati']|capitalize }}"><i class="fas fa-users"></i></a>({{ value.items }})			 
 									</td>																							
 									<td class="actions">
-										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Cate/{{ value.id  }}" title="{{ value.active == 1 ? Lang['disattiva']|capitalize : Lang['attiva']|capitalize }} {{ Lang['categoria'] }}"><i class="fas fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"></i></a>			 
-										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyCate/{{ value.id }}" title="{{ Lang['modifica']|capitalize }}  {{ Lang['categoria'] }}"><i class="far fa-edit"></i></a>
-										<a class="btn btn-default btn-sm confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteCate/{{ value.id }}" title="{{ Lang['cancella']|capitalize }}  {{ Lang['categoria'] }}"><i class="far fa-trash-alt"></i></a>
+										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Cate/{{ value.id  }}" title="{{ value.active == 1 ? LocalStrings['disattiva']|capitalize : LocalStrings['attiva']|capitalize }} {{ LocalStrings['categoria'] }}"><i class="fas fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"></i></a>			 
+										<a class="btn btn-default btn-sm" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyCate/{{ value.id }}" title="{{ LocalStrings['modifica']|capitalize }}  {{ LocalStrings['categoria'] }}"><i class="far fa-edit"></i></a>
+										<a class="btn btn-default btn-sm confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteCate/{{ value.id }}" title="{{ LocalStrings['cancella']|capitalize }}  {{ LocalStrings['categoria'] }}"><i class="far fa-trash-alt"></i></a>
 									</td>
 	     						</tr> 
 							{% endfor %}
@@ -62,7 +62,7 @@
 							<tr>
 								<td></td>
 								{% if (App.userLoggedData.is_root is defined) and (App.userLoggedData.is_root is same as(1)) %}<td></td>{% endif %}
-								<td colspan="3">{{ Lang['nessuna voce trovata!']|capitalize }}</td>
+								<td colspan="3">{{ LocalStrings['nessuna voce trovata!']|capitalize }}</td>
 							</tr>
 						{% endif %}
 					</tbody>       
@@ -81,26 +81,26 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination pagination-sm float-right">
 							<li class="page-item previous{% if App.pagination.page == 1 %} disabled{% endif %}">
-								<a class="page-link" title="{{ Lang['pagina']|capitalize }} {{ Lang['precedente'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pagCate/{{ App.pagination.itemPrevious }}">{{ Lang['precedente']|capitalize }}</a>
+								<a class="page-link" title="{{ LocalStrings['pagina']|capitalize }} {{ LocalStrings['precedente'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pagCate/{{ App.pagination.itemPrevious }}">{{ LocalStrings['precedente']|capitalize }}</a>
 							</li>
 							
 							{% if App.pagination.pagePrevious is iterable %}
 								{% for key,value in App.pagination.pagePrevious %}
-									<li class="page-item"><a class="page-link" title="{{ Lang['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ value }}">{{ value }}</a></li>
+									<li class="page-item"><a class="page-link" title="{{ LocalStrings['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ value }}">{{ value }}</a></li>
 								{% endfor %}
 							{% endif %}
 								
-							<li class="page-item active"><a class="page-link active" title="{{ Lang['pagina corrente']|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>
+							<li class="page-item active"><a class="page-link active" title="{{ LocalStrings['pagina corrente']|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ App.pagination.page }}">{{ App.pagination.page }}</a></li>
 								
 							{% if App.pagination.pageNext is iterable %}
 								{% for key,value in App.pagination.pageNext %}
-									<li class="page-item"><a class="page-link" title="{{ Lang['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ value }}">{{ value }}</a></li>
+									<li class="page-item"><a class="page-link" title="{{ LocalStrings['vai alla pagina %ITEM%']|replace({'%ITEM%':value })|capitalize }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ value }}">{{ value }}</a></li>
 								{% endfor %}
 							{% endif %}
 							
 							
 							<li class="page-item next{% if App.pagination.page >= App.pagination.totalpage %} disabled{% endif %}">
-								<a class="page-link" title="{{ Lang['pagina']|capitalize }} {{ Lang['prossima'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ App.pagination.itemNext }}">{{ Lang['prossima']|capitalize }}</a>
+								<a class="page-link" title="{{ LocalStrings['pagina']|capitalize }} {{ LocalStrings['prossima'] }}" href="{{ URLSITE }}{{ CoreRequest.action }}/pageCate/{{ App.pagination.itemNext }}">{{ LocalStrings['prossima']|capitalize }}</a>
 							</li>
 						</ul>
 					</nav>

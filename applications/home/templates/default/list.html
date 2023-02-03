@@ -2,7 +2,7 @@
 
 <div class="row">
 	<div class="col-lg-4 new">
-		{{ Lang['ultimo accesso']|capitalize }}: {{ App.lastLoginLang }}
+		{{ LocalStrings['ultimo accesso']|capitalize }}: {{ App.lastLoginLang }}
  	</div>
 	<div class="col-md-7 help-small-list">
 		{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %} 
@@ -47,7 +47,7 @@
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
- 				<i class="fa fa-bar-chart-o fa-fw"></i> {{ Lang['bilancio ultimi 12 mesi']|title }}
+ 				<i class="fa fa-bar-chart-o fa-fw"></i> {{ LocalStrings['bilancio ultimi 12 mesi']|title }}
 			</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
@@ -74,7 +74,7 @@
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
- 				<i class="fa fa-bar-chart-o fa-fw"></i> {{ Lang['fiscale anno']|title }} {{ App.annoprecedente }}
+ 				<i class="fa fa-bar-chart-o fa-fw"></i> {{ LocalStrings['fiscale anno']|title }} {{ App.annoprecedente }}
 			</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
@@ -98,7 +98,7 @@
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
- 				<i class="fa fa-bar-chart-o fa-fw"></i> {{ Lang['fiscale anno']|title }} {{ App.annocorrente }}
+ 				<i class="fa fa-bar-chart-o fa-fw"></i> {{ LocalStrings['fiscale anno']|title }} {{ App.annocorrente }}
 			</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">

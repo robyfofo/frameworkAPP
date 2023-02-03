@@ -57,7 +57,7 @@ $App->params->fields['cate'] = array(
 	'parent'=>array('label'=>'Parent','searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>0),
 	'users_id'=>array('label'=>Config::$localStrings['proprietario'],'searchTable'=>false,'required'=>false,'type'=>'int|8','defValue'=>$App->userLoggedData->id),
 	'title'=>array('label'=>Config::$localStrings['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255'),
-	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datatimeiso'),
 	'active'=>array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
 );
 
@@ -74,7 +74,7 @@ $App->params->fields['prod'] = array(
 	'tax'				=> array('label'=>Config::$localStrings['iva'],'searchTable'=>true,'required'=>false,'type'=>'float|10,2','defValue'=>'0.00','validate'=>'float'),
 	'filename'			=> array('label'=>Config::$localStrings['immagine'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
 	'org_filename'		=> array('label'=>Config::$localStrings['nome file originale'],'searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
-	'created'			=> array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'created'			=> array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datatimeiso'),
 	'active'			=> array('label'=>Config::$localStrings['attiva'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0'),
 	'title' 			=> array('label'=>Config::$localStrings['titolo'],'searchTable'=>true,'required'=>true,'type'=>'varchar|255','defValue'=>''),
 	'content'			=> array('label'=>Config::$localStrings['descrizione'],'searchTable'=>true,'required'=>false,'type'=>'mediumtext','defValue'=>''),
@@ -116,7 +116,7 @@ $App->params->fields['modules_item_resources'] = array (
 	'module_name'=>array('label'=>'Modulo','searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
 	'module_table'=>array('label'=>'Tabella','searchTable'=>true,'required'=>false,'type'=>'varchar|255'),
 	'ordering'=>array('label'=>Config::$localStrings['ordinamento'],'required'=>false,'type'=>'int|8','validate'=>'int'),
-	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>$App->nowDateTime,'validate'=>'datatimeiso'),
+	'created'=>array('label'=>Config::$localStrings['creazione'],'searchTable'=>false,'required'=>false,'type'=>'datatime','defValue'=>Config::$nowDateTime,'validate'=>'datatimeiso'),
 	'active'=>array('label'=>Config::$localStrings['attivazione'],'required'=>false,'type'=>'int|1','validate'=>'int','defValue'=>'0')
 );
 foreach($globalSettings['languages'] AS $lang) {

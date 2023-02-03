@@ -9,7 +9,7 @@ $(function() {
         data: [{{ App.invoices_bilancio_fiscale_12 }}],
         xkey: 'y',
         ykeys: ['v','a','u'],
-        labels: ['{{ Lang['vendite']|capitalize }}','{{ Lang['acquisti']|capitalize }}','{{ Lang['utile']|capitalize }}'],
+        labels: ['{{ LocalStrings['vendite']|capitalize }}','{{ LocalStrings['acquisti']|capitalize }}','{{ LocalStrings['utile']|capitalize }}'],
         barColors: ['#428bca', '#d9534f','#5cb85c'],
         hideHover: 'auto',
         resize: true
@@ -25,8 +25,8 @@ $(function() {
         	'Ricavi',
         	'Imponibile lordo {{ App.coefficienteRedditivita|number_format(2, '.', ',') }}% CFR',
         	'Imponibile netto {{ App.impostaInps|number_format(2, '.', ',') }}% INPS',       	
-        	'{{ Lang['tasse']|capitalize }}',
-        	'{{ Lang['utile']|capitalize }}'
+        	'{{ LocalStrings['tasse']|capitalize }}',
+        	'{{ LocalStrings['utile']|capitalize }}'
         	],
         barColors: ['#428bca','#f0ad4e','#5cb85c','#d9534f','#5cb85c'],
         hideHover: 'auto',
@@ -43,8 +43,8 @@ $(function() {
         	'Ricavi',
         	'Imponibile lordo {{ App.coefficienteRedditivita|number_format(2, '.', ',') }}% CFR',
         	'Imponibile netto {{ App.impostaInps|number_format(2, '.', ',') }}% INPS',       	
-        	'{{ Lang['tasse']|capitalize }}',
-        	'{{ Lang['utile']|capitalize }}'
+        	'{{ LocalStrings['tasse']|capitalize }}',
+        	'{{ LocalStrings['utile']|capitalize }}'
         	],
         barColors: ['#428bca','#f0ad4e','#5cb85c','#d9534f','#5cb85c'],
         hideHover: 'auto',

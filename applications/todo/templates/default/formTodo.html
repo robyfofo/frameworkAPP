@@ -9,13 +9,13 @@
 
 		<ul class="nav nav-tabs" id="formTab" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#options" id="options-tab" aria-controls="options" aria-selected="true" data-toggle="tab">{{ Lang['opzioni']|capitalize }}</a>
+				<a class="nav-link" href="#options" id="options-tab" aria-controls="options" aria-selected="true" data-toggle="tab">{{ LocalStrings['opzioni']|capitalize }}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#permissions" id="permissions-tab" aria-controls="permissions" aria-selected="true" data-toggle="tab">{{ Lang['accesso']|capitalize }}</a>
+				<a class="nav-link" href="#permissions" id="permissions-tab" aria-controls="permissions" aria-selected="true" data-toggle="tab">{{ LocalStrings['accesso']|capitalize }}</a>
 			</li>				
   		</ul>
 		<form id="applicationForm" class="form-horizontal" action="{{ URLSITE}}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
@@ -24,13 +24,13 @@
 				<div class="tab-pane fade show active" id="datibase" role="tabpanel" aria-labelledby="datibase">
 					<fieldset>
 						<div class="form-group row">
-							<label for="titleID" class="col-md-2 control-label">{{ Lang['titolo']|capitalize }}</label>
+							<label for="titleID" class="col-md-2 control-label">{{ LocalStrings['titolo']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required="required" type="text" class="form-control" name="title" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title }}" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un %ITEM%!']|replace({'%ITEM%': Lang['titolo']}) }}')" oninput="setCustomValidity('')">
+								<input required="required" type="text" class="form-control" name="title" placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({'%ITEM%': LocalStrings['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title }}" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire un %ITEM%!']|replace({'%ITEM%': LocalStrings['titolo']}) }}')" oninput="setCustomValidity('')">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="contentID" class="col-md-2 control-label">{{ Lang['contenuto']|capitalize }}</label>
+							<label for="contentID" class="col-md-2 control-label">{{ LocalStrings['contenuto']|capitalize }}</label>
 							<div class="col-md-8">
 								<textarea name="content" class="form-control editorHTML" id="contentID" rows="5">{{ App.item.content }}</textarea>
 							</div>
@@ -41,9 +41,9 @@
 				<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options">	
 					<fieldset>
 						<div class="form-group row">						
-							<label for="id_projectID" class="col-md-2 control-label">{{ Lang['progetto']|capitalize }}</label>
+							<label for="id_projectID" class="col-md-2 control-label">{{ LocalStrings['progetto']|capitalize }}</label>
 							<div class="col-md-5">
-								<select name="id_project" class="selectpicker" data-live-search="true" title="{{ Lang['seleziona un %ITEM%']|replace({'%ITEM%': Lang['progetto']})|capitalize }}">
+								<select name="id_project" class="selectpicker" data-live-search="true" title="{{ LocalStrings['seleziona un %ITEM%']|replace({'%ITEM%': LocalStrings['progetto']})|capitalize }}">
 									{% if App.progetti is iterable %}
 										{% for value in App.progetti %}
 											<option value="{{ value.id }}"{% if (App.item.id_project is defined) and (App.item.id_project == value.id)  %} selected="selected" {% endif %}>{{ value.title }}</option>														
@@ -53,12 +53,12 @@
 					    	</div>
 						</div>		
 						<div class="form-group row">
-							<label for="statusID" class="col-md-2 control-label">{{ Lang['status']|capitalize }}</label>
+							<label for="statusID" class="col-md-2 control-label">{{ LocalStrings['status']|capitalize }}</label>
 							<div class="col-md-3">
-								<select name="status" class="selectpicker" data-live-search="true" title="{{ Lang['seleziona uno %ITEM%']|replace({'%ITEM%': Lang['status']})|capitalize }}">
+								<select name="status" class="selectpicker" data-live-search="true" title="{{ LocalStrings['seleziona uno %ITEM%']|replace({'%ITEM%': LocalStrings['status']})|capitalize }}">
 									{% if App.params.status is iterable %}
 										{% for key,value in App.params.status %}	
-											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (Lang[value] is defined and Lang[value] != '') ? Lang[value]|capitalize : value|capitalize }}</option>														
+											<option value="{{ key }}"{% if key == App.item.status %} selected="selected"{% endif %}>{{ (LocalStrings[value] is defined and LocalStrings[value] != '') ? LocalStrings[value]|capitalize : value|capitalize }}</option>														
 										{% endfor %}
 									{% endif %}		
 								</select>		
@@ -81,15 +81,15 @@
 					<fieldset>	
 						<!-- /* set type */ -->
 						<div class="form-group form-inline">	
-							<label for="access_type_public" class="col-md-3">{{ Lang['pubblico']|capitalize }}</label>
+							<label for="access_type_public" class="col-md-3">{{ LocalStrings['pubblico']|capitalize }}</label>
 							<input{% if App.item.access_type == 0 %} checked="checked"{% endif %} value="0" id="access_type_public" name="access_type" type="radio"> 
 						</div>
 						<div class="form-group form-inline">	
-							<label for="access_type_private" class="col-md-3">{{ Lang['privato']|capitalize }}</label>
+							<label for="access_type_private" class="col-md-3">{{ LocalStrings['privato']|capitalize }}</label>
 							<input{% if App.item.access_type == 1 %} checked="checked"{% endif %} value="1" id="access_type_private" name="access_type" type="radio"> 
 						</div>
 						<div class="form-group form-inline">	
-							<label for="access_type_users" class="col-md-3">{{ Lang['utenti']|capitalize }}</label>
+							<label for="access_type_users" class="col-md-3">{{ LocalStrings['utenti']|capitalize }}</label>
 							<input{% if App.item.access_type == 2 %} checked="checked"{% endif %} value="2" id="access_type_users" name="access_type" type="radio"> 
 						</div>
 					</fieldset>	
@@ -103,13 +103,13 @@
 					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ LocalStrings['invia']|capitalize }}</button>
 					{% if App.id > 0 %}
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ LocalStrings['applica']|capitalize }}</button>
 					{% endif %}
 				</div>
 				<div class="col-md-6 col-xs-12 row-back">	
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ LocalStrings['torna alla lista']|capitalize }}" class="btn btn-success btn-back">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

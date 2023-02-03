@@ -4,7 +4,7 @@
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
 			{% for lang in GlobalSettings['languages'] %}		
-				<li class="{% if lang == Lang['user'] %}active{% endif %}"><a href="#datibase{{ LocalStrings }}-tab" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }} {{ LocalStrings }}</a></li>
+				<li class="{% if lang == LocalStrings['user'] %}active{% endif %}"><a href="#datibase{{ LocalStrings }}-tab" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }} {{ LocalStrings }}</a></li>
 			{% endfor %}
 			<li><a href="#image-tab" data-toggle="tab">{{ LocalStrings['immagine']|capitalize }}</li>
 			<li><a href="#options-tab" data-toggle="tab">{{ LocalStrings['opzioni']|capitalize }}</a></li>
@@ -17,12 +17,12 @@
 			{% for lang in GlobalSettings['languages'] %}				
 				{% set titleField = "title_#{lang}" %}
 				{% set contentField = "content_#{lang}" %}
-				<div class="tab-pane{% if lang == Lang['user'] %} active{% endif %}" id="datibase{{ LocalStrings }}-tab">
+				<div class="tab-pane{% if lang == LocalStrings['user'] %} active{% endif %}" id="datibase{{ LocalStrings }}-tab">
 					<fieldset class="form-group">
 						<div class="form-group">
 							<label for="title_{{ LocalStrings }}ID" class="col-md-2 control-label">{{ LocalStrings['titolo']|capitalize }} {{ LocalStrings }} </label>
 							<div class="col-md-7">
-								<input{% if lang == Lang['user'] %} required{% endif %} type="text" class="form-control" name="title_{{ LocalStrings }}" placeholder="{{ LocalStrings['inserisci un titolo']|capitalize }} {{ LocalStrings }}" id="title_{{ LocalStrings }}ID" value="{{ attribute(App.item, titleField) }}">
+								<input{% if lang == LocalStrings['user'] %} required{% endif %} type="text" class="form-control" name="title_{{ LocalStrings }}" placeholder="{{ LocalStrings['inserisci un titolo']|capitalize }} {{ LocalStrings }}" id="title_{{ LocalStrings }}ID" value="{{ attribute(App.item, titleField) }}">
 							</div>
 						</div>
 						<!-- <hr>

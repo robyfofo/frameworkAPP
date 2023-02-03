@@ -9,6 +9,9 @@
 */
 $localStrings = array(
 
+  'lista %ITEMS%' => 'lista %ITEMS%',
+  'lista delle %ITEMS%' => 'lista delle %ITEMS%',
+
    'user' => 'it',
    'table_suffix' => 'it',
    'label' => 'italiano',

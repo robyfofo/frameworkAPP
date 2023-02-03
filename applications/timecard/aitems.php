@@ -67,7 +67,7 @@ switch(Core::$request->method) {
 		// aggiunge per la data
 		// se corrente mese
 		if (isset($_SESSION[$App->sessionName]['intervaldata']) &&  $_SESSION[$App->sessionName]['intervaldata'] == 'cm' ) {
-			$data = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+			$data = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 			$month = $data->format('m');
 			$year = $data->format('Y');
 			$whereAll .= $and.'datains LIKE ?';
@@ -80,7 +80,7 @@ switch(Core::$request->method) {
 
 		// se mese precedente
 		if (isset($_SESSION[$App->sessionName]['intervaldata']) &&  $_SESSION[$App->sessionName]['intervaldata'] == 'pm' ) {
-			$dt = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+			$dt = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 			$day = $dt->format('j');
 			$dt->modify('first day of -1 month');
 			$dt->modify('+' . (min($day, $dt->format('t')) - 1) . ' days');
@@ -96,8 +96,8 @@ switch(Core::$request->method) {
 
 		// se intervallo date
 		if (isset($_SESSION[$App->sessionName]['intervaldata']) &&  $_SESSION[$App->sessionName]['intervaldata'] == 'id' ) {
-			$dataini = (isset($_SESSION[$App->sessionName]['dataini']) &&  $_SESSION[$App->sessionName]['dataini'] != '' ? $_SESSION[$App->sessionName]['dataini'] : $App->nowDate);
-			$dataend = (isset($_SESSION[$App->sessionName]['dataend']) &&  $_SESSION[$App->sessionName]['dataend'] != '' ? $_SESSION[$App->sessionName]['dataend'] : $App->nowDate);
+			$dataini = (isset($_SESSION[$App->sessionName]['dataini']) &&  $_SESSION[$App->sessionName]['dataini'] != '' ? $_SESSION[$App->sessionName]['dataini'] : Config::$nowDate);
+			$dataend = (isset($_SESSION[$App->sessionName]['dataend']) &&  $_SESSION[$App->sessionName]['dataend'] != '' ? $_SESSION[$App->sessionName]['dataend'] : Config::$nowDate);
 
 			$dataisoini = $dataini .' 00:00:00';
 			$dataisoend = $dataend .' 23:59:59';
@@ -179,7 +179,7 @@ switch(Core::$request->method) {
 				'Utente'				=>$value->username,
 				'Progetto'   			=> $value->project,
 				'Contenuto'				=> $value->content,
-				'Data'					=> DateFormat::convertDateFormats($value->datains,'Y-m-d','d/m/Y',$App->nowDate),
+				'Data'					=> DateFormat::convertDateFormats($value->datains,'Y-m-d','d/m/Y',Config::$nowDate),
 				'Ora Inizio'			=> $value->starttime,
 				'Ora Fine'				=> $value->endtime,
 				'Ore Lavoro'			=> $value->worktime
@@ -288,7 +288,7 @@ switch(Core::$request->method) {
 
 		// se corrente mese
 		if (isset($_REQUEST['intervaldata']) &&  $_REQUEST['intervaldata'] == 'cm' ) {
-			$data = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+			$data = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 			$month = $data->format('m');
 			$year = $data->format('Y');
 			$whereAll .= $and.'datains LIKE ?';
@@ -302,7 +302,7 @@ switch(Core::$request->method) {
 
 		// se mese precedente
 		if (isset($_REQUEST['intervaldata']) &&  $_REQUEST['intervaldata'] == 'pm' ) {
-			$dt = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+			$dt = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 			$day = $dt->format('j');
 			$dt->modify('first day of -1 month');
 			$dt->modify('+' . (min($day, $dt->format('t')) - 1) . ' days');
@@ -318,8 +318,8 @@ switch(Core::$request->method) {
 		}
 
 		// se intervallo date
-		$dataini = (isset($_REQUEST['dataini']) &&  $_REQUEST['dataini'] != '' ? $_REQUEST['dataini'] : $App->nowDate);
-		$dataend = (isset($_REQUEST['dataend']) &&  $_REQUEST['dataend'] != '' ? $_REQUEST['dataend'] : $App->nowDate);
+		$dataini = (isset($_REQUEST['dataini']) &&  $_REQUEST['dataini'] != '' ? $_REQUEST['dataini'] : Config::$nowDate);
+		$dataend = (isset($_REQUEST['dataend']) &&  $_REQUEST['dataend'] != '' ? $_REQUEST['dataend'] : Config::$nowDate);
 		if (isset($_REQUEST['intervaldata']) &&  $_REQUEST['intervaldata'] == 'id' ) {
 			$dataisoini = $dataini .' 00:00:00';
 			$dataisoend = $dataend .' 23:59:59';
@@ -404,7 +404,7 @@ switch(Core::$request->method) {
 					'id_user'=>$value->username,
 					'project'=>$value->project,
 					'content'=>$value->content,
-					'datains'=>DateFormat::convertDateFormats($value->datains,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
+					'datains'=>DateFormat::convertDateFormats($value->datains,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate),
 					'starttime'=>$value->starttime,
 					'endtime'=>$value->endtime,
 					'worktime'=>$value->worktime,

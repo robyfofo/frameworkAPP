@@ -52,8 +52,8 @@
 											{% if App.userLoggedData.is_root == 1 %}	
 												<small>{{ value.ordering }}&nbsp;</small>
 											{% endif %}
-											<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.params.ordersType['iimg'] == 'ASC' ? 'less' : 'more' }}OrderingIimg/{{ value.id }}" title="{{ LocalStrings['sposta']|capitalize }} {{ App.params.ordersType['iimg'] == 'DESC' ? Lang['giu'] : Lang['su'] }}"><i class="fa fa-long-arrow-up"> </i></a>
-											<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.params.ordersType['iimg'] == 'ASC' ? 'more' : 'less' }}OrderingIimg/{{ value.id }}" title="{{ LocalStrings['sposta']|capitalize }}  {{ App.params.ordersType['iimg'] == 'DESC' ? Lang['su'] : Lang['giu'] }}"><i class="fa fa-long-arrow-down"> </i></a>
+											<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.params.ordersType['iimg'] == 'ASC' ? 'less' : 'more' }}OrderingIimg/{{ value.id }}" title="{{ LocalStrings['sposta']|capitalize }} {{ App.params.ordersType['iimg'] == 'DESC' ? LocalStrings['giu'] : LocalStrings['su'] }}"><i class="fa fa-long-arrow-up"> </i></a>
+											<a class="" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.params.ordersType['iimg'] == 'ASC' ? 'more' : 'less' }}OrderingIimg/{{ value.id }}" title="{{ LocalStrings['sposta']|capitalize }}  {{ App.params.ordersType['iimg'] == 'DESC' ? LocalStrings['su'] : LocalStrings['giu'] }}"><i class="fa fa-long-arrow-down"> </i></a>
 										</td>								
 										<td>{{ value.title }}</a></td>
 										<td>
@@ -66,7 +66,7 @@
 											{% endif %}
 										</td>	
 										<td class="actions">
-											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Iimg/{{ value.id }}" title="{{ value.active == 1 ? Lang['disattiva']|capitalize : Lang['attiva']|capitalize }} {{ LocalStrings['immagine'] }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
+											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/{{ value.active == 1 ? 'disactive' : 'active' }}Iimg/{{ value.id }}" title="{{ value.active == 1 ? LocalStrings['disattiva']|capitalize : LocalStrings['attiva']|capitalize }} {{ LocalStrings['immagine'] }}"><i class="fa fa-{{ value.active == 1 ? 'unlock' : 'lock' }}"> </i></a>			 
 											<a class="btn btn-default btn-circle" href="{{ URLSITE }}{{ CoreRequest.action }}/modifyIimg/{{ value.id }}" title="{{ LocalStrings['modifica']|capitalize }} {{ LocalStrings['immagine'] }}"><i class="fa fa-edit"> </i></a>
 											<a class="btn btn-default btn-circle confirm" href="{{ URLSITE }}{{ CoreRequest.action }}/deleteIimg/{{ value.id }}" title="{{ LocalStrings['cancella']|capitalize }} {{ LocalStrings['immagine'] }}"><i class="fa fa-cut"> </i></a>
 										</td>							

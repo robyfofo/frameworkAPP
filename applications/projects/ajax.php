@@ -67,7 +67,7 @@ switch(Core::$request->method) {
 		$idproject = intval(Core::$request->param);
 		if ($idproject > 0) {
 			
-			$date = DateTime::createFromFormat('Y-m-d',$App->nowDate);
+			$date = DateTime::createFromFormat('Y-m-d',Config::$nowDate);
 			$monthyear = $date->format('Y-m');
 			$date->modify('-1 month');
 			$premonthyear = $date->format('Y-m');

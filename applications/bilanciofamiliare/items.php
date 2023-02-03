@@ -23,7 +23,7 @@ switch(Core::$request->method) {
 		$totali_uscite_mesepre = 0;
 		
 		// ULTIMI 12 mesi
-		$data_corrente = $App->nowDate;
+		$data_corrente = Config::$nowDate;
 		$data = DateTime::createFromFormat('Y-m-d',$data_corrente);
 		$data->modify('-12 month');
 		$data_inizio = $data->format('Y-m-d');
@@ -74,7 +74,7 @@ switch(Core::$request->method) {
 		// ULTIMO MESE PRECEDENTE		
 		$totali_entrate_mesepre = 0;
 		$totali_uscite_mesepre = 0;		
-		$data_corrente = $App->nowDate;
+		$data_corrente = Config::$nowDate;
 		$data = DateTime::createFromFormat('Y-m-d',$data_corrente);
 		$data->modify('-1 month');
 		$data_mese_precedente = $data->format('Y-m').'%';		
@@ -295,7 +295,7 @@ switch(Core::$request->method) {
 				}
 				
 				$tablefields = array (
-					'dateinslocal'			=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
+					'dateinslocal'			=>DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate),
 					'entry'					=> ($entry != '' ? '€ '.number_format($entry,2,',','.') : ''),
 					'output'					=> ($output != '' ? '€ '.number_format($output,2,',','.') : ''),
 					'description'			=> $value->description,
@@ -332,7 +332,7 @@ switch((string)$App->viewMethod) {
 
 	case 'list':
 		$App->item = new stdClass;		
-		$App->item->dateins = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista dei %ITEMS%']);
 		$App->templateApp = 'listItems.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listItems.js"></script>';	

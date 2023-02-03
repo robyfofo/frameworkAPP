@@ -9,7 +9,7 @@
 	<div class="card-body">
 		<ul class="nav nav-tabs" id="formTab" role="tablist">			
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>
   		</ul>
   		
@@ -21,29 +21,29 @@
 					<fieldset>
 					
 						<div class="form-group row">
-							<label class="col-md-2 control-label">{{ Lang['immagine']|capitalize }} Top</label>
+							<label class="col-md-2 control-label">{{ LocalStrings['immagine']|capitalize }} Top</label>
 							<div class="custom-file col-md-7">
     							<input type="file"  name="filename" id="filenameID" class="custom-file-input"{% if App.item.filenameRequired == true %} required{% endif %}>
-    							<label class="custom-file-label" for="filenameID">{{ Lang['indica un file da caricare']|capitalize }}</label>    							
+    							<label class="custom-file-label" for="filenameID">{{ LocalStrings['indica un file da caricare']|capitalize }}</label>    							
   							</div>
   						</div>
   						
   						<div class="form-group row">
-							<label class="col-md-2 control-label">{{ Lang['anteprima']|capitalize }} {{ Lang['immagine']|capitalize }} Top</label>
+							<label class="col-md-2 control-label">{{ LocalStrings['anteprima']|capitalize }} {{ LocalStrings['immagine']|capitalize }} Top</label>
 							<div class="col-md-7">
 								{% if App.item.filename is defined and App.item.filename != '' %}
 								<a class="" href="{{ App.params.uploadDirs['conf'] }}{{ App.item.filename }}" data-lightbox="image-1" data-title="{{ value.org_filename }}" title="{{ App.item.org_filename }}">
 									<img  class="img-thumbnail img-miniature"  src="{{ App.params.uploadDirs['conf'] }}{{ App.item.filename }}" alt="{{ App.item.org_filename }}">
 								</a>							
 								{% else %}
-								<img class="img-thumbnail img-miniature"  src="{{ UPLOADDIR }}default/image.png" alt="{{ Lang['immagine di default']|capitalize }}">											
+								<img class="img-thumbnail img-miniature"  src="{{ UPLOADDIR }}default/image.png" alt="{{ LocalStrings['immagine di default']|capitalize }}">											
 								{% endif %}
 							</div>			
 						</div>
 						
 						{% if App.item.filename is defined and App.item.filename != '' %}
 						<div class="form-group row">
-							<label for="deleteFileID" class="col-md-2 control-label">{{ Lang['cancella file']|capitalize }}</label>						
+							<label for="deleteFileID" class="col-md-2 control-label">{{ LocalStrings['cancella file']|capitalize }}</label>						
 							<div class="col-md-5">							
 								<input type="checkbox" name="deleteFile" id="deleteFileID" value="1">						
 							</div>					
@@ -60,10 +60,10 @@
 				<div class="col-md-10 col-xs-12 text-center actionbutton mt-2">	
 					<input type="hidden" name="id" id="idID" value="1">				
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="applyForm" value="apply" class="btn btn-primary submittheform ml-5">{{ Lang['applica']|capitalize }}</button>
+					<button type="submit" name="applyForm" value="apply" class="btn btn-primary submittheform ml-5">{{ LocalStrings['applica']|capitalize }}</button>
 				</div>
 				<div class="col-md-2 col-xs-12 text-right backlistbutton mt-2">			
-					<a href="{{ URLSITEADMIN }}{{ CoreRequest.action }}/list" title="{{ Lang['torna alla %ITEM%']|replace({'%ITEM%': Lang['lista']})|capitalize }}" class="btn btn-success">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITEADMIN }}{{ CoreRequest.action }}/list" title="{{ LocalStrings['torna alla %ITEM%']|replace({'%ITEM%': LocalStrings['lista']})|capitalize }}" class="btn btn-success">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>	
 			

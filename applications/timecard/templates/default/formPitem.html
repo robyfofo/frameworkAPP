@@ -8,7 +8,7 @@
 	<div class="card-body">
 		<ul class="nav nav-tabs" id="formTab" role="tablist">		
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" aria-controls="datibase" aria-selected="true" data-toggle="tab">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>
   		</ul>
 		<form id="applicationForm" class="form-horizontal" role="form" action="{{ URLSITE }}{{ CoreRequest.action }}/{{ App.methodForm }}"  enctype="multipart/form-data" method="post">
@@ -16,32 +16,32 @@
 				<div class="tab-pane fade show active" id="datibase" role="tabpanel" aria-labelledby="datibase">		
 					<fieldset>
 						<div class="form-group row">
-							<label for="titleID" class="col-md-2 control-label">{{ Lang['titolo']|capitalize }}</label>
+							<label for="titleID" class="col-md-2 control-label">{{ LocalStrings['titolo']|capitalize }}</label>
 							<div class="col-md-7">
-								<input required="required" type="text" class="form-control" name="title" placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title }}" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un %ITEM%!']|replace({'%ITEM%': Lang['titolo']}) }}')" oninput="setCustomValidity('')">
+								<input required="required" type="text" class="form-control" name="title" placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({'%ITEM%': LocalStrings['titolo']})|capitalize }}" id="titleID" value="{{ App.item.title }}" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire un %ITEM%!']|replace({'%ITEM%': LocalStrings['titolo']}) }}')" oninput="setCustomValidity('')">
 							</div>
 						</div>
 						
 					
 						<div class="form-group row">
-							<label for="starttimeID" class="col-md-2 control-label">{{ Lang['Partenza - Ore:Minuti']|capitalize }}</label>
+							<label for="starttimeID" class="col-md-2 control-label">{{ LocalStrings['Partenza - Ore:Minuti']|capitalize }}</label>
 							<div class="col-md-2 col-xs-2 input-group input-group-date date">
-								<input required="required" type="text" name="starttime" id="starttimeID" value="" class="form-control" placeholder="{{ Lang['inserisci ora inizio']|capitalize }}">
+								<input required="required" type="text" name="starttime" id="starttimeID" value="" class="form-control" placeholder="{{ LocalStrings['inserisci ora inizio']|capitalize }}">
 								<span class="input-group-addon calendar-icon"><i class="fas fa-clock"></i></span>	
 					    	</div>
 						</div>
 						
 						<div class="form-group row">
-							<label for="endtimeID" class="col-md-2 control-label">{{ Lang['Fine - Ore:Minuti']|capitalize }}</label>
+							<label for="endtimeID" class="col-md-2 control-label">{{ LocalStrings['Fine - Ore:Minuti']|capitalize }}</label>
 							<div class="col-md-2 col-xs-2 input-group input-group-date date">
-								<input required="required" type="text" name="endtime" id="endtimeID" value="" class="form-control" placeholder="{{ Lang['inserisci ora fine']|capitalize }}">
+								<input required="required" type="text" name="endtime" id="endtimeID" value="" class="form-control" placeholder="{{ LocalStrings['inserisci ora fine']|capitalize }}">
 								<span class="input-group-addon calendar-icon"><i class="fas fa-clock"></i></span>	   	
 					    	</div>
 						</div>
 
 					
 						<div class="form-group row">
-							<label for="contentID" class="col-md-2 control-label">{{ Lang['contenuto']|capitalize }}</label>
+							<label for="contentID" class="col-md-2 control-label">{{ LocalStrings['contenuto']|capitalize }}</label>
 							<div class="col-md-8">
 								<textarea name="content" class="form-control" id="contentID" rows="5">{{ App.item.content }}</textarea>
 							</div>
@@ -65,13 +65,13 @@
 					<input type="hidden" name="created" id="createdID" value="{{ App.item.created }}">
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ LocalStrings['invia']|capitalize }}</button>
 					{% if App.id > 0 %}
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary submittheform">{{ Lang['applica']|capitalize }}</button>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary submittheform">{{ LocalStrings['applica']|capitalize }}</button>
 					{% endif %}
 				</div>
 				<div class="col-md-6 col-xs-12 text-right">			
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listPite" title="{{ Lang['torna alla lista']|capitalize }}" class="btn btn-success">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listPite" title="{{ LocalStrings['torna alla lista']|capitalize }}" class="btn btn-success">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>
 		</form>

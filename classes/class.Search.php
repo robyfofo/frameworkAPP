@@ -10,7 +10,7 @@ class Search extends Core {
 	public static function inFrameWork($keyword,$languages,$lang) {
 		$res = array();
 		/* site-pages */
-		$opz['section'] = $lang['pagine'];
+		$opz['section'] = $LocalStrings['pagine'];
 		$opz['alias'] = 'page';
 		$opz['itemmethod'] = '';
 		$opz['ordering'] = 'title_it ASC';
@@ -40,7 +40,7 @@ class Search extends Core {
 		 		$opz['active'] = true;
 		 		$opz['fields'] = array('id');		 		
 		 		$opz['fieldsSearch'] = array();
-		 		$opz['section'] = $lang['notizie'];
+		 		$opz['section'] = $LocalStrings['notizie'];
 		 		$opz['ordering'] = 'datatimeins ASC';
 		 		foreach($languages AS $l) {
 		 			$opz['fields'][] = 'title_'.$l;		 			
@@ -55,7 +55,7 @@ class Search extends Core {
 		 		$opz['active'] = true;
 		 		$opz['fields'] = array('id');		 		
 		 		$opz['fieldsSearch'] = array();
-		 		$opz['section'] = $lang['faq'];
+		 		$opz['section'] = $LocalStrings['faq'];
 		 		$opz['ordering'] = 'ordering ASC';
 		 		foreach($languages AS $l) {
 		 			$opz['fields'][] = 'title_'.$l;		 			

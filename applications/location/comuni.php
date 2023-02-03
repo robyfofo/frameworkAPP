@@ -41,7 +41,7 @@ switch (Core::$request->method) {
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
 
 		$App->item = new stdClass;
-		$App->item->created = $App->nowDateTime;
+		$App->item->created = Config::$nowDateTime;
 		$App->item->active = 1;
 		$App->item->location_nations_id = 116;
 		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['comune'],Config::$localStrings['inserisci %ITEM%']);

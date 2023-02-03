@@ -10,7 +10,7 @@
 
 		<ul class="nav nav-tabs" id="formTab" role="tablist">		
 			<li class="nav-item">
-				<a class="nav-link active" href="#datibase" id="datibase-tab" data-toggle="tab" role="tab" aria-controls="datibase" aria-selected="true">{{ Lang['dati base']|capitalize }}</a>
+				<a class="nav-link active" href="#datibase" id="datibase-tab" data-toggle="tab" role="tab" aria-controls="datibase" aria-selected="true">{{ LocalStrings['dati base']|capitalize }}</a>
 			</li>  		
 		</ul>
 
@@ -25,7 +25,7 @@
 								<div class="form-group row">
 									<label for="title_{{ lang }}ID" class="col-md-2 control-label">{{ App.params.fields['nations'][titleField]['label']|capitalize }}</label>
 									<div class="col-md-7">
-										<input type="text"{% if lang == 'it' %} required{% endif %} class="form-control" name="title_{{ lang }}" id="title_{{ lang }}ID" value="{{ attribute(App.item, titleField)|e('html') }}"placeholder="{{ Lang['inserisci un %ITEM%']|replace({'%ITEM%': Lang['titolo']})|capitalize }} {{ lang }}"{% if App.params.fields['nations'][titleField]['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire un %ITEM%!']|replace({'%ITEM%':Lang['titolo']}) }}')" oninput="setCustomValidity('')"{% endif %}>
+										<input type="text"{% if lang == 'it' %} required{% endif %} class="form-control" name="title_{{ lang }}" id="title_{{ lang }}ID" value="{{ attribute(App.item, titleField)|e('html') }}"placeholder="{{ LocalStrings['inserisci un %ITEM%']|replace({'%ITEM%': LocalStrings['titolo']})|capitalize }} {{ lang }}"{% if App.params.fields['nations'][titleField]['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire un %ITEM%!']|replace({'%ITEM%':LocalStrings['titolo']}) }}')" oninput="setCustomValidity('')"{% endif %}>
 									</div>
 								</div>				
 						{% endfor %}
@@ -34,7 +34,7 @@
 						<div class="form-group row">
 							<label for="targaID" class="col-md-2 control-label">{{ App.params.fields['nations']['targa']['label']|capitalize }}</label>
 							<div class="col-md-3">
-       								<input type="text" name="targa" class="form-control" id="targaID" value="{{ App.item.targa|e('html') }}" placeholder="{{ Lang['inserisci una %ITEM%']|replace({'%ITEM%': Lang['targa']})|capitalize }}"{% if App.params.fields['nations']['targa']['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ Lang['Devi inserire una %ITEM%!']|replace({'%ITEM%':Lang['targa']}) }}')" oninput="setCustomValidity('')"{% endif %}>
+       								<input type="text" name="targa" class="form-control" id="targaID" value="{{ App.item.targa|e('html') }}" placeholder="{{ LocalStrings['inserisci una %ITEM%']|replace({'%ITEM%': LocalStrings['targa']})|capitalize }}"{% if App.params.fields['nations']['targa']['required'] == true %} required="required" oninvalid="this.setCustomValidity('{{ LocalStrings['Devi inserire una %ITEM%!']|replace({'%ITEM%':LocalStrings['targa']}) }}')" oninput="setCustomValidity('')"{% endif %}>
 					    	</div>
 						</div>
 						<hr>
@@ -53,13 +53,13 @@
 				<div class="col-md-6 col-xs-12 row-submitapply">
 					<input type="hidden" name="id" id="idID" value="{{ App.id }}">
 					<input type="hidden" name="method" value="{{ App.methodForm }}">
-					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ Lang['invia']|capitalize }}</button>
+					<button type="submit" name="submitForm" value="submit" class="btn btn-primary submittheform">{{ LocalStrings['invia']|capitalize }}</button>
 					{% if App.id > 0 %}
-						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ Lang['applica']|capitalize }}</button>
+						<button type="submit" name="applyForm" value="apply" class="btn btn-primary btn-apply submittheform">{{ LocalStrings['applica']|capitalize }}</button>
 					{% endif %}
 				</div>
 				<div class="col-md-6 col-xs-12 row-back">		
-					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ Lang['torna alla %ITEM%']|replace({'%ITEM%': Lang['lista']})|capitalize }}" class="btn btn-success btn-back">{{ Lang['indietro']|capitalize }}</a>
+					<a href="{{ URLSITE }}{{ CoreRequest.action }}/listItem" title="{{ LocalStrings['torna alla %ITEM%']|replace({'%ITEM%': LocalStrings['lista']})|capitalize }}" class="btn btn-success btn-back">{{ LocalStrings['indietro']|capitalize }}</a>
 				</div>
 			</div>	
 		</form>

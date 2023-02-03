@@ -88,7 +88,7 @@ switch(Core::$request->method) {
 		$App->item = new stdClass;		
 		$App->item->active = 1;
 		$App->item->id_contact = 0;
-		$App->item->created = $App->nowDateTime;
+		$App->item->created = Config::$nowDateTime;
 		$App->pageSubTitle = preg_replace('/%ITEM%/',Config::$localStrings['voce'],Config::$localStrings['inserisci %ITEM%']);
 		$App->defaultJavascript = "var idproject = '0';";
 		$App->methodForm = 'insertItem';

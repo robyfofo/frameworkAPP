@@ -84,7 +84,7 @@ switch(Core::$request->method) {
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		//Core::setDebugMode(1);
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
 		$App->item->thirdparty_id = 0;
 		$App->item->active = 1;
 
@@ -168,7 +168,7 @@ switch(Core::$request->method) {
 				$_POST['thirdparty_codice_fiscale'],
 				$_POST['thirdparty_pec'],
 				$_POST['thirdparty_sid'],
-				$App->nowDateTime				
+				Config::$nowDateTime				
 			);
 
 			Sql::initQuery($App->params->tables['orders_thirdparty'],$f,$fv);
@@ -213,7 +213,7 @@ switch(Core::$request->method) {
 				$App->company->codice_fiscale,
 				$App->company->pec,
 				$App->company->sid,
-				$App->nowDateTime		
+				Config::$nowDateTime		
 			);
 
 			Sql::initQuery($App->params->tables['orders_company'],$f,$fv);
@@ -234,7 +234,7 @@ switch(Core::$request->method) {
 		if ($App->params->moduleAccessWrite == 0) { ToolsStrings::redirect(URL_SITE.'error/nopm'); }
 		//Core::setDebugMode(1);
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
 		Sql::initQuery($App->params->tables['orders'],array('*'),array($App->id),'id = ?');
 		$App->item = Sql::getRecord();
 		if (Core::$resultOp->error > 0) { ToolsStrings::redirect(URL_SITE.'error/db'); }
@@ -402,7 +402,7 @@ switch(Core::$request->method) {
 					array_unshift($f,'orders_id');
 					array_unshift($fv,$App->id);
 					$f[] = 'created';
-					$fv[] = $App->nowDateTime;					
+					$fv[] = Config::$nowDateTime;					
 					Sql::initQuery($App->params->tables['orders_thirdparty'],$f,$fv);
 					Sql::insertRecord();
 				} else {
@@ -456,7 +456,7 @@ switch(Core::$request->method) {
 					array_unshift($f,'orders_id');
 					array_unshift($fv,$App->id);
 					$f[] = 'created';
-					$fv[] = $App->nowDateTime;
+					$fv[] = Config::$nowDateTime;
 					Sql::initQuery($App->params->tables['orders_company'],$f,$fv);
 					Sql::insertRecord();			
 				} else {
@@ -631,7 +631,7 @@ switch(Core::$request->method) {
 				$tablefields = array(
 					'id'					=> $value->id,
 					'order_number' 			=> $value->order_number,
-					'dateinslocal'			=> DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],$App->nowDate),
+					'dateinslocal'			=> DateFormat::convertDateFormats($value->dateins,'Y-m-d',Config::$localStrings['data format'],Config::$nowDate),
 					'note'					=> $value->note,
 					'total'					=> $value->totalLabel,
 					'totaltaxes'			=> $value->totalTaxesLabel,
@@ -672,8 +672,8 @@ switch((string)$App->viewMethod) {
 	case 'list':
 	default:	
 		$App->item = new stdClass;
-		$App->item->dateins = $App->nowDate;
-		$App->item->datesca = $App->nowDate;
+		$App->item->dateins = Config::$nowDate;
+		$App->item->datesca = Config::$nowDate;
 		$App->pageSubTitle = preg_replace('/%ITEMS%/',Config::$localStrings['voci'],Config::$localStrings['lista delle %ITEMS%']);
 		$App->templateApp = 'listOrders.html';
 		$App->jscript[] = '<script src="'.URL_SITE.$App->pathApplications.Core::$request->action.'/templates/'.$App->templateUser.'/js/listOrders.js"></script>';

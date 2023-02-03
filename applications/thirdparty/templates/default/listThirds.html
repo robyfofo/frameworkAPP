@@ -1,7 +1,7 @@
 <!-- thirdparty/listItem.html v.1.3.0. 14/09/2020 -->
 <div class="row">
 	<div class="col-md-3 new">
- 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ Lang['inserisci un nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ Lang['nuovo %ITEM%']|replace({'%ITEM%': Lang['voce']})|capitalize }}</a>
+ 		<a href="{{ URLSITE }}{{ CoreRequest.action }}/newItem" title="{{ LocalStrings['inserisci un nuovo %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}" class="btn btn-sm btn-primary">{{ LocalStrings['nuovo %ITEM%']|replace({'%ITEM%': LocalStrings['voce']})|capitalize }}</a>
 	</div>
 	<div class="col-md-7 help-small-list">{% if App.params.help_small is defined %}{{ App.params.help_small }}{% endif %}</div>
 	<div class="col-md-2"></div>
@@ -13,10 +13,10 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>{{ Lang['categoria']|capitalize }}</th>
-						<th>{{ Lang['tipo']|capitalize }}</th>
-						<th>{{ Lang['ragione sociale']|capitalize }}</th>
-						<th>{{ Lang['email']|capitalize }}</th>
+						<th>{{ LocalStrings['categoria']|capitalize }}</th>
+						<th>{{ LocalStrings['tipo']|capitalize }}</th>
+						<th>{{ LocalStrings['ragione sociale']|capitalize }}</th>
+						<th>{{ LocalStrings['email']|capitalize }}</th>
 						<th></th>					
 					</tr>
 				</thead>
