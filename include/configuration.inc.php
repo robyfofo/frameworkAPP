@@ -5,7 +5,7 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/include/configuration.inc.php v.1.3.0. 24/08/2020
+ * app/include/configuration.inc.php v.1.3.1. 24/08/2020
 */
 
 /* specifiche altervista */
@@ -34,20 +34,7 @@ $globalSettings['database'] = array(
 $cookies = 'frameworkapp130ID';
 if ($servermode == 'locale') $cookies = 'loc'.$cookies; 
 
-/* MAIL */
-$globalSettings['default email'] = 'robymant66@vodafone.it';
-$globalSettings['default email label'] = 'Framework App';
-$globalSettings['send email debug'] = 1;
-$globalSettings['email debug'] = 'me@robertomantovani.vr.it';
-/* configurazioni server */
-$globalSettings['use php mail class'] = 2; /* Use class for email managemant: 0 = no class; 1 = PHP7 Swiftmailer class; 2 = php5.x PHPMAILER class */
-/* if use php class */
-$globalSettings['mail server'] = 'SMTP'; /* values = 'SMTP' or 'SENDMAIL' */
-$globalSettings['sendmail path'] = '/usr/sbin/sendmail -t -i';
-$globalSettings['SMTP server'] = 'localhost';
-$globalSettings['SMTP port'] = 25;
-$globalSettings['SMTP username'] = '';
-$globalSettings['SMTP password'] = '';
+
 
 /* GESTIONE TEMA INTERFACCIA */
 $globalSettings['default template'] = 'defaul';
