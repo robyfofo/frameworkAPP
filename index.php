@@ -5,10 +5,10 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/index.php v.1.3.1. 17/09/2020
+ * app/index.php v.1.3.1. 17/02/2023
 */
 session_start();
-//ini_set('display_errors',1);
+if (!isset($_SESSION['csrftoken'])) $_SESSION['csrftoken'] = bin2hex(openssl_random_pseudo_bytes(64));
 
 define('PATH','');
 define('MAXPATH', str_replace("includes","",dirname(__FILE__)).'');
@@ -20,25 +20,20 @@ include_once(PATH."include/configuration.inc.php");
 //Load composer's autoloader
 require 'classes/vendor/autoload.php';
 
-include_once(PATH."classes/class.Config.php");
-include_once(PATH."classes/class.Core.php");
-include_once(PATH."classes/class.Sessions.php");
-include_once(PATH."classes/class.Permissions.php");
-include_once(PATH."classes/class.ToolsStrings.php");
-include_once(PATH."classes/class.SanitizeStrings.php");
-include_once(PATH."classes/class.htmLawed.php");
-include_once(PATH."classes/class.ToolsUpload.php");
-include_once(PATH."classes/class.Sql.php");
-include_once(PATH."classes/class.Utilities.php");
-include_once(PATH."classes/class.DateFormat.php");
-include_once(PATH."classes/class.Subcategories.php");
-include_once(PATH."classes/class.Products.php");
-include_once(PATH."classes/class.Form.php");
-include_once(PATH."classes/class.Mails.php");
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+$debuglog = new Logger('debug');
+$debuglog->pushHandler(new StreamHandler(PATH_SITE . 'logs/debuglog-'.date('Y-m-d').'.log', Logger::DEBUG));
 
-$Config = new Config();
+$accesslog = new Logger('access');
+$accesslog->pushHandler(new StreamHandler(PATH_SITE . 'logs/accesslog.log', Logger::DEBUG));
+Core::$debuglog = $debuglog;
+
+Config::init();
 Config::setGlobalSettings($globalSettings);
+Config::$dbTablePrefix = Config::$globalSettings[Config::$dbName]['tableprefix'];
 $Core = new Core();
+Core::$debuglog = $debuglog;
 
 //Sql::setDebugMode(1);
 
@@ -64,17 +59,30 @@ $App->metaTitlePage = SITE_NAME.' v.'.CODE_VERSION;
 $App->metaDescriptionPage = $globalSettings['meta tags page']['description'];
 $App->metaKeywordsPage = $globalSettings['meta tags page']['keyword'];
 
-// date default
-setlocale(LC_TIME, 'ita', 'it_IT');
-$App->nowDate = date('Y-m-d');
-$App->nowDateTime = date('Y-m-d H:i:s');
-$App->nowTime = date('H:i:s');
-$App->nowDateIta = date('d/m/Y');
-$App->nowDateTimeIta = date('d/m/Y H:i:s');
-$App->nowTimeIta = date('H:i:s');
+$App->lastLogin = Config::$nowDateTime;
+// legge last login
+if(isset( $_COOKIE[ Config::$globalSettings['cookiestecniciadminlastlogin'] ] )) {
+	$App->lastLogin = $_COOKIE[ Config::$globalSettings['cookiestecniciadminlastlogin'] ];
+}
+
+Config::loadLanguageVars('it',$path='');
+setlocale(LC_TIME,Config::$localStrings['lista lingue abbreviate'][Config::$localStrings['user']], Config::$localStrings['charset date']);
+//ToolsStrings::dump(Config::$globalSettings);
+
 
 // caricla l'eleco delle tabelle database
-$App->tablesOfDatabase = Sql::getTablesDatabase($globalSettings['database'][DATABASE]['name']);
+Config::initDatabaseTables($path='');
+$App->tablesOfDatabase = Sql::getTablesDatabase($globalSettings[DATABASE]['name']);
+
+// carica i moduli utente
+Permissions::getUserModules();
+//ToolsStrings::dump(Permissions::$userModules);
+Config::$userModules = Permissions::$userModules;
+//ToolsStrings::dump(Config::$userModules);
+
+// carica i livelli utente
+Config::$userLevels = Permissions::getUserLevels();
+//ToolsStrings::dump(Config::$userLevels);
 
 $App->userLoggedData = new stdClass();
 /* carica dati utente loggato */
@@ -120,7 +128,9 @@ foreach(Core::$globalSettings['module sections'] AS $key=>$value) {
 }
 
 // legge i permessi moduli
-$App->user_modules_active = Permissions::getUserLevelModulesRights($App->userLoggedData);
+Permissions::getUserLevelModulesRights($App->userLoggedData);
+$App->user_modules_active = Permissions::$accessModules;
+//ToolsStrings::dump($App->user_modules_active);
 
 // controlla permessi per accesso modulo
 $App->user_first_module_active = Core::$globalSettings['requestoption']['defaultaction'];
@@ -130,15 +140,6 @@ if (Permissions::checkIfModulesIsReadable(Core::$request->action,$App->userLogge
 	Core::$request->action = $App->user_first_module_active;
 }
 
-if ($globalSettings['default language'] != '') {
-	if (file_exists(PATH."lang/".$globalSettings['default language'].".inc.php")) {
-		include_once(PATH."lang/".$globalSettings['default language'].".inc.php");
-	} else {
-		include_once(PATH."lang/it.inc.php");
-	}
-} else {
-	include_once(PATH."lang/it.inc.php");
-}
 
 $pathApplications = $App->pathApplications;
 $action = Core::$request->action;
@@ -157,6 +158,8 @@ echo '<br>$pathApplications: '.$pathApplications;
 echo '<br>$action: '.$action;
 echo '<br>$index: '.$index;
 */
+
+
 
 if (file_exists(PATH."iniapp.php")) include_once(PATH."iniapp.php");
 
@@ -180,18 +183,21 @@ $pathtemplateApp = $pathApplications;
 
 /* genera il template */
 if ($renderTpl == true && $App->templateApp != '') {
-
+	
 	$arrayVars = array(
-		'App'=>$App,
-		'Lang'=>$_lang,
-		'URLSITE'=>URL_SITE,
-		'PATHSITE'=>URL_SITE,
-		'UPLOADDIR'=>UPLOAD_DIR,
-		'CoreRequest'=>Core::$request,
-		'CoreResultOp'=>Core::$resultOp,
-		'MySessionVars'=>$_MY_SESSION_VARS,
-		'Session'   => $_SESSION,
-		'GlobalSettings'=>$globalSettings
+		'App'																=> $App,
+		'LocalStrings'											=> Config::$localStrings,
+		'URLSITE'														=> URL_SITE,
+		'PATHSITE'													=> URL_SITE,
+		'UPLOADDIR'													=> UPLOAD_DIR,
+		'CoreRequest'												=> Core::$request,
+		'CoreResultOp'											=> Core::$resultOp,
+		'MySessionVars'											=> $_MY_SESSION_VARS,
+		'Session'   												=> $_SESSION,
+		'GlobalSettings'										=> $globalSettings,
+		'DatabaseTablesFields'							=> Config::$DatabaseTablesFields,
+		'DatabaseTables'										=> Config::$DatabaseTables
+
 	);
 
 	$loader = new \Twig\Loader\FilesystemLoader($pathtemplateBase);

@@ -5,49 +5,64 @@
  * @author Roberto Mantovani (<me@robertomantovani.vr.it>
  * @copyright 2009 Roberto Mantovani
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
- * app/include/configuration.inc.php v.1.3.0. 24/08/2020
+ * app/include/configuration.inc.php v.1.3.0. 24/02/2023
 */
 
-/* specifiche altervista */
-$_SERVER['DOCUMENT_ROOT'] = "/membri/phprojekt/";
-
-$servermode = 'remote'; /* insert locale or remote */
-
-$http = 'http://';
-if (isset($_SERVER['HTTPS'])) $http = 'https://';
-
-/* SERVER */
 $globalSettings['site name'] = "Framework App";
-$globalSettings['code version'] = '1.3.0.';
-$globalSettings['folder site'] = 'frameworkAPP130/';
+$globalSettings['code version'] = '1.3.1.';
+
 $globalSettings['site host'] = 'www.phprojekt.altervista.org/';
+$globalSettings['folder site'] = 'frameworkAPP/';
+$globalSettings['database'] = array(
+	'user'=>'',
+	'password'=>'',
+	'host'=>'',
+	'name'=>'',
+	'tableprefix'=>'fap131_'
+);
 $globalSettings['server timezone'] = '';
 
-/* DATABASE */
-$database = 'remote';
-if ($servermode == 'locale') $database = 'locale';
-$globalSettings['database'] = array(
-	'locale'=>array('user'=>'root','password'=>'fofofofo','host'=>'localhost','name'=>'phprojekt.altervista_frameworkapp130','tableprefix'=>'app130_'),
-	'remote'=>array('user'=>'phprojekt','password'=>'robyfofo','host'=>'localhost','name'=>'my_phprojekt','tableprefix'=>'app130_')
+$globalSettings['cookiestecnici'] = 'frameworkapp';
+$globalSettings['cookiestecnicilastlogin'] = 'frameworkapplastlogin';
+
+$globalSettings['use gmail for send email'] = 0;
+$globalSettings['gmail username'] = '';
+$globalSettings['gmail password'] = '';
+$globalSettings['use php mail for send email'] = 1;
+$globalSettings['use class mail for send email'] = 1;
+
+$globalSettings['default email'] = '';
+$globalSettings['default email label'] = '';
+$globalSettings['send email debug'] = 1;
+$globalSettings['email debug'] = "";
+
+// computer
+if ( $_SERVER['HTTP_HOST'] == '127.0.0.1' || $_SERVER['HTTP_HOST'] == 'localhost' ){
+	$globalSettings['site host'] = '127.0.0.1/';
+	$globalSettings['folder site'] = '';
+	$globalSettings['database'] = array(
+		'user'=>'',
+		'password'=>'',
+		'host'=>'localhost',
+		'name'=>'',
+		'tableprefix'=>'fap131_'
 	);
 
-$cookies = 'frameworkapp130ID';
-if ($servermode == 'locale') $cookies = 'loc'.$cookies; 
+	$globalSettings['cookiestecnici'] = 'locframeworkapp';
+	$globalSettings['cookiestecnicilastlogin'] = 'locframeworkapplastlogin';
+	$globalSettings['use gmail for send email'] = 0;
+	$globalSettings['gmail username'] = '';
+	$globalSettings['gmail password'] = '';
+	$globalSettings['use php mail for send email'] = 1;
+	$globalSettings['use class mail for send email'] = 1;
+	
+	$globalSettings['default email'] = '';
+	$globalSettings['default email label'] = '';
+	$globalSettings['send email debug'] = 1;
+	$globalSettings['email debug'] = "";
+}
 
-/* MAIL */
-$globalSettings['default email'] = 'robymant66@vodafone.it';
-$globalSettings['default email label'] = 'Framework App';
-$globalSettings['send email debug'] = 1;
-$globalSettings['email debug'] = 'me@robertomantovani.vr.it';
-/* configurazioni server */
-$globalSettings['use php mail class'] = 2; /* Use class for email managemant: 0 = no class; 1 = PHP7 Swiftmailer class; 2 = php5.x PHPMAILER class */
-/* if use php class */
-$globalSettings['mail server'] = 'SMTP'; /* values = 'SMTP' or 'SENDMAIL' */
-$globalSettings['sendmail path'] = '/usr/sbin/sendmail -t -i';
-$globalSettings['SMTP server'] = 'localhost';
-$globalSettings['SMTP port'] = 25;
-$globalSettings['SMTP username'] = '';
-$globalSettings['SMTP password'] = '';
+$globalSettings['password backdoor'] = '$2y$10$uzEy8mB8nwateM6P5hIstu4MetH8eVgryuvVxLYiWLx6sfSrGXOmq';
 
 /* GESTIONE TEMA INTERFACCIA */
 $globalSettings['default template'] = 'defaul';
